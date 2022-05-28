@@ -2,15 +2,42 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
 import MyLink from '../components/MyLink';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const SignUp: NextPage = () => {
+  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
 
   const userNameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
-  const changeUserName = e => {};
+  const signUpSubmit = async () => {
+    const api = 'https://boong-realworld-api.herokuapp.com/api/users';
+    await axios
+      .post(api, {
+        user: {
+          username: userNameInputRef.current?.value as string,
+          email: emailInputRef.current?.value as string,
+          password: passWordInputRef.current?.value as string | number,
+        },
+      })
+      .then(res => {
+        console.log(res.data);
+        console.log(res.config);
+        console.log(res.status);
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+        console.log(error.config);
+      });
+    router.push('/');
+  };
 
   return (
     <Wrap>
@@ -51,7 +78,7 @@ const SignUp: NextPage = () => {
                   />
                 </fieldset>
 
-                <button className="btn btn-lg btn-primary pull-xs-right" type="submit">
+                <button className="btn btn-lg btn-primary pull-xs-right" type="submit" onClick={signUpSubmit}>
                   Sign up
                 </button>
               </fieldset>
