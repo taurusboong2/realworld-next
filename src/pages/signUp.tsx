@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import MyLink from '../components/MyLink';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import NavBar from '../components/NavBar';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const SignUp: NextPage = () => {
 
   const signUpSubmit = async () => {
     const api = 'https://boong-realworld-api.herokuapp.com/api/users';
+    setLoading(true);
     await axios
       .post(api, {
         user: {
@@ -36,11 +38,13 @@ const SignUp: NextPage = () => {
         }
         console.log(error.config);
       });
+    setLoading(false);
     router.push('/');
   };
 
   return (
     <Wrap>
+      <NavBar />
       <div className="auth-page">
         <div className="container page">
           <div className="row">
@@ -78,7 +82,11 @@ const SignUp: NextPage = () => {
                   />
                 </fieldset>
 
-                <button className="btn btn-lg btn-primary pull-xs-right" type="submit" onClick={signUpSubmit}>
+                <button
+                  className="btn btn-lg btn-primary pull-xs-right"
+                  type="submit"
+                  onClick={signUpSubmit}
+                  disabled={isLoading}>
                   Sign up
                 </button>
               </fieldset>
