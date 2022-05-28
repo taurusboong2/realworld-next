@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
+import Head from 'next/head';
+import NavBar from '../components/NavBar';
 
 const Home: NextPage = () => {
   return (
-    <Wrap>
-      <h1>HOME</h1>
-    </Wrap>
+    <>
+      <Head>
+        <title>Real World Home | TauBoong</title>
+      </Head>
+      <Wrap>
+        <NavBar />
+      </Wrap>
+    </>
   );
 };
 
