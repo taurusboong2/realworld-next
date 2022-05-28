@@ -2,9 +2,9 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
 import MyLink from '../components/MyLink';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
+import { api } from '../../config/api';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -15,10 +15,9 @@ const SignUp: NextPage = () => {
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
   const signUpSubmit = async () => {
-    const api = 'https://boong-realworld-api.herokuapp.com/api/users';
     setLoading(true);
-    await axios
-      .post(api, {
+    await api
+      .post(`/users`, {
         user: {
           username: userNameInputRef.current?.value as string,
           email: emailInputRef.current?.value as string,
@@ -54,42 +53,43 @@ const SignUp: NextPage = () => {
                 <MyLink href="/login">Have an account?</MyLink>
               </p>
 
-              <fieldset>
-                <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="text"
-                    placeholder="Username"
-                    ref={userNameInputRef}
-                  />
-                </fieldset>
+              <form onSubmit={signUpSubmit}>
+                <fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="text"
+                      placeholder="Username"
+                      ref={userNameInputRef}
+                    />
+                  </fieldset>
 
-                <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="email"
-                    placeholder="Email"
-                    ref={emailInputRef}
-                  />
-                </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="email"
+                      placeholder="Email"
+                      ref={emailInputRef}
+                    />
+                  </fieldset>
 
-                <fieldset className="form-group">
-                  <input
-                    className="form-control form-control-lg"
-                    type="password"
-                    placeholder="Password"
-                    ref={passWordInputRef}
-                  />
+                  <fieldset className="form-group">
+                    <input
+                      className="form-control form-control-lg"
+                      type="password"
+                      placeholder="Password"
+                      ref={passWordInputRef}
+                    />
+                  </fieldset>
+                  <button
+                    className="btn btn-lg btn-primary pull-xs-right"
+                    type="submit"
+                    onClick={signUpSubmit}
+                    disabled={isLoading}>
+                    Sign up
+                  </button>
                 </fieldset>
-
-                <button
-                  className="btn btn-lg btn-primary pull-xs-right"
-                  type="submit"
-                  onClick={signUpSubmit}
-                  disabled={isLoading}>
-                  Sign up
-                </button>
-              </fieldset>
+              </form>
             </div>
           </div>
         </div>
