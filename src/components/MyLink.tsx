@@ -4,7 +4,7 @@ import Link from 'next/link';
 type Props = {
   className?: string;
   href: string;
-  children?: string;
+  children?: any;
 };
 
 const MyLink = ({ className, href, children }: Props) => (

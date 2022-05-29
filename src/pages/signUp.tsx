@@ -35,7 +35,6 @@ const SignUp: NextPage = () => {
           console.log(error.response.status);
           console.log(error.response.headers);
         }
-        console.log(error.config);
       });
     setLoading(false);
     router.push('/');

@@ -3,7 +3,19 @@ import styled from 'styled-components';
 import { NextPage } from 'next';
 import MyLink from './MyLink';
 
-const NavBar: NextPage = () => {
+type Props = {
+  name: string;
+};
+
+const NavBar: NextPage<Props> = ({ name }) => {
+  const logOutSubmit = () => {
+    localStorage.removeItem('token');
+  };
+
+  const LogOutBtn = () => {
+    return <div onClick={logOutSubmit}>log Out</div>;
+  };
+
   return (
     <Wrap>
       <nav className="navbar navbar-light">
@@ -19,12 +31,12 @@ const NavBar: NextPage = () => {
             </li>
             <li className="nav-item">
               <MyLink className="nav-link" href="/login">
-                Sign in
+                {name ? name : 'Sign in'}
               </MyLink>
             </li>
             <li className="nav-item">
               <MyLink className="nav-link" href="/signUp">
-                Sign up
+                {name ? <LogOutBtn /> : 'Sign Up'}
               </MyLink>
             </li>
           </ul>

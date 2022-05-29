@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
 import { api } from '../../config/api';
+import axios from 'axios';
 
 const Login: NextPage = () => {
   const [isLoading, setLoading] = useState(false);
@@ -16,25 +17,15 @@ const Login: NextPage = () => {
 
   const loginSubmit = async () => {
     setLoading(true);
-    await api
-      .post(`/users/login`, {
-        user: {
-          email: emailInputRef.current?.value as string,
-          password: passWordInputRef.current?.value as string | number,
-        },
-      })
-      .then(res => {
-        console.log(res.status === 200 ? '성공' : '실패');
-        console.log(res.data);
-        console.log(res.data.user.token);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
+    const { data } = await api.post(`/users/login`, {
+      user: {
+        email: emailInputRef.current?.value as string,
+        password: passWordInputRef.current?.value as string | number,
+      },
+    });
+    const token = data.user.token;
+    localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data.user.token}`;
     setLoading(false);
     router.push('/');
   };
