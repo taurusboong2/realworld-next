@@ -4,12 +4,12 @@ import { NextPage } from 'next';
 import MyLink from './MyLink';
 
 type Props = {
-  name: string;
+  name?: string;
 };
 
 const NavBar: NextPage<Props> = ({ name }) => {
-  const logOutSubmit = () => {
-    localStorage.removeItem('token');
+  const logOutSubmit = async () => {
+    await localStorage.removeItem('token');
   };
 
   const LogOutBtn = () => {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import NavBar from '../components/NavBar';
-import { api } from '../../config/api';
+import api from '../../config/api';
 
 type UserType = {
   bio?: null | string | number;
@@ -32,8 +32,6 @@ const Home: NextPage = () => {
       setName(data.username as string);
     })();
   }, []);
-
-  console.log(1111);
 
   return (
     <>

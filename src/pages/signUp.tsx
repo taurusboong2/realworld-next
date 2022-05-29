@@ -77,6 +77,7 @@ const SignUp: NextPage = () => {
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Password"
+                      autoComplete="true"
                       ref={passWordInputRef}
                     />
                   </fieldset>

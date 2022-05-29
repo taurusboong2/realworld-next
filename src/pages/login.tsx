@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
-import { api } from '../../config/api';
+import api from '../../config/api';
 import axios from 'axios';
 
 const Login: NextPage = () => {
@@ -17,12 +17,14 @@ const Login: NextPage = () => {
 
   const loginSubmit = async () => {
     setLoading(true);
-    const { data } = await api.post(`/users/login`, {
+    const { data, config, request } = await api.post(`/users/login`, {
       user: {
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string | number,
       },
     });
+    console.log(config);
+    console.log(request);
     const token = data.user.token;
     localStorage.setItem('token', token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.user.token}`;
