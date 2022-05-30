@@ -6,9 +6,10 @@ import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
 import api from '../../config/api';
 import axios from 'axios';
+import { setItem } from '../commons/localStorage';
 
 const Login: NextPage = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false); // 이거랑 loginSubmit 함수를 훅으로 분리하기
 
   const router = useRouter();
 
@@ -18,6 +19,8 @@ const Login: NextPage = () => {
   const loginSubmit = async () => {
     setLoading(true);
     const { data, config, request } = await api.post(`/users/login`, {
+      // network 함수로 다 분리하기
+      // 제네릭으로 response 타입 선언해주기
       user: {
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string | number,
@@ -26,7 +29,7 @@ const Login: NextPage = () => {
     console.log(config);
     console.log(request);
     const token = data.user.token;
-    localStorage.setItem('token', token);
+    setItem('token', token); // 로컬스토리지 함수 별도로 분리하기
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.user.token}`;
     setLoading(false);
     router.push('/');

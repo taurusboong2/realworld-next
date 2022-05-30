@@ -5,6 +5,8 @@ import MyLink from '../components/MyLink';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar';
 import { api } from '../../config/api';
+import BInput from '../components/BInput';
+import BFieldset from '../components/BFieldset';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -18,6 +20,8 @@ const SignUp: NextPage = () => {
     setLoading(true);
     await api
       .post(`/users`, {
+        // network 함수로 다 분리하기
+        // 제네릭으로 response 타입 선언해주기
         user: {
           username: userNameInputRef.current?.value as string,
           email: emailInputRef.current?.value as string,
@@ -25,11 +29,13 @@ const SignUp: NextPage = () => {
         },
       })
       .then(res => {
+        // async await 문법이면 .then catch 하지 말고 try catch
         console.log(res.data);
         console.log(res.config);
         console.log(res.status);
       })
       .catch(error => {
+        // async await 문법이면 .then catch 하지 말고 try catch
         if (error.response) {
           console.log(error.response.data);
           console.log(error.response.status);
@@ -54,34 +60,19 @@ const SignUp: NextPage = () => {
 
               <form onSubmit={signUpSubmit}>
                 <fieldset>
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Username"
-                      ref={userNameInputRef}
-                    />
-                  </fieldset>
+                  <BFieldset>
+                    <BInput type="text" placeholder="Username" ref={userNameInputRef} />
+                  </BFieldset>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="email"
-                      placeholder="Email"
-                      ref={emailInputRef}
-                    />
-                  </fieldset>
+                  <BFieldset>
+                    <BInput type="email" placeholder="Email" ref={emailInputRef} />
+                  </BFieldset>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="true"
-                      ref={passWordInputRef}
-                    />
-                  </fieldset>
+                  <BFieldset>
+                    <BInput type="password" placeholder="Password" ref={passWordInputRef} />
+                  </BFieldset>
                   <button
+                    // 버튼 직접 분리하기
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
                     onClick={signUpSubmit}
