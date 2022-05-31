@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: 'https://boong-realworld-api.herokuapp.com/api',
   headers: {
     'Content-Type': ' application/json; charset=utf-8',
   },
-  timeout: 1500,
 });
 
 // api.interceptors.response.use(
@@ -19,5 +18,3 @@ const api = axios.create({
 //     return Promise.reject(error);
 //   }
 // );
-
-export default api;

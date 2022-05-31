@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import MyLink from './MyLink';
 
 type Props = {
-  name?: string;
+  name?: string | number;
 };
 
 const NavBar: NextPage<Props> = ({ name }) => {

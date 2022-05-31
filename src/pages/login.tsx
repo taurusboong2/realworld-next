@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
-import api from '../../config/api';
+import { api } from '../../config/api';
 import axios from 'axios';
 
 const Login: NextPage = () => {
