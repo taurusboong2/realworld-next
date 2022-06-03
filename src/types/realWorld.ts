@@ -16,3 +16,9 @@ export type LoginInputValue = {
     password: string;
   };
 };
+
+export type Token = {
+  user: {
+    token: string;
+  };
+};

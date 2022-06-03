@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
-import Head from 'next/head';
 import NavBar from '../components/NavBar';
 import { useGetLoginToken } from '../../hooks/realworld.hook';
+import MyHead from '../components/MyHead';
 
 const Home: NextPage = () => {
   let id;
@@ -14,9 +14,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Real World Home | TauBoong</title>
-      </Head>
+      <MyHead title="Home" />
       <Wrap>
         <NavBar name={name} />
       </Wrap>

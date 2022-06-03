@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
 import { useGetLogin } from '../../hooks/realworld.hook';
+import { setItem } from '../../common/localStorage';
 
 const Login: NextPage = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ const Login: NextPage = () => {
         password: passWordInputRef.current?.value as string,
       },
     });
-    localStorage.setItem('token', token as string);
+    setItem('token', token as string);
     router.push('/');
   };
 
