@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import NavBar from '../components/NavBar';
-import { useGetLoginToken } from '../../hooks/realWorldHooks';
+import { useGetLoginToken } from '../../hooks/realworld.hook';
 
 const Home: NextPage = () => {
   let id;

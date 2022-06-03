@@ -8,7 +8,7 @@ export const useGetLoginToken = (token?: string | null) => {
   useEffect(() => {
     if (!token) return;
     (async () => {
-      getLoginToken().then(res => {
+      getLoginToken(token).then(res => {
         setName(res.username);
       });
     })();
@@ -25,7 +25,7 @@ export const useGetLogin = () => {
     if (!data) return;
     setLoading(true);
     const result = await getLogin(data);
-    setToken(result.user.token);
+    console.log(result);
     setLoading(false);
   };
 

@@ -1,29 +1,34 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
-import { useGetLogin } from '../../hooks/realWorldHooks';
+import { api } from '../../config/api';
 
 const Login: NextPage = () => {
+  const [isLoading, setLoading] = useState(false);
+
   const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
-  const { isLoading, getToken, token } = useGetLogin();
-
-  const submitLogin = async () => {
-    const response = await getToken({
-      email: emailInputRef.current?.value as string,
-      password: passWordInputRef.current?.value as string,
+  const loginSubmit = async () => {
+    setLoading(true);
+    const { data, config, request } = await api.post(`/users/login`, {
+      user: {
+        email: emailInputRef.current?.value as string,
+        password: passWordInputRef.current?.value as string | number,
+      },
     });
-    console.log(response);
-    localStorage.setItem('token', token as string);
+    console.log(config);
+    console.log(request);
+    const token = data.user.token;
+    localStorage.setItem('token', token);
+    setLoading(false);
     router.push('/');
   };
-
   return (
     <Wrap>
       <NavBar />
@@ -36,7 +41,7 @@ const Login: NextPage = () => {
                 <MyLink href="/signUp">Need an account?</MyLink>
               </p>
 
-              <form onSubmit={submitLogin}>
+              <form onSubmit={loginSubmit}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
@@ -61,7 +66,7 @@ const Login: NextPage = () => {
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
                     disabled={isLoading}
-                    onClick={submitLogin}>
+                    onClick={loginSubmit}>
                     Sign in
                   </button>
                 </fieldset>

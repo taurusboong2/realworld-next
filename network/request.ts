@@ -11,13 +11,7 @@ export const getLoginToken = async (id?: number | string) => {
   return data;
 };
 
-export const getLogin = async (inputValue: LoginInputValue) => {
-  const response = await api.post(`/users/login`, {
-    user: {
-      inputValue,
-    },
-  });
-  console.log(response);
-  console.log(response.data);
-  return response.data;
+export const getLogin = async inputValue => {
+  const { data, config, request } = await api.post(`/users/login`, { user: { inputValue } });
+  return { data, config, request };
 };

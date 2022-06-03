@@ -11,6 +11,8 @@ export type ServerData = {
 };
 
 export type LoginInputValue = {
-  email: string | undefined;
-  password: string | undefined;
+  user: {
+    email: string;
+    password: string;
+  };
 };
