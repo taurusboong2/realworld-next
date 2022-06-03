@@ -1,7 +1,7 @@
 import { api } from '../config/api';
-import { ServerData } from '../src/types/realWorld';
+import { ServerData, LoginInputValue } from '../src/types/realWorld';
 
-export const getLogin = async (id?: number | string) => {
+export const getLoginToken = async (id?: number | string) => {
   const response = await api.get<ServerData>('user', {
     headers: {
       Authorization: `Token ${id}`,
@@ -9,4 +9,15 @@ export const getLogin = async (id?: number | string) => {
   });
   const data = response.data.user;
   return data;
+};
+
+export const getLogin = async (inputValue: LoginInputValue) => {
+  const response = await api.post(`/users/login`, {
+    user: {
+      inputValue,
+    },
+  });
+  console.log(response);
+  console.log(response.data);
+  return response.data;
 };

@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import NavBar from '../components/NavBar';
-import { useGetLogin } from '../../hooks/realWorldHooks';
+import { useGetLoginToken } from '../../hooks/realWorldHooks';
 
 const Home: NextPage = () => {
   let id;
   if (typeof window !== 'undefined') {
     id = localStorage.getItem('token');
   }
-  const { name } = useGetLogin(id);
+  const { name } = useGetLoginToken(id);
 
   return (
     <>

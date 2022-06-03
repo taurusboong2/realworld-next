@@ -9,3 +9,8 @@ type UserType = {
 export type ServerData = {
   user: UserType;
 };
+
+export type LoginInputValue = {
+  email: string | undefined;
+  password: string | undefined;
+};

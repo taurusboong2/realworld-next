@@ -1,34 +1,26 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/MyLink';
 import NavBar from '../components/NavBar';
-import { api } from '../../config/api';
-import axios from 'axios';
+import { useGetLogin } from '../../hooks/realWorldHooks';
 
 const Login: NextPage = () => {
-  const [isLoading, setLoading] = useState(false);
-
   const router = useRouter();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
-  const loginSubmit = async () => {
-    setLoading(true);
-    const { data, config, request } = await api.post(`/users/login`, {
-      user: {
-        email: emailInputRef.current?.value as string,
-        password: passWordInputRef.current?.value as string | number,
-      },
+  const { isLoading, getToken, token } = useGetLogin();
+
+  const submitLogin = async () => {
+    const response = await getToken({
+      email: emailInputRef.current?.value as string,
+      password: passWordInputRef.current?.value as string,
     });
-    console.log(config);
-    console.log(request);
-    const token = data.user.token;
-    localStorage.setItem('token', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data.user.token}`;
-    setLoading(false);
+    console.log(response);
+    localStorage.setItem('token', token as string);
     router.push('/');
   };
 
@@ -44,7 +36,7 @@ const Login: NextPage = () => {
                 <MyLink href="/signUp">Need an account?</MyLink>
               </p>
 
-              <form onSubmit={loginSubmit}>
+              <form onSubmit={submitLogin}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
@@ -69,7 +61,7 @@ const Login: NextPage = () => {
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
                     disabled={isLoading}
-                    onClick={loginSubmit}>
+                    onClick={submitLogin}>
                     Sign in
                   </button>
                 </fieldset>
