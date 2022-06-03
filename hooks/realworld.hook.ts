@@ -19,15 +19,14 @@ export const useGetLoginToken = (token?: string | null) => {
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
 
   const getToken = async (data: LoginInputValue) => {
     if (!data) return;
     setLoading(true);
-    const result = await getLogin(data);
-    console.log(result);
+    const tokenValue = await getLogin(data);
     setLoading(false);
+    return tokenValue;
   };
 
-  return { isLoading, getToken, token };
+  return { isLoading, getToken };
 };
