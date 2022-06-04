@@ -1,48 +1,34 @@
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useRef } from 'react';
 import { NextPage } from 'next';
 import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
 import NavBar from '../components/NavBar/NavBar';
-import { api } from '../../config/api';
 import Head from '../components/MyHead/index';
+import { useFetchSignUp } from '../../hooks/realworld.hook';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
-  const [isLoading, setLoading] = useState(false);
 
   const userNameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
+  const { signUp, isLoading } = useFetchSignUp();
+
   const signUpSubmit = async () => {
-    setLoading(true);
-    await api
-      .post(`/users`, {
-        user: {
-          username: userNameInputRef.current?.value as string,
-          email: emailInputRef.current?.value as string,
-          password: passWordInputRef.current?.value as string | number,
-        },
-      })
-      .then(res => {
-        console.log(res.data);
-        console.log(res.config);
-        console.log(res.status);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
-    setLoading(false);
+    const res = await signUp({
+      user: {
+        username: userNameInputRef.current?.value as string,
+        email: emailInputRef.current?.value as string,
+        password: passWordInputRef.current?.value as string | number,
+      },
+    });
+    console.log(res);
     router.push('/');
   };
 
   return (
-    <Wrap>
+    <>
       <Head title="SighUp" />
       <NavBar />
       <div className="auth-page">
@@ -96,10 +82,8 @@ const SignUp: NextPage = () => {
           </div>
         </div>
       </div>
-    </Wrap>
+    </>
   );
 };
 
 export default SignUp;
-
-const Wrap = styled.div``;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getLoginToken, getLogin } from '../network/request';
-import { LoginInputValue } from '../src/types/realWorld';
+import { getLoginToken, getLogin, fetchSignUp } from '../network/request';
+import { LoginInputValue, SignUpInput } from '../src/types/realWorld';
 
 export const useGetLoginToken = (token?: string | null) => {
   const [name, setName] = useState<string | number>('');
@@ -29,4 +29,17 @@ export const useGetLogin = () => {
   };
 
   return { isLoading, getToken };
+};
+
+export const useFetchSignUp = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  const signUp = async (data: SignUpInput) => {
+    setLoading(true);
+    const res = await fetchSignUp(data);
+    console.log(res);
+    setLoading(false);
+  };
+
+  return { signUp, isLoading };
 };

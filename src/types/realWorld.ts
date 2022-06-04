@@ -22,3 +22,11 @@ export type Token = {
     token: string;
   };
 };
+
+export type SignUpInput = {
+  user: {
+    username: string;
+    email: string;
+    password: string | number;
+  };
+};
