@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { NextPage } from 'next';
 import MyLink from './MyLink';
 
 type Props = {
   name?: string | number;
 };
 
-const NavBar: NextPage<Props> = ({ name }) => {
+// const UserNavbar : FC =
+
+const NavBar: FC<Props> = ({ name }) => {
   const logOutSubmit = async () => {
     await localStorage.removeItem('token');
   };
