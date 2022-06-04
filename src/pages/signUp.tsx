@@ -16,14 +16,13 @@ const SignUp: NextPage = () => {
   const { signUp, isLoading } = useFetchSignUp();
 
   const signUpSubmit = async () => {
-    const res = await signUp({
+    await signUp({
       user: {
         username: userNameInputRef.current?.value as string,
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string | number,
       },
     });
-    console.log(res);
     router.push('/');
   };
 

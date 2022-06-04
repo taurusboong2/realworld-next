@@ -30,3 +30,16 @@ export type SignUpInput = {
     password: string | number;
   };
 };
+
+export type CreateArticleData = {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList: string | string[];
+  };
+};
+
+export type SignUpResponse = {
+  status: number;
+};

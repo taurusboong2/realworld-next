@@ -36,9 +36,11 @@ export const useFetchSignUp = () => {
 
   const signUp = async (data: SignUpInput) => {
     setLoading(true);
-    const res = await fetchSignUp(data);
-    console.log(res);
+    const reponseStatus = await (await fetchSignUp(data)).status;
     setLoading(false);
+    if (reponseStatus === 200) {
+      confirm('회원가입이 성공적으로 진행되었습니다.');
+    }
   };
 
   return { signUp, isLoading };
