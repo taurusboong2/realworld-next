@@ -1,73 +1,82 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import MyLink from './MyLink';
 
 type Props = {
   name?: string | number;
 };
 
-// const UserNavbar : FC =
-
-const NavBar: FC<Props> = ({ name }) => {
+const LogOutBtn = () => {
   const logOutSubmit = async () => {
     await localStorage.removeItem('token');
   };
 
-  const LogOutBtn = () => {
-    return <div onClick={logOutSubmit}>log Out</div>;
-  };
+  return <div onClick={logOutSubmit}>log Out</div>;
+};
 
+const UserNavbar: FC<Props> = ({ name }) => {
   return (
-    <Wrap>
+    <>
+      <li className="nav-item">
+        <MyLink className="nav-link active" href="/">
+          Home
+        </MyLink>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="">
+          <i className="ion-compose" />
+          &nbsp;New Article
+        </a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="">
+          <i className="ion-gear-a" />
+          &nbsp;Settings
+        </a>
+      </li>
+      <li className="nav-item">
+        <MyLink className="nav-link" href="/login">
+          {name}
+        </MyLink>
+      </li>
+    </>
+  );
+};
+
+const NavBar: FC<Props> = ({ name }) => {
+  return (
+    <>
       <nav className="navbar navbar-light">
         <div className="container">
           <MyLink className="navbar-brand" href="/">
             conduit
           </MyLink>
           <ul className="nav navbar-nav pull-xs-right">
-            <li className="nav-item">
-              <MyLink className="nav-link active" href="/">
-                Home
-              </MyLink>
-            </li>
-            <li className="nav-item">
-              <MyLink className="nav-link" href="/login">
-                {name ? name : 'Sign in'}
-              </MyLink>
-            </li>
-            <li className="nav-item">
-              <MyLink className="nav-link" href="/signUp">
-                {name ? <LogOutBtn /> : 'Sign Up'}
-              </MyLink>
-            </li>
+            {name ? (
+              <UserNavbar name={name} />
+            ) : (
+              <>
+                <li className="nav-item">
+                  <MyLink className="nav-link active" href="/">
+                    Home
+                  </MyLink>
+                </li>
+                <li className="nav-item">
+                  <MyLink className="nav-link" href="/login">
+                    {name ? name : 'Sign in'}
+                  </MyLink>
+                </li>
+                <li className="nav-item">
+                  <MyLink className="nav-link" href="/signUp">
+                    {name ? <LogOutBtn /> : 'Sign Up'}
+                  </MyLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>
-    </Wrap>
+    </>
   );
 };
 
 export default NavBar;
-
-const Wrap = styled.div`
-  margin: 0;
-  nav {
-    text-align: center;
-  }
-  ul {
-    display: flex;
-    justify-content: space-between;
-  }
-  nav > ul {
-    padding: 4px 16px;
-  }
-  li {
-    display: flex;
-    padding: 6px 8px;
-  }
-  a {
-    color: #067df7;
-    text-decoration: none;
-    font-size: 13px;
-  }
-`;
