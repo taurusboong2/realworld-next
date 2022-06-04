@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { NextPage } from 'next';
-import MyLink from '../components/MyLink';
+import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar/NavBar';
 import { api } from '../../config/api';
+import Head from '../components/MyHead/index';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -42,6 +43,7 @@ const SignUp: NextPage = () => {
 
   return (
     <Wrap>
+      <Head title="SighUp" />
       <NavBar />
       <div className="auth-page">
         <div className="container page">
