@@ -5,14 +5,6 @@ type Props = {
   name?: string | number | string[];
 };
 
-// const LogOutBtn = () => {
-//   const logOutSubmit = async () => {
-//     await localStorage.removeItem('token');
-//   };
-
-//   return <div onClick={logOutSubmit}>log Out</div>;
-// };
-
 const UserNavbar: FC<Props> = ({ name }) => {
   return (
     <>
@@ -34,7 +26,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href="/login">
+        <MyLink className="nav-link" href={{ pathname: '/proFile', query: { user: name } }}>
           {name}
         </MyLink>
       </li>

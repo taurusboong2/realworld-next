@@ -46,3 +46,13 @@ export const getFeedsArticles = async () => {
   const response = await api.get(`/articles/sad-7`);
   console.log(response);
 };
+
+export const getUserProfile = async (userName: string | string[] | undefined, token: string) => {
+  const response = await api.get(`/profiles/${userName}`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+
+  return response.data;
+};
