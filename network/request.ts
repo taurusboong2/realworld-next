@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { api } from '../config/api';
+import { getItem } from '../common/localStorage';
 import {
   ServerData,
   LoginInputValue,
@@ -56,4 +56,15 @@ export const getUserProfile = async (userName: string | string[] | undefined, to
   });
 
   return response.data;
+};
+
+export const getUserInfo = async () => {
+  const user = getItem(`user`);
+  const token = user && user.token;
+
+  const response = await api(`/user`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };
