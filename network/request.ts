@@ -30,10 +30,14 @@ export const fetchSignUp = async (data: SignUpInput) => {
   return response;
 };
 
-export const fetchArticle = async (data: CreateArticleData, token: string) => {
-  await api.post('/articles', data, {
+export const fetchArticle = async (userdata: CreateArticleData, token: string) => {
+  const { data, status } = await api.post('/articles', userdata, {
     headers: {
       Authorization: `Token ${token}`,
     },
   });
+  return {
+    data,
+    status,
+  };
 };

@@ -5,7 +5,7 @@ import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
 import { useCreateArticle } from '../../hooks/realworld.hook';
 import { fetchArticle } from '../../network/request';
-import { Header } from 'semantic-ui-react';
+import Head from '../components/MyHead/index';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
@@ -18,8 +18,8 @@ const CreateArticle: NextPage = () => {
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const bodyRef = useRef<HTMLTextAreaElement>(null);
-  const tagListRef = useRef<HTMLTextAreaElement>(null);
+  const bodyRef = useRef<HTMLInputElement>(null);
+  const tagListRef = useRef<HTMLInputElement>(null);
 
   // const { isLoading, createArticle } = useCreateArticle();
 
@@ -30,7 +30,7 @@ const CreateArticle: NextPage = () => {
           title: titleRef.current?.value as string,
           description: descriptionRef.current?.value as string,
           body: bodyRef.current?.value as string,
-          tagList: tagListRef.current?.value as string | string[] | undefined,
+          tagList: tagListRef.current?.value as string | string[] | null,
         },
       },
       token
@@ -40,6 +40,7 @@ const CreateArticle: NextPage = () => {
 
   return (
     <>
+      <Head title="Create" />
       <NavBar name={name} />
       <div className="editor-page">
         <div className="container page">
