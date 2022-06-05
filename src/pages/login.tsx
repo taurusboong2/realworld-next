@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
@@ -11,24 +10,25 @@ import Head from '../components/MyHead/index';
 const Login: NextPage = () => {
   const router = useRouter();
 
-  const { isLoading, getToken } = useGetLogin();
+  const { isLoading, getTokenUserName } = useGetLogin();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
   const loginSubmit = async () => {
-    const token = await getToken({
+    const { token, userName } = await getTokenUserName({
       user: {
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string,
       },
     });
     setItem('token', token as string);
+    setItem('username', userName as string);
     router.push('/');
   };
 
   return (
-    <Wrap>
+    <>
       <Head title="Login" />
       <NavBar />
       <div className="auth-page">
@@ -74,10 +74,8 @@ const Login: NextPage = () => {
           </div>
         </div>
       </div>
-    </Wrap>
+    </>
   );
 };
 
 export default Login;
-
-const Wrap = styled.div``;

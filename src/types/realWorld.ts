@@ -20,6 +20,7 @@ export type LoginInputValue = {
 export type Token = {
   user: {
     token: string;
+    username: string;
   };
 };
 

@@ -20,15 +20,14 @@ export const useGetLoginToken = (token?: string | null) => {
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const getToken = async (data: LoginInputValue) => {
-    if (!data) return;
+  const getTokenUserName = async (data: LoginInputValue) => {
     setLoading(true);
-    const tokenValue = await getLogin(data);
+    const { token, userName } = await getLogin(data);
     setLoading(false);
-    return tokenValue;
+    return { token, userName };
   };
 
-  return { isLoading, getToken };
+  return { isLoading, getTokenUserName };
 };
 
 export const useFetchSignUp = () => {

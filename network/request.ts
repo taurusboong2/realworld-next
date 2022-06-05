@@ -22,7 +22,8 @@ export const getLoginToken = async (id?: number | string) => {
 export const getLogin = async (inputValue: LoginInputValue) => {
   const response = await api.post<Token>(`/users/login`, inputValue);
   const token = response.data.user.token;
-  return token;
+  const userName = response.data.user.username;
+  return { token, userName };
 };
 
 export const fetchSignUp = async (data: SignUpInput) => {
