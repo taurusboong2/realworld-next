@@ -41,3 +41,8 @@ export const fetchArticle = async (userdata: CreateArticleData, token: string) =
     status,
   };
 };
+
+export const getFeedsArticles = async () => {
+  const response = await api.get(`/articles/sad-7`);
+  console.log(response);
+};

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { NextPage } from 'next';
 import NavBar from '../components/NavBar/NavBar';
 import ArticleInput from '../components/Input/ArticleInput';
@@ -13,8 +13,8 @@ const CreateArticle: NextPage = () => {
   let token;
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
-    console.log(`토큰값 :`, token);
   }
+  const [tags, setTags] = useState([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -24,17 +24,18 @@ const CreateArticle: NextPage = () => {
   // const { isLoading, createArticle } = useCreateArticle();
 
   const submitCreateArticle = async () => {
-    await fetchArticle(
+    const response = await fetchArticle(
       {
         article: {
           title: titleRef.current?.value as string,
           description: descriptionRef.current?.value as string,
           body: bodyRef.current?.value as string,
-          tagList: tagListRef.current?.value as string | string[] | null,
+          tagList: tags,
         },
       },
       token
     );
+    console.log(response);
     router.push('/');
   };
 
