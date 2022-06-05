@@ -1,38 +1,25 @@
-import React, { FC } from 'react';
+import React, { ForwardRefExoticComponent, RefAttributes, RefObject, forwardRef } from 'react';
 
-const ArticleInput: FC = () => {
+type Props = {
+  ref: RefObject<HTMLInputElement> | RefObject<HTMLTextAreaElement>;
+  input: boolean;
+  placeholder: string;
+};
+
+const ArticleInput: ForwardRefExoticComponent<Props> = forwardRef((props, ref) => {
   return (
     <>
-      <div className="editor-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-10 offset-md-1 col-xs-12">
-              <form>
-                <fieldset>
-                  <fieldset className="form-group">
-                    <input type="text" className="form-control form-control-lg" placeholder="Article Title" />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <input type="text" className="form-control" placeholder="What's this article about?" />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <textarea className="form-control" rows={8} placeholder="Write your article (in markdown)" />
-                  </fieldset>
-                  <fieldset className="form-group">
-                    <input type="text" className="form-control" placeholder="Enter tags" />
-                    <div className="tag-list" />
-                  </fieldset>
-                  <button className="btn btn-lg pull-xs-right btn-primary" type="button">
-                    Publish Article
-                  </button>
-                </fieldset>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      {props.input ? (
+        <fieldset className="form-group">
+          <input type="text" className="form-control form-control-lg" placeholder={props.placeholder} ref={ref} />
+        </fieldset>
+      ) : (
+        <fieldset className="form-group">
+          <textarea className="form-control" rows={8} placeholder={props.placeholder} ref={ref} />
+        </fieldset>
+      )}
     </>
   );
-};
+});
 
 export default ArticleInput;
