@@ -14,7 +14,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href={{ pathname: '/createArticle', query: { user: name } }}>
+        <MyLink className="nav-link" href="/createArticle">
           <i className="ion-compose" />
           &nbsp;New Article
         </MyLink>
@@ -26,7 +26,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href={{ pathname: '/proFile', query: { user: name } }}>
+        <MyLink className="nav-link" href="/proFile">
           {name}
         </MyLink>
       </li>
@@ -44,7 +44,9 @@ const NavBar: FC<Props> = ({ name }) => {
           </MyLink>
           <ul className="nav navbar-nav pull-xs-right">
             {name ? (
-              <UserNavbar name={name} />
+              <>
+                <UserNavbar name={name} />
+              </>
             ) : (
               <>
                 <li className="nav-item">

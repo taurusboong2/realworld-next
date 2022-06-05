@@ -10,13 +10,9 @@ import { getItem } from '../../common/localStorage';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  let userName;
+  let userName, token;
   if (typeof window !== 'undefined') {
     userName = getItem('username');
-  }
-
-  let token;
-  if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
   const [tags, setTags] = useState([]);
@@ -47,7 +43,7 @@ const CreateArticle: NextPage = () => {
   return (
     <>
       <Head title="Create" />
-      <NavBar name={userName} />
+      {/* <NavBar name={userName} /> */}
       <div className="editor-page">
         <div className="container page">
           <div className="row">

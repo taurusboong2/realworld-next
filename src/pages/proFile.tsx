@@ -11,13 +11,9 @@ import { getItem } from '../../common/localStorage';
 const ProFile: NextPage = () => {
   const router = useRouter();
 
-  let userName;
+  let userName, token;
   if (typeof window !== 'undefined') {
     userName = getItem('username');
-  }
-
-  let token;
-  if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
 
@@ -33,7 +29,7 @@ const ProFile: NextPage = () => {
   return (
     <>
       <Head title="profile" />
-      <NavBar name={userName} />
+      {/* <NavBar name={userName} /> */}
       <div className="profile-page">
         <UserInfo
           userName={userName}
