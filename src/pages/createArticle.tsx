@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { NextPage } from 'next';
 import NavBar from '../components/NavBar/NavBar';
 import ArticleInput from '../components/Input/ArticleInput';
@@ -10,11 +10,16 @@ import { getItem } from '../../common/localStorage';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  let userName, token;
-  if (typeof window !== 'undefined') {
-    userName = getItem('username');
-    token = localStorage.getItem('token');
-  }
+  const [userName, setUserName] = useState<string | number | string[] | undefined>('');
+  const [token, setToken] = useState<string>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUserName(getItem('username') as string);
+      setToken(getItem('token') as string);
+    }
+  }, []);
+
   const [tags, setTags] = useState([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
@@ -43,7 +48,7 @@ const CreateArticle: NextPage = () => {
   return (
     <>
       <Head title="Create" />
-      {/* <NavBar name={userName} /> */}
+      <NavBar name={userName} />
       <div className="editor-page">
         <div className="container page">
           <div className="row">

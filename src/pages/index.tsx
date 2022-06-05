@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import NavBar from '../components/NavBar/NavBar';
 import Head from '../components/MyHead/index';
@@ -7,10 +7,13 @@ import Container from '../components/Home/Container';
 import { getItem } from '../../common/localStorage';
 
 const Home: NextPage = () => {
-  let userName;
-  if (typeof window !== 'undefined') {
-    userName = getItem('username');
-  }
+  const [userName, setUserName] = useState<string | number | string[] | undefined>('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUserName(getItem('username') as string);
+    }
+  }, []);
 
   return (
     <div className="home-page">

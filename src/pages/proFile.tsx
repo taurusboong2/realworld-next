@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import NavBar from '../components/NavBar/NavBar';
 import { useRouter } from 'next/router';
@@ -11,13 +11,14 @@ import { getItem } from '../../common/localStorage';
 const ProFile: NextPage = () => {
   const router = useRouter();
 
-  let userName, token;
-  if (typeof window !== 'undefined') {
-    userName = getItem('username');
-    token = localStorage.getItem('token');
-  }
+  const [userName, setUserName] = useState<string | number | string[] | undefined>('');
+  const [token, setToken] = useState<string>('');
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUserName(getItem('username') as string);
+      setToken(getItem('token') as string);
+    }
     (async () => {
       if (!userName) return;
       await getUserProfile(userName, token).then(res => {
