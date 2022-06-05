@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { api } from '../config/api';
 import {
   ServerData,
@@ -25,11 +26,14 @@ export const getLogin = async (inputValue: LoginInputValue) => {
 };
 
 export const fetchSignUp = async (data: SignUpInput) => {
-  const response = await api.post(`/users`, data);
+  const response = await api.post<SignUpResponse>(`/users`, data);
   return response;
 };
 
-export const fetchArticle = async (data: CreateArticleData) => {
-  const response = await api.post<SignUpResponse>(`/articles`, data);
-  console.log(response);
+export const fetchArticle = async (data: CreateArticleData, token: string) => {
+  await api.post('/articles', data, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
 };

@@ -3,15 +3,40 @@ import { NextPage } from 'next';
 import NavBar from '../components/NavBar/NavBar';
 import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
+import { useCreateArticle } from '../../hooks/realworld.hook';
+import { fetchArticle } from '../../network/request';
+import { Header } from 'semantic-ui-react';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
   const { user: name } = router.query;
+  let token;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+    console.log(`토큰값 :`, token);
+  }
 
-  const myInputRef = useRef<HTMLInputElement>(null);
-  const myTextAreaRef = useRef<HTMLTextAreaElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const tagListRef = useRef<HTMLTextAreaElement>(null);
 
-  const submitCreateArticle = () => {};
+  // const { isLoading, createArticle } = useCreateArticle();
+
+  const submitCreateArticle = async () => {
+    await fetchArticle(
+      {
+        article: {
+          title: titleRef.current?.value as string,
+          description: descriptionRef.current?.value as string,
+          body: bodyRef.current?.value as string,
+          tagList: tagListRef.current?.value as string | string[] | undefined,
+        },
+      },
+      token
+    );
+    router.push('/');
+  };
 
   return (
     <>
@@ -22,9 +47,16 @@ const CreateArticle: NextPage = () => {
             <div className="col-md-10 offset-md-1 col-xs-12">
               <form onSubmit={submitCreateArticle}>
                 <fieldset>
-                  <ArticleInput input={true} placeholder="이것은 인풋창" ref={myInputRef} />
-                  <ArticleInput input={false} placeholder="이것은 텍스트아레아" ref={myTextAreaRef} />
-                  <button className="btn btn-lg pull-xs-right btn-primary" type="button">
+                  <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
+                  <ArticleInput input={false} placeholder="내용을 입력하세요. *필수" ref={descriptionRef} />
+                  <ArticleInput input={true} placeholder="바디를 입력하세요. *필수" ref={bodyRef} />
+                  <ArticleInput input={true} placeholder="태그를 입력하세요. *생략 가능" ref={tagListRef} />
+                  <button
+                    className="btn btn-lg pull-xs-right btn-primary"
+                    type="button"
+                    onClick={submitCreateArticle}
+                    // disabled={isLoading}
+                  >
                     Publish Article
                   </button>
                 </fieldset>

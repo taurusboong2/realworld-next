@@ -7,11 +7,11 @@ import Banner from '../components/Home/Banner';
 import Container from '../components/Home/Container';
 
 const Home: NextPage = () => {
-  let id;
+  let token;
   if (typeof window !== 'undefined') {
-    id = localStorage.getItem('token');
+    token = localStorage.getItem('token');
   }
-  const { name } = useGetLoginToken(id);
+  const { name } = useGetLoginToken(token);
 
   return (
     <div className="home-page">

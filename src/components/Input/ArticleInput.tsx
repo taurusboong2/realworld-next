@@ -1,7 +1,7 @@
-import React, { ForwardRefExoticComponent, RefAttributes, RefObject, forwardRef } from 'react';
+import React, { ForwardRefExoticComponent, LegacyRef, forwardRef } from 'react';
 
 type Props = {
-  ref: RefObject<HTMLInputElement> | RefObject<HTMLTextAreaElement>;
+  ref: LegacyRef<HTMLInputElement | HTMLTextAreaElement> | undefined;
   input: boolean;
   placeholder: string;
 };
