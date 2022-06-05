@@ -6,22 +6,25 @@ import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/userInfo';
 import Feed from '../components/Home/Feed';
 import { getUserProfile } from '../../network/request';
+import { getItem } from '../../common/localStorage';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
-  const { user: name } = router.query;
+
+  let userName;
+  if (typeof window !== 'undefined') {
+    userName = getItem('username');
+  }
 
   let token;
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
   }
 
-  const myName = '이재붕';
-
   useEffect(() => {
     (async () => {
-      if (!name) return;
-      await getUserProfile(myName, token).then(res => {
+      if (!userName) return;
+      await getUserProfile(userName, token).then(res => {
         console.log(res);
       });
     })();
@@ -30,10 +33,10 @@ const ProFile: NextPage = () => {
   return (
     <>
       <Head title="profile" />
-      <NavBar name={name} />
+      <NavBar name={userName} />
       <div className="profile-page">
         <UserInfo
-          userName={name}
+          userName={userName}
           userBio="this is just tutorial"
           userImage="https://avatars.githubusercontent.com/u/83158335?v=4"
         />

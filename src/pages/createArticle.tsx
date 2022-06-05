@@ -6,10 +6,15 @@ import { useRouter } from 'next/router';
 import { useCreateArticle } from '../../hooks/realworld.hook';
 import { fetchArticle } from '../../network/request';
 import Head from '../components/MyHead/index';
+import { getItem } from '../../common/localStorage';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  const { user: name } = router.query;
+  let userName;
+  if (typeof window !== 'undefined') {
+    userName = getItem('username');
+  }
+
   let token;
   if (typeof window !== 'undefined') {
     token = localStorage.getItem('token');
@@ -42,7 +47,7 @@ const CreateArticle: NextPage = () => {
   return (
     <>
       <Head title="Create" />
-      <NavBar name={name} />
+      <NavBar name={userName} />
       <div className="editor-page">
         <div className="container page">
           <div className="row">
