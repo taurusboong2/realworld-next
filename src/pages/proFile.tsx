@@ -13,13 +13,10 @@ const ProFile: NextPage = () => {
 
   const { userName, articleList, isLoading } = useGetArticleList();
 
-  console.log(articleList);
-
   if (isLoading) return <>로딩중..</>;
   return (
     <>
       <Head title="profile" />
-      {/* <NavBar name={userName} /> */}
       <div className="profile-page">
         <UserInfo
           userName={userName}
@@ -45,9 +42,18 @@ const ProFile: NextPage = () => {
                 </ul>
               </div>
 
-              <Feed author="붕붕" date="may 5" heart={20} title="1" description="안녕하세요" />
-
-              <Feed author="붕붕" date="may 5" heart={20} title="2" description="안녕하세요2" />
+              {articleList?.articles.map(e => {
+                return (
+                  <Feed
+                    key={e.slug}
+                    author={e.author.username}
+                    date={e.createdAt}
+                    heart={18}
+                    title={e.title}
+                    description={e.description}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
