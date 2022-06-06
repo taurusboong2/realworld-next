@@ -3,7 +3,7 @@ import { getItem } from '../common/localStorage';
 import {
   ServerData,
   LoginInputValue,
-  Token,
+  UserData,
   SignUpInput,
   CreateArticleData,
   SignUpResponse,
@@ -20,10 +20,9 @@ export const getLoginToken = async (id?: number | string) => {
 };
 
 export const getLogin = async (inputValue: LoginInputValue) => {
-  const response = await api.post<Token>(`/users/login`, inputValue);
-  const token = response.data.user.token;
-  const userName = response.data.user.username;
-  return { token, userName };
+  const response = await api.post<UserData>(`/users/login`, inputValue);
+  const userData = response.data.user;
+  return { userData };
 };
 
 export const fetchSignUp = async (data: SignUpInput) => {

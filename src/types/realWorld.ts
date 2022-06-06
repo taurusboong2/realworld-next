@@ -17,10 +17,13 @@ export type LoginInputValue = {
   };
 };
 
-export type Token = {
+export type UserData = {
   user: {
+    email: string;
     token: string;
     username: string;
+    bio: string;
+    image: string | null;
   };
 };
 

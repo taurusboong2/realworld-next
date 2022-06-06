@@ -22,9 +22,9 @@ export const useGetLogin = () => {
 
   const getTokenUserName = async (data: LoginInputValue) => {
     setLoading(true);
-    const { token, userName } = await getLogin(data);
+    const { userData } = await getLogin(data);
     setLoading(false);
-    return { token, userName };
+    return { userData };
   };
 
   return { isLoading, getTokenUserName };

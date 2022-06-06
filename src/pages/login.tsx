@@ -16,14 +16,13 @@ const Login: NextPage = () => {
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
   const loginSubmit = async () => {
-    const { token, userName } = await getTokenUserName({
+    const { userData } = await getTokenUserName({
       user: {
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string,
       },
     });
-    setItem('token', token as string);
-    setItem('username', userName as string);
+    setItem('user', JSON.stringify(userData));
     router.push('/');
   };
 
