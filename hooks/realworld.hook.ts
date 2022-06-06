@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getLoginToken, getLogin, fetchSignUp, fetchArticle, getArticleList } from '../network/request';
-import { LoginInputValue, SignUpInput, CreateArticleData, ArticleList } from '../src/types/realWorld';
+import {
+  getLoginToken,
+  getLogin,
+  fetchSignUp,
+  fetchArticle,
+  getArticleList,
+  fetchSingleArticle,
+} from '../network/request';
+import { LoginInputValue, SignUpInput, CreateArticleData, ArticleList, SingleArticle } from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
 
 export const useGetLoginToken = (token?: string | null) => {
@@ -81,4 +88,22 @@ export const useGetArticleList = () => {
   }, []);
 
   return { userName, articleList, isLoading };
+};
+
+export const useGetSingleArticle = (slug: string) => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [articleData, setArticleData] = useState<SingleArticle>();
+
+  useEffect(() => {
+    if (!slug) return;
+    (async () => {
+      setLoading(true);
+      await fetchSingleArticle(slug as string).then(res => {
+        setArticleData(res.article);
+      });
+      setLoading(false);
+    })();
+  }, [slug]);
+
+  return { isLoading, articleData };
 };

@@ -6,9 +6,10 @@ type Props = {
   heart: number;
   title: string;
   description: string;
+  slug: string;
 };
 
-const Feed: FC<Props> = ({ author, date, heart, title, description }) => {
+const Feed: FC<Props> = ({ slug, author, date, heart, title, description }) => {
   return (
     <>
       <div className="article-preview">
@@ -26,7 +27,7 @@ const Feed: FC<Props> = ({ author, date, heart, title, description }) => {
             <i className="ion-heart" /> {heart}
           </button>
         </div>
-        <a href="" className="preview-link">
+        <a href={`/article/${slug}`} className="preview-link">
           <h1>{title}</h1>
           <p>{description}</p>
           <span>Read more...</span>

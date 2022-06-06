@@ -7,7 +7,7 @@ import {
   SignUpInput,
   CreateArticleData,
   SignUpResponse,
-  UserDataInfo,
+  SingleArticle,
 } from '../src/types/realWorld';
 
 export const getLoginToken = async (id?: number | string) => {
@@ -82,4 +82,10 @@ export const getArticleList = async (token?: string) => {
     },
   });
   return response;
+};
+
+export const fetchSingleArticle = async (slug: string) => {
+  const response = await api.get<SingleArticle>(`articles/${slug}`);
+  const data = response.data;
+  return data;
 };

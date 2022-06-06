@@ -4,10 +4,8 @@ import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
-import { getArticleList } from '../../network/request';
-import { getItem } from '../../common/localStorage';
-import { useGetArticleList } from '../../hooks/realworld.hook';
 import { ArticleFeed } from '../types/realWorld';
+import { useGetArticleList } from '../../hooks/realworld.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
@@ -54,6 +52,7 @@ const ProFile: NextPage = () => {
                     heart={e.favoritesCount}
                     title={e.title}
                     description={e.description}
+                    slug={e.slug}
                   />
                 );
               })}
