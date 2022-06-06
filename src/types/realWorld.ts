@@ -52,3 +52,17 @@ export type ArticleList = {
   articles: [];
   articlesCount: number;
 };
+
+export type ArticleFeed = {
+  author: {
+    username: string;
+    bio: string;
+    image: string;
+    following: boolean;
+  };
+  slug: string;
+  createdAt: string;
+  favoritesCount: number;
+  title: string;
+  description: string;
+};

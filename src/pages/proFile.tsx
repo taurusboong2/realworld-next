@@ -7,11 +7,14 @@ import Feed from '../components/Home/Feed';
 import { getArticleList } from '../../network/request';
 import { getItem } from '../../common/localStorage';
 import { useGetArticleList } from '../../hooks/realworld.hook';
+import { ArticleFeed } from '../types/realWorld';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
 
   const { userName, articleList, isLoading } = useGetArticleList();
+
+  console.log(articleList);
 
   if (isLoading) return <>로딩중..</>;
   return (
@@ -42,13 +45,13 @@ const ProFile: NextPage = () => {
                 </ul>
               </div>
 
-              {articleList?.articles.map(e => {
+              {articleList?.articles.map((e: ArticleFeed) => {
                 return (
                   <Feed
                     key={e.slug}
                     author={e.author.username}
                     date={e.createdAt}
-                    heart={18}
+                    heart={e.favoritesCount}
                     title={e.title}
                     description={e.description}
                   />
