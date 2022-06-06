@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { NextPage } from 'next';
 import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
-import NavBar from '../components/NavBar/NavBar';
 import Head from '../components/MyHead/index';
 import { useFetchSignUp } from '../../hooks/realworld.hook';
 
@@ -29,7 +28,6 @@ const SignUp: NextPage = () => {
   return (
     <>
       <Head title="SighUp" />
-      <NavBar />
       <div className="auth-page">
         <div className="container page">
           <div className="row">

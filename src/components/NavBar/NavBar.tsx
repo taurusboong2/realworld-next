@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import MyLink from './MyLink';
+import { getItem } from '../../../common/localStorage';
 
 type Props = {
   name?: string | number | string[];
@@ -34,7 +35,20 @@ const UserNavbar: FC<Props> = ({ name }) => {
   );
 };
 
-const NavBar: FC<Props> = ({ name }) => {
+const NavBar: FC<Props> = () => {
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUser = getItem('user');
+      if (currentUser !== null) {
+        const parsed = JSON.parse(currentUser);
+        setUsername(parsed.username);
+        console.log(`username -in Navbar FC :`, username);
+      }
+    }
+  }, [username, setUsername]);
+
   return (
     <>
       <nav className="navbar navbar-light">
@@ -43,9 +57,9 @@ const NavBar: FC<Props> = ({ name }) => {
             conduit
           </MyLink>
           <ul className="nav navbar-nav pull-xs-right">
-            {name ? (
+            {username ? (
               <>
-                <UserNavbar name={name} />
+                <UserNavbar name={username} />
               </>
             ) : (
               <>

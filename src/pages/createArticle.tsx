@@ -48,7 +48,6 @@ const CreateArticle: NextPage = () => {
   return (
     <>
       <Head title="Create" />
-      <NavBar name={userName} />
       <div className="editor-page">
         <div className="container page">
           <div className="row">

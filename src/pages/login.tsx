@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
-import NavBar from '../components/NavBar/NavBar';
 import { useGetLogin } from '../../hooks/realworld.hook';
 import { setItem } from '../../common/localStorage';
 import Head from '../components/MyHead/index';
@@ -29,7 +28,6 @@ const Login: NextPage = () => {
   return (
     <>
       <Head title="Login" />
-      <NavBar />
       <div className="auth-page">
         <div className="container page">
           <div className="row">

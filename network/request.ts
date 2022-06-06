@@ -7,6 +7,7 @@ import {
   SignUpInput,
   CreateArticleData,
   SignUpResponse,
+  UserDataInfo,
 } from '../src/types/realWorld';
 
 export const getLoginToken = async (id?: number | string) => {
@@ -59,11 +60,17 @@ export const getUserProfile = async (userName: string | string[] | undefined, to
 
 export const getUserInfo = async () => {
   const user = getItem(`user`);
-  const token = user && user.token;
-
-  const response = await api(`/user`, {
+  let token;
+  if (user !== null) {
+    const parsedUser = JSON.parse(user);
+    token = user && parsedUser.token;
+  }
+  const response = await api.get<UserData>(`/user`, {
     headers: {
       Authorization: `Token ${token}`,
     },
   });
+
+  const data = response.data;
+  return data;
 };

@@ -25,7 +25,7 @@ export type UserData = {
     bio: string;
     image: string | null;
   };
-};
+} | null;
 
 export type SignUpInput = {
   user: {
