@@ -1,5 +1,5 @@
 import { api } from '../config/api';
-import { getItem } from '../common/localStorage';
+import { getItem, setItem } from '../common/localStorage';
 import {
   ServerData,
   LoginInputValue,

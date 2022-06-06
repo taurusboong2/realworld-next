@@ -16,9 +16,8 @@ export const useGetLoginToken = (token?: string | null) => {
   useEffect(() => {
     if (!token) return;
     (async () => {
-      getLoginToken(token).then(res => {
-        setName(res.username);
-      });
+      const response = await getLoginToken(token);
+      setName(response.username);
     })();
   }, []);
 
@@ -43,7 +42,7 @@ export const useFetchSignUp = () => {
 
   const signUp = async (data: SignUpInput) => {
     setLoading(true);
-    const reponseStatus = await (await fetchSignUp(data)).status;
+    const reponseStatus = await fetchSignUp(data).status;
     setLoading(false);
     if (reponseStatus === 200) {
       confirm('회원가입이 성공적으로 진행되었습니다.');
@@ -92,15 +91,14 @@ export const useGetArticleList = () => {
 
 export const useGetSingleArticle = (slug: string) => {
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [articleData, setArticleData] = useState<SingleArticle>();
+  const [articleData, setArticleData] = useState<SingleArticle | null>(null);
 
   useEffect(() => {
     if (!slug) return;
     (async () => {
       setLoading(true);
-      await fetchSingleArticle(slug as string).then(res => {
-        setArticleData(res.article);
-      });
+      const response = await fetchSingleArticle(slug as string);
+      setArticleData(response.article);
       setLoading(false);
     })();
   }, [slug]);
