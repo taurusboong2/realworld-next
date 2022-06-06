@@ -1,21 +1,17 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { NextPage } from 'next';
-import NavBar from '../components/NavBar/NavBar';
 import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
-import { useCreateArticle } from '../../hooks/realworld.hook';
 import { fetchArticle } from '../../network/request';
 import Head from '../components/MyHead/index';
 import { getItem } from '../../common/localStorage';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  const [userName, setUserName] = useState<string | number | string[] | undefined>('');
   const [token, setToken] = useState<string>('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setUserName(getItem('username') as string);
       setToken(getItem('token') as string);
     }
   }, []);

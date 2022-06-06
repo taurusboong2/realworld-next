@@ -74,3 +74,12 @@ export const getUserInfo = async () => {
   const data = response.data;
   return data;
 };
+
+export const getArticleList = async (token?: string) => {
+  const response = await api.get(`/articles`, {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+  return response;
+};

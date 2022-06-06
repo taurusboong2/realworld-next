@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getLoginToken, getLogin, fetchSignUp, fetchArticle } from '../network/request';
+import { getLoginToken, getLogin, fetchSignUp, fetchArticle, getArticleList } from '../network/request';
 import { LoginInputValue, SignUpInput, CreateArticleData } from '../src/types/realWorld';
 
 export const useGetLoginToken = (token?: string | null) => {
@@ -48,7 +48,7 @@ export const useFetchSignUp = () => {
 export const useCreateArticle = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const createArticle = async (data: CreateArticleData, id: number | string) => {
+  const createArticle = async (data: CreateArticleData, id: string) => {
     setLoading(true);
     const response = await fetchArticle(data, id);
     setLoading(false);
@@ -56,4 +56,17 @@ export const useCreateArticle = () => {
   };
 
   return { isLoading, createArticle };
+};
+
+export const useGetArticleList = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  const fetchArticleList = async (token?: string) => {
+    setLoading(true);
+    const response = await getArticleList(token);
+    setLoading(false);
+    return response;
+  };
+
+  return { isLoading, fetchArticleList };
 };

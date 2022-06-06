@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import NavBar from '../components/NavBar/NavBar';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
-import UserInfo from '../components/profile/userInfo';
+import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
-import { getUserProfile } from '../../network/request';
+import { getArticleList } from '../../network/request';
 import { getItem } from '../../common/localStorage';
+import { useGetArticleList } from '../../hooks/realworld.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
 
-  const [userName, setUserName] = useState<string | number | string[] | undefined>('');
+  const [userName, setUserName] = useState<string | string[] | undefined>('');
   const [token, setToken] = useState<string>('');
+
+  const { isLoading, fetchArticleList } = useGetArticleList();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setUserName(getItem('username') as string);
-      setToken(getItem('token') as string);
+      const currentUser = getItem('user');
+      const parsed = JSON.parse(currentUser as string);
+      setUserName(parsed.username);
+      setToken(parsed.token);
     }
     (async () => {
-      if (!userName) return;
-      await getUserProfile(userName, token).then(res => {
+      await fetchArticleList(token).then(res => {
         console.log(res);
       });
     })();

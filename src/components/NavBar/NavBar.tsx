@@ -36,18 +36,17 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
-  const [username, setUsername] = useState();
+  const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
+    const currentUser = getItem('user');
+    if (!currentUser) return;
+    const parsed = JSON.parse(currentUser as string);
     if (typeof window !== 'undefined') {
-      const currentUser = getItem('user');
-      if (currentUser !== null) {
-        const parsed = JSON.parse(currentUser);
-        setUsername(parsed.username);
-        console.log(`username -in Navbar FC :`, username);
-      }
+      setUsername(parsed.username);
     }
-  }, [username, setUsername]);
+    console.log(username);
+  }, []);
 
   return (
     <>
