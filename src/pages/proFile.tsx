@@ -11,25 +11,11 @@ import { useGetArticleList } from '../../hooks/realworld.hook';
 const ProFile: NextPage = () => {
   const router = useRouter();
 
-  const [userName, setUserName] = useState<string | string[] | undefined>('');
-  const [token, setToken] = useState<string>('');
+  const { userName, articleList, isLoading } = useGetArticleList();
 
-  const { isLoading, fetchArticleList } = useGetArticleList();
+  console.log(articleList);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currentUser = getItem('user');
-      const parsed = JSON.parse(currentUser as string);
-      setUserName(parsed.username);
-      setToken(parsed.token);
-    }
-    (async () => {
-      await fetchArticleList(token).then(res => {
-        console.log(res);
-      });
-    })();
-  }, []);
-
+  if (isLoading) return <>로딩중..</>;
   return (
     <>
       <Head title="profile" />

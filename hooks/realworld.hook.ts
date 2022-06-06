@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLoginToken, getLogin, fetchSignUp, fetchArticle, getArticleList } from '../network/request';
-import { LoginInputValue, SignUpInput, CreateArticleData } from '../src/types/realWorld';
+import { LoginInputValue, SignUpInput, CreateArticleData, ArticleList } from '../src/types/realWorld';
+import { getItem } from '../common/localStorage';
 
 export const useGetLoginToken = (token?: string | null) => {
   const [name, setName] = useState<string | number>('');
@@ -60,13 +61,24 @@ export const useCreateArticle = () => {
 
 export const useGetArticleList = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [articleList, setArticleList] = useState<ArticleList | null>(null);
+  const [userName, setUserName] = useState<string>('');
 
-  const fetchArticleList = async (token?: string) => {
-    setLoading(true);
-    const response = await getArticleList(token);
-    setLoading(false);
-    return response;
-  };
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const currentUser = getItem('user');
+      if (!currentUser) return;
+      const parsed = JSON.parse(currentUser);
+      const token = parsed.token;
+      setUserName(parsed.username);
+      (async () => {
+        setLoading(true);
+        const response = await getArticleList(token);
+        await setArticleList(response.data);
+        setLoading(false);
+      })();
+    }
+  }, []);
 
-  return { isLoading, fetchArticleList };
+  return { userName, articleList, isLoading };
 };

@@ -47,3 +47,8 @@ export type CreateArticleData = {
 export type SignUpResponse = {
   status: number;
 };
+
+export type ArticleList = {
+  articles: [];
+  articlesCount: number;
+};
