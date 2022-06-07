@@ -8,6 +8,7 @@ import {
   SingleArticle,
   UpdateInput,
   UserType,
+  UpdataArticle,
 } from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
 import { Auth, Article } from '../network/request';
@@ -90,6 +91,18 @@ export const useGetArticleList = () => {
   }, []);
 
   return { articleList };
+};
+
+export const useUpdateArticle = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const updateArticle = async (slug: string, updateValue: UpdataArticle) => {
+    setIsLoading(true);
+    await Article.update(slug, updateValue);
+    setIsLoading(false);
+  };
+
+  return { isLoading, updateArticle };
 };
 
 export const useGetSingleArticle = (slug: string) => {

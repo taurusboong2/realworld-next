@@ -30,10 +30,9 @@ const ArticleBanner = ({ article }) => {
               </MyLink>
               <span className="date"> {new Date(article.createdAt).toDateString()}</span>
             </div>
-            <button className="btn btn-sm btn-outline-secondary">
-              <i className="ion-plus-round" />
-              &nbsp; {article.author.username} <span className="counter">(10)</span>
-            </button>
+            <MyLink href="/editor/[pid]" as={`/editor/${article.slug}`} className="btn btn-outline-secondary btn-sm">
+              <i className="ion-edit" /> Edit Article
+            </MyLink>
             &nbsp;&nbsp;
             <button className="btn btn-outline-danger btn-sm" onClick={submitDelete}>
               <i className="ion-trash-a" /> Delete Article
