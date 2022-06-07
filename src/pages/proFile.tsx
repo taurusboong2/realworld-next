@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
@@ -13,8 +13,6 @@ const ProFile: NextPage = () => {
 
   const { isLoading, userData } = useFetchProfile();
   const { articleList } = useGetArticleList();
-
-  console.log(articleList);
 
   if (isLoading) return <>로딩중..</>;
   return (

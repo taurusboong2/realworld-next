@@ -9,6 +9,7 @@ import {
   SignUpResponse,
   SingleArticle,
   UpdateInput,
+  UpdataArticle,
 } from '../src/types/realWorld';
 
 export const Auth = {
@@ -127,6 +128,25 @@ export const Article = {
           Authorization: `Token ${token}`,
         },
       });
+    } catch (error) {
+      return { error };
+    }
+  },
+
+  update: async (slug: string, updateValue: UpdataArticle) => {
+    const user: any = getItem('user');
+    const parsedUser = JSON.parse(user);
+    const token = parsedUser.token;
+    try {
+      const { status, data } = await api.put(`articles/${slug}`, updateValue, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      if (status === 200) {
+        confirm('게시글이 성공적으로 수정되었습니다.');
+      }
+      return { status, data };
     } catch (error) {
       return { error };
     }

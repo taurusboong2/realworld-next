@@ -10,7 +10,6 @@ const ArticleBanner = ({ article }) => {
   const submitDelete = async () => {
     const result = confirm('정말로 게시글을 삭제하시겠습니까?');
     if (!result) return;
-
     await Article.delete(slug as string);
     router.push(`/`);
   };

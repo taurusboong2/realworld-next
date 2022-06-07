@@ -54,6 +54,15 @@ export type CreateArticleData = {
   };
 };
 
+export type UpdataArticle = {
+  article: {
+    title: string;
+    description?: string;
+    body?: string;
+    tagList?: any;
+  };
+};
+
 export type SignUpResponse = {
   status: number;
 };
