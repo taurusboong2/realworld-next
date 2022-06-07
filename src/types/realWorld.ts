@@ -15,7 +15,7 @@ export type LoginInputValue = {
     email: string;
     password: string;
   };
-};
+} | null;
 
 export type UserData = {
   user: {
@@ -25,7 +25,7 @@ export type UserData = {
     bio: string;
     image: string | null;
   };
-} | null;
+};
 
 export type SignUpInput = {
   user: {

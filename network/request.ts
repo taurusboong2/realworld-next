@@ -10,6 +10,21 @@ import {
   SingleArticle,
 } from '../src/types/realWorld';
 
+export const Auth = {
+  login: async (inputValue: LoginInputValue) => {
+    try {
+      const { status, data } = await api.post(`/users/login`, inputValue);
+      if (status === 200) {
+        setItem('user', JSON.stringify(data.user));
+        confirm('로그인이 성공하셨습니다.');
+      }
+      return { status, data };
+    } catch (err) {
+      return { err };
+    }
+  },
+};
+
 export const getLoginToken = async (id?: number | string) => {
   const response = await api.get<ServerData>('user', {
     headers: {
