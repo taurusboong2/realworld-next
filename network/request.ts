@@ -122,15 +122,11 @@ export const Article = {
     const parsedUser = JSON.parse(user);
     const token = parsedUser.token;
     try {
-      const { status } = await api.delete(`/articles/${slug}`, {
+      await api.delete(`/articles/${slug}`, {
         headers: {
           Authorization: `Token ${token}`,
         },
       });
-      if (status === 200) {
-        alert('게시글이 성공적으로 삭제되었습니다.');
-      }
-      return { status };
     } catch (error) {
       return { error };
     }
