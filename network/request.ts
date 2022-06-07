@@ -100,6 +100,22 @@ export const Article = {
       return { error };
     }
   },
+
+  list: async () => {
+    const user: any = getItem('user');
+    const parsedUser = JSON.parse(user);
+    const token = parsedUser.token;
+    try {
+      const { data } = await api.get(`/articles`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      return { data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export const getLoginToken = async (id?: number | string) => {

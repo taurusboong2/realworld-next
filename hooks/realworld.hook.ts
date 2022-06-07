@@ -80,28 +80,41 @@ export const useCreateArticle = () => {
 };
 
 export const useGetArticleList = () => {
-  const [isLoading, setLoading] = useState<boolean>(false);
   const [articleList, setArticleList] = useState<ArticleList | null>(null);
-  const [userName, setUserName] = useState<string>('');
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currentUser = getItem('user');
-      if (!currentUser) return;
-      const parsed = JSON.parse(currentUser);
-      const token = parsed.token;
-      setUserName(parsed.username);
-      (async () => {
-        setLoading(true);
-        const response = await getArticleList(token);
-        await setArticleList(response.data);
-        setLoading(false);
-      })();
-    }
+    (async () => {
+      const { data, error } = await Article.list();
+      setArticleList(data);
+    })();
   }, []);
 
-  return { userName, articleList, isLoading };
+  return { articleList };
 };
+
+// export const useGetArticleList = () => {
+//   const [isLoading, setLoading] = useState<boolean>(false);
+//   const [articleList, setArticleList] = useState<ArticleList | null>(null);
+//   const [userName, setUserName] = useState<string>('');
+
+//   useEffect(() => {
+//     if (typeof window !== 'undefined') {
+//       const currentUser = getItem('user');
+//       if (!currentUser) return;
+//       const parsed = JSON.parse(currentUser);
+//       const token = parsed.token;
+//       setUserName(parsed.username);
+//       (async () => {
+//         setLoading(true);
+//         const response = await getArticleList(token);
+//         await setArticleList(response.data);
+//         setLoading(false);
+//       })();
+//     }
+//   }, []);
+
+//   return { userName, articleList, isLoading };
+// };
 
 export const useGetSingleArticle = (slug: string) => {
   const [isLoading, setLoading] = useState<boolean>(false);

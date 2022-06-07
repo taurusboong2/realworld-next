@@ -10,7 +10,7 @@ const ArticleBanner = ({ article }) => {
 
           <div className="article-meta">
             <MyLink href="">
-              <img src="http://i.imgur.com/Qr71crq.jpg" />
+              <img src={article.author.image} />
             </MyLink>
             <div className="info">
               <MyLink href="" className="author">

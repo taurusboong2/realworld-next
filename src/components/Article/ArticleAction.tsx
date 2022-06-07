@@ -6,7 +6,7 @@ const ArticleAction = ({ article }) => {
       <div className="article-actions">
         <div className="article-meta">
           <a href="profile.html">
-            <img src="http://i.imgur.com/Qr71crq.jpg" />
+            <img src={article.author.image} />
           </a>
           <div className="info">
             <a href="" className="author">

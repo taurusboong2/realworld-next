@@ -6,11 +6,15 @@ import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
 import { ArticleFeed } from '../types/realWorld';
 import { useFetchProfile } from '../../hooks/realworld.hook';
+import { useGetArticleList } from '../../hooks/realworld.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
 
   const { isLoading, userData } = useFetchProfile();
+  const { articleList } = useGetArticleList();
+
+  console.log(articleList);
 
   if (isLoading) return <>로딩중..</>;
   return (
@@ -37,7 +41,7 @@ const ProFile: NextPage = () => {
                 </ul>
               </div>
 
-              {/* {articleList?.articles.map((e: ArticleFeed) => {
+              {articleList?.articles.map((e: ArticleFeed) => {
                 return (
                   <Feed
                     key={e.slug}
@@ -47,9 +51,10 @@ const ProFile: NextPage = () => {
                     title={e.title}
                     description={e.description}
                     slug={e.slug}
+                    image={userData?.image}
                   />
                 );
-              })} */}
+              })}
             </div>
           </div>
         </div>
