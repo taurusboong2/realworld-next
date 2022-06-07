@@ -19,8 +19,8 @@ export const Auth = {
         confirm('로그인이 성공하셨습니다.');
       }
       return { status, data };
-    } catch (err) {
-      return { err };
+    } catch (error) {
+      return { error };
     }
   },
 };

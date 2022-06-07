@@ -9,6 +9,7 @@ import {
 } from '../network/request';
 import { LoginInputValue, SignUpInput, CreateArticleData, ArticleList, SingleArticle } from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
+import { Auth } from '../network/request';
 
 export const useGetLoginToken = (token?: string | null) => {
   const [name, setName] = useState<string | number>('');
@@ -27,14 +28,14 @@ export const useGetLoginToken = (token?: string | null) => {
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const getTokenUserName = async (data: LoginInputValue) => {
+  const fetchLogin = async (inputValue: LoginInputValue) => {
     setLoading(true);
-    const { userData } = await getLogin(data);
+    const { status, data, error } = await Auth.login(inputValue);
     setLoading(false);
-    return { userData };
+    return { status, data, error };
   };
 
-  return { isLoading, getTokenUserName };
+  return { isLoading, fetchLogin };
 };
 
 export const useFetchSignUp = () => {

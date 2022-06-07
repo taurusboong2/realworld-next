@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
@@ -9,13 +9,13 @@ import { Auth } from '../../network/request';
 const Login: NextPage = () => {
   const router = useRouter();
 
-  // const { isLoading, getTokenUserName } = useGetLogin();
+  const { isLoading, fetchLogin } = useGetLogin();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
   const loginSubmit = async () => {
-    const { data, status, error } = await Auth.login({
+    const { data, status, error } = await fetchLogin({
       user: {
         email: emailInputRef.current?.value as string,
         password: passWordInputRef.current?.value as string,
@@ -64,7 +64,7 @@ const Login: NextPage = () => {
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    // disabled={isLoading}
+                    disabled={isLoading}
                     onClick={loginSubmit}>
                     Sign in
                   </button>
