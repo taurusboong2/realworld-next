@@ -1,9 +1,9 @@
-type UserType = {
-  bio: string | number;
-  email: string | number;
-  image: string | number;
-  token: string | number;
-  username: string | number;
+export type UserType = {
+  bio: string;
+  email: string;
+  image: string;
+  token: string;
+  username: string;
 };
 
 export type ServerData = {
@@ -41,7 +41,7 @@ export type UpdateInput = {
     password: string;
     username: string;
     bio?: string;
-    image?: string;
+    image?: string | '';
   };
 };
 

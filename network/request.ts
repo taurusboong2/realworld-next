@@ -1,5 +1,5 @@
 import { api } from '../config/api';
-import { getItem, setItem } from '../common/localStorage';
+import { getItem, removeItem, setItem } from '../common/localStorage';
 import {
   ServerData,
   LoginInputValue,
@@ -65,11 +65,20 @@ export const Auth = {
       });
       if (status === 200) {
         confirm('회원정보가 성공적으로 변경되었습니다.');
+        removeItem('user');
+        setItem('user', JSON.stringify(data.user));
       }
       return { status, data };
     } catch (error) {
       return { error };
     }
+  },
+
+  getProfile: async () => {
+    const user: any = getItem('user');
+    if (!user) return;
+    const parsedUser = JSON.parse(user);
+    return parsedUser;
   },
 };
 

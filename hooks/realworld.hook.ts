@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  getLoginToken,
-  getLogin,
-  fetchSignUp,
-  fetchArticle,
-  getArticleList,
-  fetchSingleArticle,
-} from '../network/request';
+import { getLoginToken, fetchArticle, getArticleList, fetchSingleArticle } from '../network/request';
 import {
   LoginInputValue,
   SignUpInput,
@@ -14,6 +7,7 @@ import {
   ArticleList,
   SingleArticle,
   UpdateInput,
+  UserType,
 } from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
 import { Auth } from '../network/request';
@@ -65,9 +59,26 @@ export const useUpdate = () => {
     setLoading(true);
     const { status, data, error } = await Auth.update(updateData);
     setLoading(false);
+    return { status, data, error };
   };
 
   return { isLoading, updateUser };
+};
+
+export const useFetchProfile = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserType | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const result = await Auth.getProfile();
+      setUserData(result);
+      setLoading(false);
+    })();
+  }, []);
+
+  return { isLoading, userData };
 };
 
 export const useCreateArticle = () => {

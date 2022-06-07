@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
 type Props = {
-  userName: string | string[] | undefined;
-  userBio: string;
-  userImage: string;
+  userName?: string;
+  userBio?: string;
+  userImage?: string;
 };
 
 const UserInfo: FC<Props> = ({ userName, userBio, userImage }) => {

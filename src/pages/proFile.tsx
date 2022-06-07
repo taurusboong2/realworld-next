@@ -5,25 +5,19 @@ import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
 import { ArticleFeed } from '../types/realWorld';
-import { useGetArticleList } from '../../hooks/realworld.hook';
+import { useFetchProfile } from '../../hooks/realworld.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();
 
-  const { userName, articleList, isLoading } = useGetArticleList();
-
-  console.log(articleList);
+  const { isLoading, userData } = useFetchProfile();
 
   if (isLoading) return <>로딩중..</>;
   return (
     <>
       <Head title="profile" />
       <div className="profile-page">
-        <UserInfo
-          userName={userName}
-          userBio="this is just tutorial"
-          userImage="https://avatars.githubusercontent.com/u/83158335?v=4"
-        />
+        <UserInfo userName={userData?.username} userBio={userData?.bio} userImage={userData?.image} />
 
         <div className="container">
           <div className="row">
@@ -43,7 +37,7 @@ const ProFile: NextPage = () => {
                 </ul>
               </div>
 
-              {articleList?.articles.map((e: ArticleFeed) => {
+              {/* {articleList?.articles.map((e: ArticleFeed) => {
                 return (
                   <Feed
                     key={e.slug}
@@ -55,7 +49,7 @@ const ProFile: NextPage = () => {
                     slug={e.slug}
                   />
                 );
-              })}
+              })} */}
             </div>
           </div>
         </div>
