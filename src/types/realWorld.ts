@@ -41,7 +41,7 @@ export type UpdateInput = {
     password: string;
     username: string;
     bio?: string;
-    image?: string | '';
+    image?: string;
   };
 };
 

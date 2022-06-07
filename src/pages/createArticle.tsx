@@ -1,21 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { NextPage } from 'next';
 import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
-import { fetchArticle } from '../../network/request';
 import Head from '../components/MyHead/index';
-import { getItem } from '../../common/localStorage';
+import { useCreateArticle } from '../../hooks/realworld.hook';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  const [token, setToken] = useState<string>('');
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setToken(getItem('token') as string);
-    }
-  }, []);
-
   const [tags, setTags] = useState([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
@@ -23,20 +14,17 @@ const CreateArticle: NextPage = () => {
   const bodyRef = useRef<HTMLInputElement>(null);
   const tagListRef = useRef<HTMLInputElement>(null);
 
-  // const { isLoading, createArticle } = useCreateArticle();
+  const { isLoading, createArticle } = useCreateArticle();
 
   const submitCreateArticle = async () => {
-    const response = await fetchArticle(
-      {
-        article: {
-          title: titleRef.current?.value as string,
-          description: descriptionRef.current?.value as string,
-          body: bodyRef.current?.value as string,
-          tagList: tags,
-        },
+    const response = await createArticle({
+      article: {
+        title: titleRef.current?.value as string,
+        description: descriptionRef.current?.value as string,
+        body: bodyRef.current?.value as string,
+        tagList: tags,
       },
-      token
-    );
+    });
     console.log(response);
     router.push('/');
   };
@@ -58,8 +46,7 @@ const CreateArticle: NextPage = () => {
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
                     onClick={submitCreateArticle}
-                    // disabled={isLoading}
-                  >
+                    disabled={isLoading}>
                     Publish Article
                   </button>
                 </fieldset>

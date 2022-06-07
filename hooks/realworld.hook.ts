@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getLoginToken, fetchArticle, getArticleList, fetchSingleArticle } from '../network/request';
+import { fetchArticle, getArticleList, fetchSingleArticle } from '../network/request';
 import {
   LoginInputValue,
   SignUpInput,
@@ -10,21 +10,7 @@ import {
   UserType,
 } from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
-import { Auth } from '../network/request';
-
-export const useGetLoginToken = (token?: string | null) => {
-  const [name, setName] = useState<string | number>('');
-
-  useEffect(() => {
-    if (!token) return;
-    (async () => {
-      const response = await getLoginToken(token);
-      setName(response.username);
-    })();
-  }, []);
-
-  return { name };
-};
+import { Auth, Article } from '../network/request';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -82,13 +68,12 @@ export const useFetchProfile = () => {
 };
 
 export const useCreateArticle = () => {
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const createArticle = async (data: CreateArticleData, id: string) => {
-    setLoading(true);
-    const response = await fetchArticle(data, id);
-    setLoading(false);
-    console.log(response);
+  const createArticle = async (createvalue: CreateArticleData) => {
+    setIsLoading(true);
+    await Article.create(createvalue);
+    setIsLoading(false);
   };
 
   return { isLoading, createArticle };
