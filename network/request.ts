@@ -11,6 +11,23 @@ import {
 } from '../src/types/realWorld';
 
 export const Auth = {
+  current: async () => {
+    const user: any = getItem('user');
+    const parsedUser = JSON.parse(user);
+    const token = parsedUser.token;
+    console.log(`현재 유저 토큰 확인:`, token);
+    try {
+      const response = await api.get(`/user`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      return response;
+    } catch (error) {
+      return { error };
+    }
+  },
+
   login: async (inputValue: LoginInputValue) => {
     try {
       const { status, data } = await api.post(`/users/login`, inputValue);

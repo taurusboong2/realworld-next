@@ -21,7 +21,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href="">
+        <MyLink className="nav-link" href="/settings">
           <i className="ion-gear-a" />
           &nbsp;Settings
         </MyLink>
