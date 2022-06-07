@@ -35,6 +35,16 @@ export type SignUpInput = {
   };
 };
 
+export type UpdateInput = {
+  user: {
+    email: string;
+    password: string;
+    username: string;
+    bio?: string;
+    image?: string;
+  };
+};
+
 export type CreateArticleData = {
   article: {
     title: string;

@@ -7,7 +7,14 @@ import {
   getArticleList,
   fetchSingleArticle,
 } from '../network/request';
-import { LoginInputValue, SignUpInput, CreateArticleData, ArticleList, SingleArticle } from '../src/types/realWorld';
+import {
+  LoginInputValue,
+  SignUpInput,
+  CreateArticleData,
+  ArticleList,
+  SingleArticle,
+  UpdateInput,
+} from '../src/types/realWorld';
 import { getItem } from '../common/localStorage';
 import { Auth } from '../network/request';
 
@@ -49,6 +56,18 @@ export const useSignUp = () => {
   };
 
   return { createSignUp, isLoading };
+};
+
+export const useUpdate = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+
+  const updateUser = async (updateData: UpdateInput) => {
+    setLoading(true);
+    const { status, data, error } = await Auth.update(updateData);
+    setLoading(false);
+  };
+
+  return { isLoading, updateUser };
 };
 
 export const useCreateArticle = () => {

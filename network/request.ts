@@ -8,6 +8,7 @@ import {
   CreateArticleData,
   SignUpResponse,
   SingleArticle,
+  UpdateInput,
 } from '../src/types/realWorld';
 
 export const Auth = {
@@ -15,7 +16,6 @@ export const Auth = {
     const user: any = getItem('user');
     const parsedUser = JSON.parse(user);
     const token = parsedUser.token;
-    console.log(`현재 유저 토큰 확인:`, token);
     try {
       const response = await api.get(`/user`, {
         headers: {
@@ -46,6 +46,25 @@ export const Auth = {
       const { status, data } = await api.post(`/users`, signUpValue);
       if (status === 200) {
         confirm('회원가입이 성공적으로 완료되었습니다.');
+      }
+      return { status, data };
+    } catch (error) {
+      return { error };
+    }
+  },
+
+  update: async (updateData: UpdateInput) => {
+    const user: any = getItem('user');
+    const parsedUser = JSON.parse(user);
+    const token = parsedUser.token;
+    try {
+      const { status, data } = await api.put(`/user`, updateData, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+      if (status === 200) {
+        confirm('회원정보가 성공적으로 변경되었습니다.');
       }
       return { status, data };
     } catch (error) {
