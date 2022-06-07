@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
-import { useFetchSignUp } from '../../hooks/realworld.hook';
+import { useSignUp } from '../../hooks/realworld.hook';
 
 const SignUp: NextPage = () => {
   const router = useRouter();
@@ -12,17 +12,23 @@ const SignUp: NextPage = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
 
-  const { signUp, isLoading } = useFetchSignUp();
+  const { createSignUp, isLoading } = useSignUp();
 
   const signUpSubmit = async () => {
-    await signUp({
+    const { data, status, error } = await createSignUp({
       user: {
         username: userNameInputRef.current?.value as string,
         email: emailInputRef.current?.value as string,
-        password: passWordInputRef.current?.value as string | number,
+        password: passWordInputRef.current?.value as string,
       },
     });
-    router.push('/');
+    console.log(`send data: `, data);
+    console.log(status === 200 ? '회원가입 성공' : '회원가입 실패');
+    if (error) {
+      alert(error);
+    } else {
+      router.push('/');
+    }
   };
 
   return (

@@ -23,6 +23,18 @@ export const Auth = {
       return { error };
     }
   },
+
+  signUp: async (signUpValue: SignUpInput) => {
+    try {
+      const { status, data } = await api.post(`/users`, signUpValue);
+      if (status === 200) {
+        confirm('회원가입이 성공적으로 완료되었습니다.');
+      }
+      return { status, data };
+    } catch (error) {
+      return { error };
+    }
+  },
 };
 
 export const getLoginToken = async (id?: number | string) => {

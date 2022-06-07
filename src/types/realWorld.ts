@@ -31,7 +31,7 @@ export type SignUpInput = {
   user: {
     username: string;
     email: string;
-    password: string | number;
+    password: string;
   };
 };
 

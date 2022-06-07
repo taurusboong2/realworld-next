@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
 import { useGetLogin } from '../../hooks/realworld.hook';
 import Head from '../components/MyHead/index';
-import { Auth } from '../../network/request';
 
 const Login: NextPage = () => {
   const router = useRouter();

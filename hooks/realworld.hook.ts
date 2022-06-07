@@ -38,19 +38,17 @@ export const useGetLogin = () => {
   return { isLoading, fetchLogin };
 };
 
-export const useFetchSignUp = () => {
+export const useSignUp = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const signUp = async (data: SignUpInput) => {
+  const createSignUp = async (signUpValue: SignUpInput) => {
     setLoading(true);
-    const reponseStatus = await fetchSignUp(data).status;
+    const { status, data, error } = await Auth.signUp(signUpValue);
     setLoading(false);
-    if (reponseStatus === 200) {
-      confirm('회원가입이 성공적으로 진행되었습니다.');
-    }
+    return { status, data, error };
   };
 
-  return { signUp, isLoading };
+  return { createSignUp, isLoading };
 };
 
 export const useCreateArticle = () => {
