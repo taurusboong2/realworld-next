@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useGetSingleArticle } from '../../../hooks/realworld.hook';
-import ArticleBanner from '../../components/Article/ArticleBanner';
+import ArticleBanner from '../../components/articles/Banner';
 import ArticleContainer from '../../components/Article/ArticleContainer';
-import ArticleAction from '../../components/Article/ArticleAction';
+import ArticleAction from '../../components/articles/Action';
 
 const Slug = () => {
   const router = useRouter();
@@ -11,7 +11,7 @@ const Slug = () => {
 
   const { isLoading, articleData } = useGetSingleArticle(slug as string);
 
-  console.log(articleData?.article);
+  console.log(articleData);
   if (!articleData) return <>로딩중..</>;
   if (isLoading) return <>로딩중...</>;
   return (

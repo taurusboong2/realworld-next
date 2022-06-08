@@ -5,8 +5,7 @@ import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
 import { ArticleFeed } from '../types/realWorld';
-import { useFetchProfile } from '../../hooks/realworld.hook';
-import { useGetArticleList } from '../../hooks/realworld.hook';
+import { useFetchProfile, useGetArticleList } from '../../hooks/realworld.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();

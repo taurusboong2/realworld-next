@@ -11,6 +11,7 @@ import {
   UpdataArticle,
 } from '../src/types/realWorld';
 import { Auth, Article } from '../network/request';
+import { login, fetchCurrentUser } from '../network/auth';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);

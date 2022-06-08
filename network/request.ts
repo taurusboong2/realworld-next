@@ -206,6 +206,8 @@ export const getArticleList = async (token?: string) => {
 
 export const fetchSingleArticle = async (slug: string) => {
   const response = await api.get<SingleArticle>(`articles/${slug}`);
+
+  console.log('response : ', response.data);
   const data = response.data;
   return data;
 };
