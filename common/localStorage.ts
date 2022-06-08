@@ -1,5 +1,8 @@
 export function getItem(key: string) {
-  const rawValue = localStorage.getItem(key);
+  let rawValue;
+  if (typeof window !== 'undefined') {
+    rawValue = localStorage.getItem(key);
+  }
   if (!rawValue) return null;
   try {
     return rawValue;

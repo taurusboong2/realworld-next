@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchArticle, getArticleList, fetchSingleArticle } from '../network/request';
+import { fetchSingleArticle } from '../network/request';
 import {
   LoginInputValue,
   SignUpInput,
@@ -10,7 +10,6 @@ import {
   UserType,
   UpdataArticle,
 } from '../src/types/realWorld';
-import { getItem } from '../common/localStorage';
 import { Auth, Article } from '../network/request';
 
 export const useGetLogin = () => {
