@@ -14,7 +14,7 @@ export const Article = {
         },
       });
       if (status === 200) {
-        confirm('게시글이 성공적으로 생성되었습니다.');
+        alert('게시글이 성공적으로 생성되었습니다.');
       }
     } catch (error) {
       return { error };
@@ -63,7 +63,7 @@ export const Article = {
         },
       });
       if (status === 200) {
-        confirm('게시글이 성공적으로 수정되었습니다.');
+        alert('게시글이 성공적으로 수정되었습니다.');
       }
       return { status, data };
     } catch (error) {

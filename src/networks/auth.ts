@@ -24,7 +24,7 @@ export const Auth = {
       const { status, data } = await api.post(`/users/login`, inputValue);
       if (status === 200) {
         setItem('user', JSON.stringify(data.user));
-        confirm('로그인이 성공하셨습니다.');
+        alert('로그인이 성공하셨습니다.');
       }
       return { status, data };
     } catch (error) {
@@ -36,7 +36,7 @@ export const Auth = {
     try {
       const { status, data } = await api.post(`/users`, signUpValue);
       if (status === 200) {
-        confirm('회원가입이 성공적으로 완료되었습니다.');
+        alert('회원가입이 성공적으로 완료되었습니다.');
       }
       return { status, data };
     } catch (error) {
@@ -55,7 +55,7 @@ export const Auth = {
         },
       });
       if (status === 200) {
-        confirm('회원정보가 성공적으로 변경되었습니다.');
+        alert('회원정보가 성공적으로 변경되었습니다.');
         removeItem('user');
         setItem('user', JSON.stringify(data.user));
       }
