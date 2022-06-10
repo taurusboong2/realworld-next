@@ -16,7 +16,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href="/createArticle">
+        <MyLink className="nav-link" href="/editor">
           <i className="ion-compose" />
           &nbsp;New Article
         </MyLink>
@@ -28,7 +28,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
         </MyLink>
       </li>
       <li className="nav-item">
-        <MyLink className="nav-link" href="/proFile">
+        <MyLink className="nav-link" href="/profile">
           {name}
         </MyLink>
       </li>
@@ -78,7 +78,7 @@ const NavBar: FC<Props> = () => {
                   </MyLink>
                 </li>
                 <li className="nav-item">
-                  <MyLink className="nav-link" href="/signUp">
+                  <MyLink className="nav-link" href="/register">
                     Sign Up
                   </MyLink>
                 </li>
