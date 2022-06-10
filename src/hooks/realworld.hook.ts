@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchSingleArticle } from '../network/request';
+import { fetchSingleArticle } from '../networks/request';
 import {
   LoginInputValue,
   SignUpInput,
@@ -9,8 +9,8 @@ import {
   UpdateInput,
   UserType,
   UpdataArticle,
-} from '../src/types/realWorld';
-import { Auth, Article } from '../network/request';
+} from '../../src/types/realWorld';
+import { Auth, Article } from '../networks/request';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingsForm from '../components/settings/settingForm';
 import { useRouter } from 'next/router';
-import { removeItem, getItem } from '../../common/localStorage';
+import { removeItem, getItem } from '../commons/localStorage';
 
 const Settings = () => {
   const router = useRouter();

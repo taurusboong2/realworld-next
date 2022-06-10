@@ -1,8 +1,7 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import MyLink from './MyLink';
-import { getItem } from '../../../common/localStorage';
-import { loggedInContext } from '../../../common/ContextProvider';
-import router, { useRouter } from 'next/router';
+import { getItem } from '../../commons/localStorage';
+import { useRouter } from 'next/router';
 
 type Props = {
   name?: string | number | string[];
