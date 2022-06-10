@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
-import { useCreateArticle } from '../../hooks/realworld.hook';
+import { useCreateArticle } from '../hooks/article.hook';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();

@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
-import { useSignUp } from '../../hooks/realworld.hook';
+import { useSignUp } from '../hooks/auth.hook';
 
 const SignUp: NextPage = () => {
   const router = useRouter();

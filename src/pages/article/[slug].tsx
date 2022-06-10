@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
-import { useGetSingleArticle } from '../../../hooks/realworld.hook';
+import { useGetSingleArticle } from '../../hooks/article.hook';
 import ArticleBanner from '../../components/Article/ArticleBanner';
 import ArticleContainer from '../../components/Article/ArticleContainer';
 import ArticleAction from '../../components/Article/ArticleAction';

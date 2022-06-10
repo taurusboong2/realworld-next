@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
-import { useGetLogin } from '../../hooks/realworld.hook';
+import { useGetLogin } from '../hooks/auth.hook';
 import Head from '../components/MyHead/index';
 
 const Login: NextPage = () => {

@@ -1,6 +1,6 @@
 import React, { FC, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useUpdate } from '../../../hooks/realworld.hook';
+import { useUpdate } from '../../hooks/auth.hook';
 
 const SettingsForm: FC = (props, ref) => {
   const router = useRouter();

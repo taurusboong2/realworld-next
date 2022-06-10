@@ -3,8 +3,8 @@ import { NextPage } from 'next';
 import Head from '../../components/MyHead/index';
 import ArticleInput from '../../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
-import { useUpdateArticle } from '../../../hooks/realworld.hook';
-import { fetchSingleArticle } from '../../../network/request';
+import { useUpdateArticle } from '../../hooks/article.hook';
+import { fetchSingleArticle } from '../../networks/article';
 
 const Editor: NextPage = () => {
   const router = useRouter();

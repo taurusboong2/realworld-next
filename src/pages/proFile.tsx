@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/Home/Feed';
-import { ArticleFeed } from '../types/realWorld';
-import { useFetchProfile } from '../../hooks/realworld.hook';
-import { useGetArticleList } from '../../hooks/realworld.hook';
+import { ArticleFeed } from '../types/article';
+import { useFetchProfile } from '../hooks/auth.hook';
+import { useGetArticleList } from '../hooks/article.hook';
 
 const ProFile: NextPage = () => {
   const router = useRouter();

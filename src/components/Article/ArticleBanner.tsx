@@ -1,6 +1,6 @@
 import React from 'react';
 import MyLink from '../NavBar/MyLink';
-import { Article } from '../../../network/request';
+import { Article } from '../../networks/article';
 import { useRouter } from 'next/router';
 
 const ArticleBanner = ({ article }) => {
