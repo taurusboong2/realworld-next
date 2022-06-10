@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/realWorld';
-import { Auth } from '../networks/request';
+import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/auth';
+import { Auth } from '../networks/auth';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fetchSingleArticle } from '../networks/request';
-import { CreateArticleData, ArticleList, SingleArticle, UpdataArticle } from '../../src/types/realWorld';
-import { Article } from '../networks/request';
+import { fetchSingleArticle } from '../networks/article';
+import { CreateArticleData, ArticleList, SingleArticle, UpdataArticle } from '../../src/types/article';
+import { Article } from '../networks/article';
 
 export const useCreateArticle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
