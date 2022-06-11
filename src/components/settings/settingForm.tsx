@@ -1,9 +1,12 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUpdate } from '../../hooks/auth.hook';
+import { getItem } from '../../commons/localStorage';
+import { UserType } from '../../types/article';
 
-const SettingsForm: FC = (props, ref) => {
+const SettingsForm: FC = () => {
   const router = useRouter();
+  const [userInfo, setUserInfo] = useState<UserType | Record<string, unknown>>({});
 
   const { isLoading, updateUser } = useUpdate();
 
@@ -12,6 +15,19 @@ const SettingsForm: FC = (props, ref) => {
   const bioInput = useRef<HTMLTextAreaElement>(null);
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const user = getItem(`user`);
+    if (user) {
+      setUserInfo(JSON.parse(user));
+      console.log(userInfo);
+      if (typeof window !== 'undefined') {
+        imageInput.current!.value = userInfo!.image as string;
+        usernameInput.current!.value = userInfo!.username as string;
+        emailInput.current!.value = userInfo!.email as string;
+      }
+    }
+  }, [usernameInput.current]);
 
   const submitUpdate = async () => {
     const { data, status, error } = await updateUser({
