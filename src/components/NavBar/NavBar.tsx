@@ -38,8 +38,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
-  const { user, setUser } = useContext(UserContext);
-  console.log(user);
+  const { user } = useContext(UserContext);
   const router = useRouter();
   const [username, setUsername] = useState<string | undefined>();
 
@@ -64,7 +63,7 @@ const NavBar: FC<Props> = () => {
             conduit
           </MyLink>
           <ul className="nav navbar-nav pull-xs-right">
-            {username ? (
+            {user ? (
               <>
                 <UserNavbar name={username} />
               </>

@@ -1,12 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
 import { useGetLogin } from '../hooks/auth.hook';
 import Head from '../components/MyHead/index';
+import { UserContext } from '../contexts/userContext';
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const { setUser } = useContext(UserContext);
 
   const { isLoading, fetchLogin } = useGetLogin();
 
@@ -20,6 +22,7 @@ const Login: NextPage = () => {
         password: passWordInputRef.current?.value as string,
       },
     });
+    setUser(true);
     if (error) {
       alert(error);
     } else {

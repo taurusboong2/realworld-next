@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import { SetStateAction, Dispatch } from 'react';
 
 type User = {
-  user: boolean | null;
-  setUser: Dispatch<SetStateAction<boolean | null>>;
+  user: boolean;
+  setUser: Dispatch<SetStateAction<boolean>>;
 };
 export const UserContext = createContext<User | null>(null);
