@@ -11,6 +11,7 @@ type Props = {
 const ArticleBanner: FC<Props> = ({ article, submitDelete }) => {
   const { user, setUser } = useContext(UserContext);
 
+  if (!article) return;
   return (
     <>
       <div className="banner">

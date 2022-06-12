@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ArticleContainer = ({ article }) => {
+  if (!article) return;
   return (
     <>
       <div className="row article-content">

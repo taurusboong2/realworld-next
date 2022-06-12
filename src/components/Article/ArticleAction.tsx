@@ -11,6 +11,7 @@ type Props = {
 const ArticleAction: FC<Props> = ({ article, submitDelete }) => {
   const { user } = useContext(UserContext);
 
+  if (!article) return;
   return (
     <>
       <div className="article-actions">

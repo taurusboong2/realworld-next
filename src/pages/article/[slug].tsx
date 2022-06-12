@@ -22,22 +22,22 @@ const Slug = () => {
     router.push(`/`);
   };
 
-  // if (!articleData && router.isReady) {
-  //   alert('유요하지 않은 페이지입니다!');
-  //   router.push('/');
-  // }
+  if (typeof articleData === null) {
+    alert('유효하지 않은 페이지입니다.');
+    router.push('/');
+  }
   if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <div className="article-page">
-        <ArticleBanner article={articleData!} submitDelete={submitDelete} />
+        <ArticleBanner article={articleData} submitDelete={submitDelete} />
 
         <div className="container page">
-          <ArticleContainer article={articleData!} />
+          <ArticleContainer article={articleData} />
 
           <hr />
 
-          <ArticleAction article={articleData!} submitDelete={submitDelete} />
+          <ArticleAction article={articleData} submitDelete={submitDelete} />
 
           <div className="row">
             <div className="col-xs-12 col-md-8 offset-md-2" />

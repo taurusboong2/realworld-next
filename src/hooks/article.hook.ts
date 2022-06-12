@@ -52,7 +52,10 @@ export const useGetSingleArticle = (slug: string) => {
     (async () => {
       setLoading(true);
       const response = await fetchSingleArticle(slug as string);
-      if (!response) return;
+      if (!response.article.author) {
+        setArticleData(null);
+        return;
+      }
       setArticleData(response.article);
       setLoading(false);
     })();
