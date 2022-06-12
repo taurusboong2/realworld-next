@@ -6,4 +6,4 @@ type User = {
   setUser: Dispatch<SetStateAction<boolean>>;
 };
 
-export const UserContext = createContext<User | null>(null);
+export const UserContext = createContext<User | boolean>(false);

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import MyLink from '../components/NavBar/MyLink';
 import { useGetLogin } from '../hooks/auth.hook';
 import Head from '../components/MyHead/index';
-import { UserContext } from '../contexts/userContext';
+import { UserContext } from '../contexts/UserContext';
 
 const Login: NextPage = () => {
   const router = useRouter();

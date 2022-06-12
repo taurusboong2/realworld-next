@@ -1,21 +1,30 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import MyLink from '../NavBar/MyLink';
-import { Article } from '../../networks/article';
-import { useRouter } from 'next/router';
 import { UserContext } from '../../contexts/UserContext';
 
-const ArticleBanner = ({ article }) => {
-  const router = useRouter();
-  const slug = router.query.slug;
-  const { user, setUser } = useContext(UserContext);
-  console.log(user);
-
-  const submitDelete = async () => {
-    const result = confirm('정말로 게시글을 삭제하시겠습니까?');
-    if (!result) return;
-    await Article.delete(slug as string);
-    router.push(`/`);
+type Props = {
+  article: {
+    slug: string;
+    title: string;
+    description: string;
+    body: string;
+    tagList: string | string[];
+    createdAt: string;
+    updatedAt: string;
+    favorited: boolean;
+    favoritesCount: number;
+    author: {
+      username: string;
+      bio: string;
+      image: string;
+      following: boolean;
+    };
   };
+  submitDelete: React.MouseEventHandler<HTMLButtonElement> | undefined;
+};
+
+const ArticleBanner: FC<Props> = ({ article, submitDelete }) => {
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <>
