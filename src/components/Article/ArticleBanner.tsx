@@ -1,25 +1,10 @@
 import React, { FC, useContext } from 'react';
 import MyLink from '../NavBar/MyLink';
 import { UserContext } from '../../contexts/UserContext';
+import { PropArticle } from '../../types/article';
 
 type Props = {
-  article: {
-    slug: string;
-    title: string;
-    description: string;
-    body: string;
-    tagList: string | string[];
-    createdAt: string;
-    updatedAt: string;
-    favorited: boolean;
-    favoritesCount: number;
-    author: {
-      username: string;
-      bio: string;
-      image: string;
-      following: boolean;
-    };
-  };
+  article: PropArticle;
   submitDelete: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
