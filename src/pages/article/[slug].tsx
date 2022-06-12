@@ -22,11 +22,17 @@ const Slug = () => {
     router.push(`/`);
   };
 
-  if (typeof articleData === null) {
+  if (
+    articleData?.author.constructor === Object &&
+    Object.keys(articleData.author).length === 0 &&
+    typeof window !== 'undefined'
+  ) {
     alert('유효하지 않은 페이지입니다.');
     router.push('/');
   }
+
   if (isLoading) return <LoadingSpinner />;
+
   return (
     <>
       <div className="article-page">

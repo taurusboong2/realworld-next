@@ -7,7 +7,7 @@ const ArticleContainer = ({ article }) => {
       <div className="row article-content">
         <div className="col-md-12">
           <p>{article.description}</p>
-          <p>{article.body}</p>
+          <p>body: {article.body}</p>
         </div>
       </div>
     </>
