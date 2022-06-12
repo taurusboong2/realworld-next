@@ -4,8 +4,8 @@ import { UserContext } from '../../contexts/UserContext';
 import { PropArticle } from '../../types/article';
 
 type Props = {
-  article: PropArticle;
   submitDelete: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  article?: PropArticle | null;
 };
 
 const ArticleBanner: FC<Props> = ({ article, submitDelete }) => {
@@ -31,7 +31,7 @@ const ArticleBanner: FC<Props> = ({ article, submitDelete }) => {
               <>
                 <MyLink
                   href="/editor/[pid]"
-                  as={`/editor/${article.slug}`}
+                  as={`/editor/${article?.slug}`}
                   className="btn btn-outline-secondary btn-sm">
                   <i className="ion-edit" /> Edit Article
                 </MyLink>

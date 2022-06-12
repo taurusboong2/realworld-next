@@ -4,7 +4,7 @@ import MyLink from '../NavBar/MyLink';
 import { PropArticle } from '../../types/article';
 
 type Props = {
-  article: PropArticle;
+  article: PropArticle | null;
   submitDelete: React.MouseEventHandler<HTMLButtonElement> | undefined;
 };
 
@@ -16,11 +16,11 @@ const ArticleAction: FC<Props> = ({ article, submitDelete }) => {
       <div className="article-actions">
         <div className="article-meta">
           <a href="profile.html">
-            <img src={article.author.image} />
+            <img src={article!.author.image} />
           </a>
           <div className="info">
             <a href="" className="author">
-              {article.author.username}
+              {article!.author.username}
             </a>
             <span className="date"> {new Date(article.createdAt).toDateString()}</span>
           </div>

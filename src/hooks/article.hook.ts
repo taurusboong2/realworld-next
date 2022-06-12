@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchSingleArticle } from '../networks/article';
-import { CreateArticleData, ArticleList, SingleArticle, UpdataArticle } from '../../src/types/article';
+import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
 import { Article } from '../networks/article';
 
 export const useCreateArticle = () => {
@@ -45,13 +45,14 @@ export const useUpdateArticle = () => {
 
 export const useGetSingleArticle = (slug: string) => {
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [articleData, setArticleData] = useState<SingleArticle | null>(null);
+  const [articleData, setArticleData] = useState<PropArticle | null>(null);
 
   useEffect(() => {
     if (!slug) return;
     (async () => {
       setLoading(true);
       const response = await fetchSingleArticle(slug as string);
+      if (!response) return;
       setArticleData(response.article);
       setLoading(false);
     })();

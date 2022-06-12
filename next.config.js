@@ -7,11 +7,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
-        source: '/pagination/:page*',
+        source: '/article/:slug',
         destination: '/',
+        permanent: true,
       },
     ];
   },
