@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import SettingsForm from '../components/settings/settingForm';
 import { useRouter } from 'next/router';
 import { removeItem, getItem } from '../commons/localStorage';
-import { UserContext } from '../contexts/userContext';
+import { UserContext } from '../contexts/UserContext';
 
 const Settings = () => {
   const router = useRouter();

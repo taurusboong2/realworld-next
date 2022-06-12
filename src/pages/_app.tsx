@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/common/Layout';
-import { UserContext } from '../contexts/userContext';
+import { UserContext } from '../contexts/UserContext';
 import { getItem } from '../commons/localStorage';
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import MyLink from './MyLink';
 import { getItem } from '../../commons/localStorage';
 import { useRouter } from 'next/router';
-import { UserContext } from '../../contexts/userContext';
+import { UserContext } from '../../contexts/UserContext';
 
 type Props = {
   name?: string | number | string[];
@@ -38,7 +38,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const router = useRouter();
   const [username, setUsername] = useState<string | undefined>();
 

@@ -11,7 +11,6 @@ const Slug = () => {
 
   const { isLoading, articleData } = useGetSingleArticle(slug as string);
 
-  console.log(articleData?.article);
   if (!articleData) return <>로딩중..</>;
   if (isLoading) return <>로딩중...</>;
   return (

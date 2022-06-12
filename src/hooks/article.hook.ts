@@ -22,6 +22,9 @@ export const useGetArticleList = () => {
     (async () => {
       const { data, error } = await Article.list();
       setArticleList(data);
+      if (error) {
+        console.log(error);
+      }
     })();
   }, []);
 
