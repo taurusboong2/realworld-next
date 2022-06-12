@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useGetSingleArticle } from '../../hooks/article.hook';
 import ArticleBanner from '../../components/Article/ArticleBanner';
@@ -13,7 +13,7 @@ const Slug = () => {
 
   const { isLoading, articleData } = useGetSingleArticle(slug as string);
 
-  console.log(articleData);
+  console.log(`아티클데이타: `, articleData);
 
   const submitDelete = async () => {
     const result = confirm('정말로 게시글을 삭제하시겠습니까?');
@@ -22,14 +22,12 @@ const Slug = () => {
     router.push(`/`);
   };
 
-  if (
-    articleData?.author.constructor === Object &&
-    Object.keys(articleData.author).length === 0 &&
-    typeof window !== 'undefined'
-  ) {
-    alert('유효하지 않은 페이지입니다.');
-    router.push('/');
-  }
+  useEffect(() => {
+    if (router.isReady && articleData?.author.constructor === Object && Object.keys(articleData.author).length === 0) {
+      alert('유효하지 않은 페이지입니다!');
+      router.push('/');
+    }
+  }, [articleData, router.query]);
 
   if (isLoading) return <LoadingSpinner />;
 

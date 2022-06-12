@@ -54,7 +54,7 @@ export const useGetSingleArticle = (slug: string) => {
       const response = await fetchSingleArticle(slug as string);
       if (response.article.constructor === Object && Object.keys(response.article).length === 1) {
         setLoading(false);
-        return setArticleData(null);
+        return setArticleData(response.article);
       }
       setArticleData(response.article);
       setLoading(false);
