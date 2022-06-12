@@ -1,7 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import MyLink from './MyLink';
 import { getItem } from '../../commons/localStorage';
 import { useRouter } from 'next/router';
+import { UserContext } from '../../contexts/userContext';
 
 type Props = {
   name?: string | number | string[];
@@ -37,6 +38,8 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
+  const { user, setUser } = useContext(UserContext);
+  console.log(user);
   const router = useRouter();
   const [username, setUsername] = useState<string | undefined>();
 
