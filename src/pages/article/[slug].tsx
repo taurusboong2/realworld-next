@@ -6,6 +6,7 @@ import ArticleContainer from '../../components/Article/ArticleContainer';
 import ArticleAction from '../../components/Article/ArticleAction';
 import { Article } from '../../networks/article';
 import LoadingSpinner from '../../commons/LoadingSpinner';
+import MyHead from '../../components/MyHead';
 
 const Slug = () => {
   const router = useRouter();
@@ -23,16 +24,21 @@ const Slug = () => {
   };
 
   useEffect(() => {
-    if (router.isReady && articleData?.author.constructor === Object && Object.keys(articleData.author).length === 0) {
+    if (
+      articleData?.author.constructor === Object &&
+      Object.keys(articleData.author).length === 0 &&
+      typeof window !== 'undefined'
+    ) {
       alert('유효하지 않은 페이지입니다!');
       router.push('/');
     }
-  }, [articleData, router.query]);
+  }, [articleData, router.query.slug]);
 
   if (isLoading) return <LoadingSpinner />;
 
   return (
     <>
+      <MyHead title="article" />
       <div className="article-page">
         <ArticleBanner article={articleData} submitDelete={submitDelete} />
 
