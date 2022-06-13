@@ -3,10 +3,10 @@ import React, { FC, useRef } from 'react';
 type Props = {
   tagList: string[] | [];
   pushTag: (e: string) => void;
-  setTagList: React.Dispatch<React.SetStateAction<[] | string[]>>;
+  deleteTags: (e: any) => void;
 };
 
-const TagInput: FC<Props> = ({ tagList, pushTag, setTagList }) => {
+const TagInput: FC<Props> = ({ tagList, pushTag, deleteTags }) => {
   const tagRef = useRef<HTMLInputElement>(null);
 
   const handleTagInputkeyDown = e => {
@@ -17,11 +17,9 @@ const TagInput: FC<Props> = ({ tagList, pushTag, setTagList }) => {
     }
   };
 
-  const deleteTags = (index: number): void => {
-    setTagList(tagList.splice(index));
+  const handleremoveTags = index => {
+    deleteTags(index);
   };
-
-  console.log(tagList);
 
   return (
     <>
@@ -35,9 +33,9 @@ const TagInput: FC<Props> = ({ tagList, pushTag, setTagList }) => {
         />
 
         <div className="tag-list">
-          {tagList.map((tag, i) => (
-            <span className="tag-default tag-pill" key={i}>
-              <i className="ion-close-round" key={i} onClick={() => deleteTags(i)} />
+          {tagList.map((tag, index) => (
+            <span className="tag-default tag-pill" key={index}>
+              <i className="ion-close-round" onClick={() => handleremoveTags(tag)} />
               {tag}
             </span>
           ))}

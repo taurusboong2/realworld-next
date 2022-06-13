@@ -34,6 +34,10 @@ const CreateArticle: NextPage = () => {
     setTagList([...tagList, e]);
   };
 
+  const deleteTags = (e): void => {
+    setTagList(tagList.filter(tags => tags !== e));
+  };
+
   return (
     <>
       <Head title="Create" />
@@ -46,7 +50,7 @@ const CreateArticle: NextPage = () => {
                   <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
                   <ArticleInput input={false} placeholder="내용을 입력하세요. *필수" ref={descriptionRef} />
                   <ArticleInput input={true} placeholder="바디를 입력하세요. *필수" ref={bodyRef} />
-                  <TagInput tagList={tagList} pushTag={pushTags} />
+                  <TagInput tagList={tagList} pushTag={pushTags} setTagList={setTagList} deleteTags={deleteTags} />
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
