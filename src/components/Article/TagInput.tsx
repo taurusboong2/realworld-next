@@ -13,13 +13,15 @@ const TagInput: FC<Props> = ({ tagList, pushTag, setTagList }) => {
     switch (e.keyCode) {
       case 13:
         pushTag(tagRef.current?.value as string);
-        tagRef.current.value = '';
+        tagRef.current!.value = '';
     }
   };
 
-  const deleteTags = (i: number) => {
-    setTagList(tagList.filter(e => e.i !== i));
+  const deleteTags = (index: number): void => {
+    setTagList(tagList.splice(index));
   };
+
+  console.log(tagList);
 
   return (
     <>
@@ -35,7 +37,7 @@ const TagInput: FC<Props> = ({ tagList, pushTag, setTagList }) => {
         <div className="tag-list">
           {tagList.map((tag, i) => (
             <span className="tag-default tag-pill" key={i}>
-              <i className="ion-close-round" onClick={() => deleteTags(i)} />
+              <i className="ion-close-round" key={i} onClick={() => deleteTags(i)} />
               {tag}
             </span>
           ))}
