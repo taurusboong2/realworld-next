@@ -5,6 +5,7 @@ import ArticleInput from '../../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
 import { useUpdateArticle } from '../../hooks/article.hook';
 import { fetchSingleArticle } from '../../networks/article';
+import TagInput from '../../components/Article/TagInput';
 
 const Editor: NextPage = () => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const Editor: NextPage = () => {
                   <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
                   <ArticleInput input={false} placeholder="내용을 입력하세요. *생략 가능" ref={descriptionRef} />
                   <ArticleInput input={true} placeholder="바디를 입력하세요. *생략가능" ref={bodyRef} />
-                  <ArticleInput input={true} placeholder="태그를 입력하세요. *생략 가능" ref={tagListRef} />
+                  <TagInput />
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"

@@ -4,10 +4,11 @@ import ArticleInput from '../components/Input/ArticleInput';
 import { useRouter } from 'next/router';
 import Head from '../components/MyHead/index';
 import { useCreateArticle } from '../hooks/article.hook';
+import TagInput from '../components/Article/TagInput';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
-  const [tags, setTags] = useState([]);
+  const [tagList, setTagList] = useState<[] | string[]>([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -22,11 +23,15 @@ const CreateArticle: NextPage = () => {
         title: titleRef.current?.value as string,
         description: descriptionRef.current?.value as string,
         body: bodyRef.current?.value as string,
-        tagList: tags,
+        tagList: tagList,
       },
     });
     console.log(response);
     router.push('/');
+  };
+
+  const pushTags = (e: string): void => {
+    setTagList([...tagList, e]);
   };
 
   return (
@@ -41,7 +46,7 @@ const CreateArticle: NextPage = () => {
                   <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
                   <ArticleInput input={false} placeholder="내용을 입력하세요. *필수" ref={descriptionRef} />
                   <ArticleInput input={true} placeholder="바디를 입력하세요. *필수" ref={bodyRef} />
-                  <ArticleInput input={true} placeholder="태그를 입력하세요. *생략 가능" ref={tagListRef} />
+                  <TagInput tagList={tagList} pushTag={pushTags} />
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
