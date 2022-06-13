@@ -37,21 +37,6 @@ export const Article = {
     }
   },
 
-  delete: async (slug: string) => {
-    const user: any = getItem('user');
-    const parsedUser = JSON.parse(user);
-    const token = parsedUser.token;
-    try {
-      await api.delete(`/articles/${slug}`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-    } catch (error) {
-      return { error };
-    }
-  },
-
   update: async (slug: string, updateValue: UpdataArticle) => {
     const user: any = getItem('user');
     const parsedUser = JSON.parse(user);
@@ -70,6 +55,21 @@ export const Article = {
       return { error };
     }
   },
+};
+
+export const removeArticle = async (slug: string) => {
+  const user: any = getItem('user');
+  const parsedUser = JSON.parse(user);
+  const token = parsedUser.token;
+  try {
+    await api.delete(`/articles/${slug}`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+  } catch (error) {
+    return { error };
+  }
 };
 
 export const fetchArticle = async (userdata: CreateArticleData, token: string) => {

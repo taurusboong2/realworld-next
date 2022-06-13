@@ -4,9 +4,9 @@ import { useGetSingleArticle } from '../../hooks/article.hook';
 import ArticleBanner from '../../components/article/Banner';
 import ArticleContainer from '../../components/article/Container';
 import ArticleAction from '../../components/article/Action';
-import { Article } from '../../networks/article';
 import LoadingSpinner from '../../commons/LoadingSpinner';
 import MyHead from '../../components/myHead';
+import { removeArticle } from '../../networks/article';
 
 const Slug = () => {
   const router = useRouter();
@@ -14,12 +14,10 @@ const Slug = () => {
 
   const { isLoading, articleData } = useGetSingleArticle(slug as string);
 
-  console.log(`아티클데이타: `, articleData);
-
   const submitDelete = async () => {
     const result = confirm('정말로 게시글을 삭제하시겠습니까?');
     if (!result) return;
-    await Article.delete(slug as string);
+    await removeArticle(slug as string);
     router.push(`/`);
   };
 

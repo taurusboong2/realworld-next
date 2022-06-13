@@ -3,22 +3,6 @@ import { getItem, removeItem, setItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput } from '../../src/types/auth';
 
 export const Auth = {
-  current: async () => {
-    const user: any = getItem('user');
-    const parsedUser = JSON.parse(user);
-    const token = parsedUser.token;
-    try {
-      const response = await api.get(`/user`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      return response;
-    } catch (error) {
-      return { error };
-    }
-  },
-
   login: async (inputValue: LoginInputValue) => {
     try {
       const { status, data } = await api.post(`/users/login`, inputValue);
