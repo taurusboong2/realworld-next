@@ -1,9 +1,9 @@
 import React from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import Head from '../components/MyHead/index';
+import Head from '../components/myHead/index';
 import UserInfo from '../components/profile/UserInfo';
-import Feed from '../components/Home/Feed';
+import Feed from '../components/home/Feed';
 import { ArticleFeed } from '../types/article';
 import { useFetchProfile } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';

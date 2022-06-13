@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import MyLink from '../components/NavBar/MyLink';
+import MyLink from '../components/navBar/MyLink';
 import { useGetLogin } from '../hooks/auth.hook';
-import Head from '../components/MyHead/index';
+import Head from '../components/myHead/index';
 import { UserContext } from '../contexts/UserContext';
 
 const Login: NextPage = () => {

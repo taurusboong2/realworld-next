@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useGetSingleArticle } from '../../hooks/article.hook';
-import ArticleBanner from '../../components/Article/ArticleBanner';
-import ArticleContainer from '../../components/Article/ArticleContainer';
-import ArticleAction from '../../components/Article/ArticleAction';
+import ArticleBanner from '../../components/article/Banner';
+import ArticleContainer from '../../components/article/Container';
+import ArticleAction from '../../components/article/Action';
 import { Article } from '../../networks/article';
 import LoadingSpinner from '../../commons/LoadingSpinner';
-import MyHead from '../../components/MyHead';
+import MyHead from '../../components/myHead';
 
 const Slug = () => {
   const router = useRouter();

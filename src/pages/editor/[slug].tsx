@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { NextPage } from 'next';
-import Head from '../../components/MyHead/index';
-import ArticleInput from '../../components/Input/ArticleInput';
+import Head from '../../components/myHead/index';
+import ArticleInput from '../../components/common/Input';
 import { useRouter } from 'next/router';
 import { useUpdateArticle } from '../../hooks/article.hook';
 import { fetchSingleArticle } from '../../networks/article';
-import TagInput from '../../components/Article/TagInput';
+import TagInput from '../../components/article/TagInput';
 
 const Editor: NextPage = () => {
   const router = useRouter();

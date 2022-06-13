@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { NextPage } from 'next';
-import ArticleInput from '../components/Input/ArticleInput';
+import ArticleInput from '../components/common/Input';
 import { useRouter } from 'next/router';
-import Head from '../components/MyHead/index';
+import Head from '../components/myHead/index';
 import { useCreateArticle } from '../hooks/article.hook';
-import TagInput from '../components/Article/TagInput';
+import TagInput from '../components/article/TagInput';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
