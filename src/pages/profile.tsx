@@ -4,21 +4,21 @@ import Head from '../components/myHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/home/Feed';
 import { ArticleFeed } from '../types/article';
-import { useFetchProfile } from '../hooks/auth.hook';
+import { useUserContext } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';
 import WithLogin from '../components/Auth/WithLogin';
 
 const Profile: NextPage = () => {
-  const { isLoading, userData } = useFetchProfile();
+  const { loadingStatus, user } = useUserContext();
   const { articleList } = useGetArticleList();
 
-  if (isLoading) return <>로딩중..</>;
+  if (loadingStatus === 'loading') return <>로딩중..</>;
 
   return (
     <WithLogin>
       <Head title="profile" />
       <div className="profile-page">
-        <UserInfo userName={userData?.username} userBio={userData?.bio} userImage={userData?.image} />
+        <UserInfo userName={user?.username} userBio={user?.bio} userImage={user?.image || ''} />
 
         <div className="container">
           <div className="row">
@@ -48,7 +48,7 @@ const Profile: NextPage = () => {
                     title={e.title}
                     description={e.description}
                     slug={e.slug}
-                    image={userData?.image}
+                    image={user?.image || ''}
                   />
                 );
               })}

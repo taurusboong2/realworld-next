@@ -1,12 +1,12 @@
 import { api } from '../config/api';
-import { getItem, removeItem, setItem } from '../commons/localStorage';
+import { getStorageUserToken, removeStorageUserToken, setStorageUserToken } from '../commons/userStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
     const { status, data } = await api.post<UserData>(`/users/login`, inputValue);
     if (status === 200) {
-      setItem('user', JSON.stringify(data?.user));
+      setStorageUserToken(data?.user.token as string);
       alert('로그인이 성공하셨습니다.');
     }
     return { status, data };
@@ -16,7 +16,7 @@ export const login = async (inputValue: LoginInputValue) => {
 };
 
 export const logout = () => {
-  removeItem('user');
+  removeStorageUserToken();
 };
 
 export const createUser = async (signUpValue: SignUpInput) => {
@@ -32,19 +32,15 @@ export const createUser = async (signUpValue: SignUpInput) => {
 };
 
 export const patchUser = async (updateData: UpdateInput) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
+  const userToken: any = getStorageUserToken();
   try {
-    const { status, data } = await api.put(`/user`, updateData, {
+    const { status, data } = await api.put<UserData>(`/user`, updateData, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${userToken}`,
       },
     });
     if (status === 200) {
       alert('회원정보가 성공적으로 변경되었습니다.');
-      removeItem('user');
-      setItem('user', JSON.stringify(data.user));
     }
     return { status, data };
   } catch (error) {
@@ -52,23 +48,11 @@ export const patchUser = async (updateData: UpdateInput) => {
   }
 };
 
-export const getProfile = async () => {
-  const user: any = getItem('user');
-  if (!user) return;
-  const parsedUser = JSON.parse(user);
-  return parsedUser;
-};
-
 export const getUserInfo = async () => {
-  const user = getItem(`user`);
-  let token;
-  if (user !== null) {
-    const parsedUser = JSON.parse(user);
-    token = user && parsedUser.token;
-  }
+  const userToken = getStorageUserToken();
   const response = await api.get<UserData>(`/user`, {
     headers: {
-      Authorization: `Token ${token}`,
+      Authorization: `Token ${userToken}`,
     },
   });
 

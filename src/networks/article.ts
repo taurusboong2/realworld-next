@@ -1,17 +1,15 @@
 import { api } from '../config/api';
-import { getItem } from '../commons/localStorage';
+import { getStorageUserToken } from '../commons/userStorage';
 import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
 
 export const Article = {};
 
 export const createNewArticle = async (articleData: CreateArticleData) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
+  const userToken = getStorageUserToken();
   try {
     const { status } = await api.post('/articles', articleData, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${userToken}`,
       },
     });
     if (status === 200) {
@@ -23,13 +21,11 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 };
 
 export const getList = async () => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser?.token;
+  const userToken = getStorageUserToken();
   try {
     const { data } = await api.get(`/articles`, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${userToken}`,
       },
     });
     return { data };
@@ -39,13 +35,11 @@ export const getList = async () => {
 };
 
 export const patchArticle = async (slug: string, updateValue: UpdataArticle) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
+  const userToken = getStorageUserToken();
   try {
     const { status, data } = await api.put(`articles/${slug}`, updateValue, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${userToken}`,
       },
     });
     if (status === 200) {
@@ -58,13 +52,11 @@ export const patchArticle = async (slug: string, updateValue: UpdataArticle) => 
 };
 
 export const removeArticle = async (slug: string) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
+  const userToken = getStorageUserToken();
   try {
     await api.delete(`/articles/${slug}`, {
       headers: {
-        Authorization: `Token ${token}`,
+        Authorization: `Token ${userToken}`,
       },
     });
   } catch (error) {
@@ -87,16 +79,6 @@ export const fetchArticle = async (userdata: CreateArticleData, token: string) =
 export const getFeedsArticles = async () => {
   const response = await api.get(`/articles/sad-7`);
   console.log(response);
-};
-
-export const getUserProfile = async (userName: string | string[] | undefined, token: string) => {
-  const response = await api.get(`/profiles/${userName}`, {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  });
-
-  return response.data;
 };
 
 export const fetchSingleArticle = async (slug: string) => {

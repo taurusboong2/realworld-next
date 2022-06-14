@@ -1,6 +1,6 @@
-import { useEffect, useState, useContext } from 'react';
-import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/auth';
-import { login, logout, createUser, patchUser, getProfile } from '../networks/auth';
+import { useState, useContext } from 'react';
+import { LoginInputValue, SignUpInput, UpdateInput } from '../../src/types/auth';
+import { login, logout, createUser, patchUser } from '../networks/auth';
 import { UserContext } from '../contexts/UserContext';
 
 export const useLogin = () => {
@@ -39,10 +39,12 @@ export const useSignUp = () => {
 
 export const useUpdateProfile = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { setUser } = useContext(UserContext);
 
   const updateUser = async (updateData: UpdateInput) => {
     setLoading(true);
     const { status, data, error } = await patchUser(updateData);
+    setUser && setUser(data || null);
     setLoading(false);
     return { status, data, error };
   };
@@ -50,24 +52,8 @@ export const useUpdateProfile = () => {
   return { isLoading, updateUser };
 };
 
-export const useFetchProfile = () => {
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [userData, setUserData] = useState<UserType | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const result = await getProfile();
-      setUserData(result);
-      setLoading(false);
-    })();
-  }, []);
-
-  return { isLoading, userData };
-};
-
 export const useUserContext = () => {
   const { user, setUser, loadingStatus } = useContext(UserContext);
 
-  return { user, setUser, loadingStatus };
+  return { user: user?.user, setUser, loadingStatus };
 };
