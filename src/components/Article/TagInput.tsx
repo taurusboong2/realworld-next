@@ -3,7 +3,7 @@ import React, { FC, useRef } from 'react';
 type Props = {
   tagList: string[] | [];
   pushTag: (e: string) => void;
-  deleteTags: (e: any) => void;
+  deleteTags: (e: number) => void;
 };
 
 const TagInput: FC<Props> = ({ tagList, pushTag, deleteTags }) => {

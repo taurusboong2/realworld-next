@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import Head from '../../components/myHead/index';
 import ArticleInput from '../../components/common/Input';
@@ -10,7 +10,7 @@ import TagInput from '../../components/article/TagInput';
 const Editor: NextPage = () => {
   const router = useRouter();
   const slug = router.query.slug;
-
+  const [tagList, setTagList] = useState<[] | string[]>([]);
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const bodyRef = useRef<HTMLInputElement>(null);
@@ -22,15 +22,16 @@ const Editor: NextPage = () => {
     if (router.isReady) {
       (async () => {
         const result = await fetchSingleArticle(slug as string);
-        if (result) {
+        if (result && typeof window !== 'undefined') {
+          const tags: [] | string[] = result.article.tagList;
           titleRef.current.value = result.article.title;
           descriptionRef.current.value = result.article.description;
           bodyRef.current.value = result.article.body;
-          tagListRef.current.value = result.article.tagList as string;
+          setTagList(tags);
         }
       })();
     }
-  }, [router.isReady]);
+  }, [router.isReady, slug]);
 
   const submitUpdateArticle = async () => {
     const response = await updateArticle(slug as string, {
@@ -38,11 +39,19 @@ const Editor: NextPage = () => {
         title: titleRef.current?.value as string,
         description: descriptionRef.current?.value as string,
         body: bodyRef.current?.value as string,
-        tagList: tagListRef.current?.value as string,
+        tagList: tagList,
       },
     });
     console.log(response);
     router.push('/');
+  };
+
+  const pushTags = (e: string): void => {
+    setTagList([...tagList, e]);
+  };
+
+  const deleteTags = (e): void => {
+    setTagList(tagList.filter(tags => tags !== e));
   };
 
   return (
@@ -57,7 +66,7 @@ const Editor: NextPage = () => {
                   <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
                   <ArticleInput input={false} placeholder="내용을 입력하세요. *생략 가능" ref={descriptionRef} />
                   <ArticleInput input={true} placeholder="바디를 입력하세요. *생략가능" ref={bodyRef} />
-                  <TagInput />
+                  <TagInput tagList={tagList} pushTag={pushTags} setTagList={setTagList} deleteTags={deleteTags} />
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"

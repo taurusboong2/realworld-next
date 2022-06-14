@@ -56,7 +56,7 @@ export type SingleArticle = {
     title: string;
     description: string;
     body: string;
-    tagList: string | string[];
+    tagList: string[] | [];
     createdAt: string;
     updatedAt: string;
     favorited: boolean;
