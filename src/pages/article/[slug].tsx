@@ -4,7 +4,7 @@ import { useGetSingleArticle } from '../../hooks/article.hook';
 import ArticleBanner from '../../components/article/Banner';
 import ArticleContainer from '../../components/article/Container';
 import ArticleAction from '../../components/article/Action';
-import LoadingSpinner from '../../commons/LoadingSpinner';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 import MyHead from '../../components/myHead';
 import { removeArticle } from '../../networks/article';
 
