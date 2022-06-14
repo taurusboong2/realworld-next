@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/auth';
-import { Auth } from '../networks/auth';
+import { getLogin } from '../networks/auth';
+import { getSignUp } from '../networks/auth';
+import { patchUser } from '../networks/auth';
+import { getProfile } from '../networks/auth';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchLogin = async (inputValue: LoginInputValue) => {
     setLoading(true);
-    const { status, data, error } = await Auth.login(inputValue);
+    const { status, data, error } = await getLogin(inputValue);
     setLoading(false);
     return { status, data, error };
   };
@@ -20,7 +23,7 @@ export const useSignUp = () => {
 
   const createSignUp = async (signUpValue: SignUpInput) => {
     setLoading(true);
-    const { status, data, error } = await Auth.signUp(signUpValue);
+    const { status, data, error } = await getSignUp(signUpValue);
     setLoading(false);
     return { status, data, error };
   };
@@ -33,7 +36,7 @@ export const useUpdate = () => {
 
   const updateUser = async (updateData: UpdateInput) => {
     setLoading(true);
-    const { status, data, error } = await Auth.update(updateData);
+    const { status, data, error } = await patchUser(updateData);
     setLoading(false);
     return { status, data, error };
   };
@@ -48,7 +51,7 @@ export const useFetchProfile = () => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const result = await Auth.getProfile();
+      const result = await getProfile();
       setUserData(result);
       setLoading(false);
     })();

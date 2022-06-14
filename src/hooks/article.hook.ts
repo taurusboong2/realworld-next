@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchSingleArticle } from '../networks/article';
 import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
-import { Article } from '../networks/article';
+import { createNewArticle } from '../networks/article';
+import { getList } from '../networks/article';
+import { patchArticle } from '../networks/article';
 
 export const useCreateArticle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const createArticle = async (createvalue: CreateArticleData) => {
     setIsLoading(true);
-    await Article.create(createvalue);
+    await createNewArticle(createvalue);
     setIsLoading(false);
   };
 
@@ -20,7 +22,7 @@ export const useGetArticleList = () => {
 
   useEffect(() => {
     (async () => {
-      const { data, error } = await Article.list();
+      const { data, error } = await getList();
       setArticleList(data);
       if (error) {
         console.log(error);
@@ -36,7 +38,7 @@ export const useUpdateArticle = () => {
 
   const updateArticle = async (slug: string, updateValue: UpdataArticle) => {
     setIsLoading(true);
-    await Article.update(slug, updateValue);
+    await patchArticle(slug, updateValue);
     setIsLoading(false);
   };
 
