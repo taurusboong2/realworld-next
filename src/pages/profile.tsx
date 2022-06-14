@@ -8,7 +8,7 @@ import { ArticleFeed } from '../types/article';
 import { useFetchProfile } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';
 
-const profile: NextPage = () => {
+const Profile: NextPage = () => {
   const router = useRouter();
 
   const { isLoading, userData } = useFetchProfile();
@@ -61,4 +61,4 @@ const profile: NextPage = () => {
   );
 };
 
-export default profile;
+export default Profile;
