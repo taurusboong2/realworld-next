@@ -25,7 +25,7 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 export const getList = async () => {
   const user: any = getItem('user');
   const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
+  const token = parsedUser?.token;
   try {
     const { data } = await api.get(`/articles`, {
       headers: {

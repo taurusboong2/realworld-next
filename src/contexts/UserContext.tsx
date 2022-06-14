@@ -21,9 +21,13 @@ export const LoginUserContextProvider = props => {
   useEffect(() => {
     (async () => {
       setLoadingStatus('loading');
-      const result = await getUserInfo();
-      setUser(result);
-      setLoadingStatus('done');
+      try {
+        const result = await getUserInfo();
+        setUser(result);
+        setLoadingStatus('done');
+      } catch {
+        setLoadingStatus('done');
+      }
     })();
   }, []);
 
