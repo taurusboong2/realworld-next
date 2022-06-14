@@ -2,7 +2,7 @@ import { api } from '../config/api';
 import { getItem, removeItem, setItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
 
-export const getLogin = async (inputValue: LoginInputValue) => {
+export const login = async (inputValue: LoginInputValue) => {
   try {
     const { status, data } = await api.post(`/users/login`, inputValue);
     if (status === 200) {
@@ -15,7 +15,7 @@ export const getLogin = async (inputValue: LoginInputValue) => {
   }
 };
 
-export const getSignUp = async (signUpValue: SignUpInput) => {
+export const createUser = async (signUpValue: SignUpInput) => {
   try {
     const { status, data } = await api.post(`/users`, signUpValue);
     if (status === 200) {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData, UserType } from '../../src/types/auth';
-import { getLogin, getSignUp, patchUser, getUserInfo, getProfile } from '../networks/auth';
+import { login, createUser, patchUser, getUserInfo, getProfile } from '../networks/auth';
 import { UserContext } from '../contexts/UserContext';
 
 export const useGetLogin = () => {
@@ -8,7 +8,7 @@ export const useGetLogin = () => {
 
   const fetchLogin = async (inputValue: LoginInputValue) => {
     setLoading(true);
-    const { status, data, error } = await getLogin(inputValue);
+    const { status, data, error } = await login(inputValue);
     setLoading(false);
     return { status, data, error };
   };
@@ -21,7 +21,7 @@ export const useSignUp = () => {
 
   const createSignUp = async (signUpValue: SignUpInput) => {
     setLoading(true);
-    const { status, data, error } = await getSignUp(signUpValue);
+    const { status, data, error } = await createUser(signUpValue);
     setLoading(false);
     return { status, data, error };
   };
