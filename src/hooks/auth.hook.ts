@@ -1,19 +1,27 @@
 import { useEffect, useState, useContext } from 'react';
-import { LoginInputValue, SignUpInput, UpdateInput, UserData, UserType } from '../../src/types/auth';
-import { login, createUser, patchUser, getUserInfo, getProfile } from '../networks/auth';
+import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/auth';
+import { login, logout, createUser, patchUser, getProfile } from '../networks/auth';
 import { UserContext } from '../contexts/UserContext';
 
 export const useLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
+  const { setUser } = useUserContext();
 
   const fetchLogin = async (inputValue: LoginInputValue) => {
     setLoading(true);
     const { status, data, error } = await login(inputValue);
+    setUser && setUser(data || null);
     setLoading(false);
     return { status, data, error };
   };
 
   return { isLoading, fetchLogin };
+};
+
+export const useLogout = () => {
+  return {
+    logout,
+  };
 };
 
 export const useSignUp = () => {
@@ -58,24 +66,8 @@ export const useFetchProfile = () => {
   return { isLoading, userData };
 };
 
-export const useInitLoginUser = () => {
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
+export const useUserContext = () => {
+  const { user, setUser, loadingStatus } = useContext(UserContext);
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const result = await getUserInfo();
-      setUserData(result);
-      setLoading(false);
-    })();
-  }, []);
-
-  return { isLoading, userData };
-};
-
-export const useLoginUser = () => {
-  const userData = useContext(UserContext);
-
-  return userData;
+  return { user, setUser, loadingStatus };
 };

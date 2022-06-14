@@ -1,8 +1,6 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import MyLink from './MyLink';
-import { getItem } from '../../commons/localStorage';
-import { useRouter } from 'next/router';
-import { useLoginUser } from '../../hooks/auth.hook';
+import { useUserContext } from '../../hooks/auth.hook';
 
 type Props = {
   name?: string | number | string[];
@@ -38,7 +36,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
-  const userData = useLoginUser();
+  const { user: userData, loadingStatus } = useUserContext();
 
   return (
     <>
@@ -47,31 +45,33 @@ const NavBar: FC<Props> = () => {
           <MyLink className="navbar-brand" href="/">
             conduit
           </MyLink>
-          <ul className="nav navbar-nav pull-xs-right">
-            {userData ? (
-              <>
-                <UserNavbar name={userData.user.username} />
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <MyLink className="nav-link active" href="/">
-                    Home
-                  </MyLink>
-                </li>
-                <li className="nav-item">
-                  <MyLink className="nav-link" href="/login">
-                    Sign in
-                  </MyLink>
-                </li>
-                <li className="nav-item">
-                  <MyLink className="nav-link" href="/register">
-                    Sign Up
-                  </MyLink>
-                </li>
-              </>
-            )}
-          </ul>
+          {loadingStatus === 'done' && (
+            <ul className="nav navbar-nav pull-xs-right">
+              {userData ? (
+                <>
+                  <UserNavbar name={userData.user.username} />
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <MyLink className="nav-link active" href="/">
+                      Home
+                    </MyLink>
+                  </li>
+                  <li className="nav-item">
+                    <MyLink className="nav-link" href="/login">
+                      Sign in
+                    </MyLink>
+                  </li>
+                  <li className="nav-item">
+                    <MyLink className="nav-link" href="/register">
+                      Sign Up
+                    </MyLink>
+                  </li>
+                </>
+              )}
+            </ul>
+          )}
         </div>
       </nav>
     </>
