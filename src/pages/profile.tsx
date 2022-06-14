@@ -1,6 +1,5 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Head from '../components/myHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/home/Feed';
@@ -9,8 +8,6 @@ import { useFetchProfile } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';
 
 const Profile: NextPage = () => {
-  const router = useRouter();
-
   const { isLoading, userData } = useFetchProfile();
   const { articleList } = useGetArticleList();
 

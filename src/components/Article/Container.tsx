@@ -9,11 +9,12 @@ const ArticleContainer = ({ article }) => {
           <p>{article.description}</p>
           <p>body: {article.body}</p>
           <ul className="tag-list">
-            {article.tagList.map(tag => (
-              <li key={tag} className="tag-default tag-pill tag-outline">
-                {tag}
-              </li>
-            ))}
+            {article.tagList &&
+              article.tagList.map(tag => (
+                <li key={tag} className="tag-default tag-pill tag-outline">
+                  {tag}
+                </li>
+              ))}
           </ul>
         </div>
       </div>
