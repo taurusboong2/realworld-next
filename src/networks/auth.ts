@@ -1,5 +1,5 @@
 import { api } from '../config/api';
-import { getStorageUserToken, removeStorageUserToken, setStorageUserToken } from '../commons/userStorage';
+import { removeStorageUserToken, setStorageUserToken } from '../commons/userStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
 
 export const login = async (inputValue: LoginInputValue) => {
@@ -32,13 +32,8 @@ export const createUser = async (signUpValue: SignUpInput) => {
 };
 
 export const patchUser = async (updateData: UpdateInput) => {
-  const userToken: any = getStorageUserToken();
   try {
-    const { status, data } = await api.put<UserData>(`/user`, updateData, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    const { status, data } = await api.put<UserData>(`/user`, updateData);
     if (status === 200) {
       alert('회원정보가 성공적으로 변경되었습니다.');
     }
@@ -49,12 +44,7 @@ export const patchUser = async (updateData: UpdateInput) => {
 };
 
 export const getUserInfo = async () => {
-  const userToken = getStorageUserToken();
-  const response = await api.get<UserData>(`/user`, {
-    headers: {
-      Authorization: `Token ${userToken}`,
-    },
-  });
+  const response = await api.get<UserData>(`/user`);
 
   const data = response.data;
   return data;

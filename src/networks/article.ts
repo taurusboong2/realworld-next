@@ -1,17 +1,11 @@
 import { api } from '../config/api';
-import { getStorageUserToken } from '../commons/userStorage';
 import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
 
 export const Article = {};
 
 export const createNewArticle = async (articleData: CreateArticleData) => {
-  const userToken = getStorageUserToken();
   try {
-    const { status } = await api.post('/articles', articleData, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    const { status } = await api.post('/articles', articleData);
     if (status === 200) {
       alert('게시글이 성공적으로 생성되었습니다.');
     }
@@ -21,13 +15,8 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 };
 
 export const getList = async () => {
-  const userToken = getStorageUserToken();
   try {
-    const { data } = await api.get(`/articles`, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    const { data } = await api.get(`/articles`);
     return { data };
   } catch (error) {
     return { error };
@@ -35,13 +24,8 @@ export const getList = async () => {
 };
 
 export const patchArticle = async (slug: string, updateValue: UpdataArticle) => {
-  const userToken = getStorageUserToken();
   try {
-    const { status, data } = await api.put(`articles/${slug}`, updateValue, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    const { status, data } = await api.put(`articles/${slug}`, updateValue);
     if (status === 200) {
       alert('게시글이 성공적으로 수정되었습니다.');
     }
@@ -52,13 +36,8 @@ export const patchArticle = async (slug: string, updateValue: UpdataArticle) => 
 };
 
 export const removeArticle = async (slug: string) => {
-  const userToken = getStorageUserToken();
   try {
-    await api.delete(`/articles/${slug}`, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    await api.delete(`/articles/${slug}`);
   } catch (error) {
     return { error };
   }
