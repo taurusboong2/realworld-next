@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsForm from '../components/settings/SettingForm';
+import SettingsForm from '../components/Setting/SettingForm';
 import { useLogout } from '../hooks/auth.hook';
 import WithLogin from '../components/Auth/WithLogin';
 
