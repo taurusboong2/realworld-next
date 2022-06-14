@@ -2,17 +2,14 @@ import React, { useContext } from 'react';
 import SettingsForm from '../components/settings/SettingForm';
 import { useRouter } from 'next/router';
 import { removeItem, getItem } from '../commons/localStorage';
-import { UserContext } from '../contexts/UserContext';
 
 const Settings = () => {
   const router = useRouter();
-  const { setUser } = useContext(UserContext);
 
   const submitLogout = async () => {
     const user = getItem(`user`);
     if (!user) return;
     await removeItem(`user`);
-    setUser(false);
     router.push(`/`);
   };
 

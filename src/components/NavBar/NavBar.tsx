@@ -2,7 +2,7 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import MyLink from './MyLink';
 import { getItem } from '../../commons/localStorage';
 import { useRouter } from 'next/router';
-import { UserContext } from '../../contexts/UserContext';
+import { useLoginUser } from '../../hooks/auth.hook';
 
 type Props = {
   name?: string | number | string[];
@@ -38,22 +38,7 @@ const UserNavbar: FC<Props> = ({ name }) => {
 };
 
 const NavBar: FC<Props> = () => {
-  const { user, setUser } = useContext(UserContext);
-  const router = useRouter();
-  const [username, setUsername] = useState<string | undefined>();
-
-  useEffect(() => {
-    const currentUser = getItem('user');
-    const parsed = JSON.parse(currentUser as string);
-    if (typeof window !== 'undefined') {
-      if (!currentUser) {
-        setUsername(undefined);
-      }
-      if (parsed !== null) {
-        setUsername(parsed.username);
-      }
-    }
-  }, [router]);
+  const userData = useLoginUser();
 
   return (
     <>
@@ -63,9 +48,9 @@ const NavBar: FC<Props> = () => {
             conduit
           </MyLink>
           <ul className="nav navbar-nav pull-xs-right">
-            {user ? (
+            {userData ? (
               <>
-                <UserNavbar name={username} />
+                <UserNavbar name={userData.user.username} />
               </>
             ) : (
               <>
