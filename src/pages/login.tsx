@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import MyLink from '../components/navBar/MyLink';
-import { useGetLogin } from '../hooks/auth.hook';
+import { useLogin } from '../hooks/auth.hook';
 import Head from '../components/myHead/index';
 import { UserContext } from '../contexts/UserContext';
 
@@ -10,7 +10,7 @@ const Login: NextPage = () => {
   const router = useRouter();
   const { setUser } = useContext(UserContext);
 
-  const { isLoading, fetchLogin } = useGetLogin();
+  const { isLoading, fetchLogin } = useLogin();
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passWordInputRef = useRef<HTMLInputElement>(null);
