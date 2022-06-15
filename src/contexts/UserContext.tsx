@@ -1,6 +1,7 @@
 import React, { createContext, Dispatch, SetStateAction, useState, useEffect } from 'react';
 import { UserData } from '../types/auth';
 import { getUserInfo } from '../networks/auth';
+import { getTokenStorage } from '../commons/tokenStorage';
 
 type LoadingStatus = 'initial' | 'loading' | 'done' | 'error';
 
@@ -25,8 +26,10 @@ export const LoginUserContextProvider = props => {
     (async () => {
       setLoadingStatus('loading');
       try {
-        const result = await getUserInfo();
-        setUser(result);
+        if (getTokenStorage()) {
+          const result = await getUserInfo();
+          setUser(result);
+        }
         setLoadingStatus('done');
       } catch {
         setLoadingStatus('done');

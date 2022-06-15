@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
 import { login, logout, createUser, patchUser, getUserInfo } from '../networks/auth';
 import { UserContext } from '../contexts/UserContext';
+import { setTokenStorage } from '../commons/tokenStorage';
 
 export const useLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -11,6 +12,7 @@ export const useLogin = () => {
     setLoading(true);
     const { status, data, error } = await login(inputValue);
     setUser && setUser(data || null);
+    setTokenStorage(data?.user.token as string);
     setLoading(false);
     return { status, data, error };
   };

@@ -1,14 +1,11 @@
 import { api, apiWithAuth } from '../config/api';
 import { getItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
-import { setTokenStorage, removeTokenStorage } from '../commons/tokenStorage';
+import { removeTokenStorage, getTokenStorage } from '../commons/tokenStorage';
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
     const { status, data } = await api.post<UserData>(`/users/login`, inputValue);
-    if (status === 200) {
-      setTokenStorage(data?.user.token as string);
-    }
     return { status, data };
   } catch (error) {
     return { error };

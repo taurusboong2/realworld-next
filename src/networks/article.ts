@@ -1,6 +1,6 @@
 import { api, apiWithAuth } from '../config/api';
-import { getItem } from '../commons/localStorage';
 import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
+import { getTokenStorage } from '../commons/tokenStorage';
 
 export const Article = {};
 
@@ -13,12 +13,18 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
   }
 };
 
-export const getList = async () => {
-  try {
-    const { data } = await apiWithAuth.get(`/articles`);
-    return { data };
-  } catch (error) {
-    return { error };
+export const getArticleList = async () => {
+  if (getTokenStorage()) {
+    try {
+      const { data } = await api.get(`/articles`, {
+        headers: {
+          Authorization: `Token ${getTokenStorage()}`,
+        },
+      });
+      return { data };
+    } catch (error) {
+      return { error };
+    }
   }
 };
 

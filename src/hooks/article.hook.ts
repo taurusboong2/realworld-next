@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import { fetchSingleArticle } from '../networks/article';
+import { useContext, useEffect, useState } from 'react';
+import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
 import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
-import { createNewArticle } from '../networks/article';
-import { getList } from '../networks/article';
-import { patchArticle } from '../networks/article';
+import { UserContext } from '../contexts/UserContext';
+import { getTokenStorage } from '../commons/tokenStorage';
 
 export const useCreateArticle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,16 +18,17 @@ export const useCreateArticle = () => {
 
 export const useGetArticleList = () => {
   const [articleList, setArticleList] = useState<ArticleList | null>(null);
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
-      const { data, error } = await getList();
+      const { data, error } = await getArticleList();
       setArticleList(data);
       if (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [setUser]);
 
   return { articleList };
 };

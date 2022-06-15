@@ -7,12 +7,13 @@ import { ArticleFeed } from '../types/article';
 import { useUserContext } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';
 import WithLogin from '../components/Auth/WithLogin';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const Profile: NextPage = () => {
   const { loadingStatus, user } = useUserContext();
   const { articleList } = useGetArticleList();
 
-  if (loadingStatus === 'loading') return <>로딩중..</>;
+  if (loadingStatus === 'loading') return <LoadingSpinner />;
   return (
     <WithLogin>
       <Head title="profile" />
