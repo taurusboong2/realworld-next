@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useUpdate } from '../../hooks/auth.hook';
+import { useUpdateProfile } from '../../hooks/auth.hook';
 import { getItem } from '../../commons/localStorage';
 import { UserType } from '../../types/article';
 
@@ -8,7 +8,7 @@ const SettingsForm: FC = () => {
   const router = useRouter();
   const [userInfo, setUserInfo] = useState<UserType | Record<string, unknown>>({});
 
-  const { isLoading, updateUser } = useUpdate();
+  const { isLoading, updateUser } = useUpdateProfile();
 
   const imageInput = useRef<HTMLInputElement>(null);
   const usernameInput = useRef<HTMLInputElement>(null);

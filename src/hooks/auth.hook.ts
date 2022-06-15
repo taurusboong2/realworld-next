@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import { LoginInputValue, SignUpInput, UpdateInput, UserType } from '../../src/types/auth';
-import { getLogin } from '../networks/auth';
-import { getSignUp } from '../networks/auth';
-import { patchUser } from '../networks/auth';
-import { getProfile } from '../networks/auth';
+import { useEffect, useState, useContext } from 'react';
+import { LoginInputValue, SignUpInput, UpdateInput, UserType, UserData } from '../../src/types/auth';
+import { login, createUser, patchUser, getProfile, getUserInfo } from '../networks/auth';
+import { UserContext } from '../contexts/UserContext';
 
 export const useGetLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchLogin = async (inputValue: LoginInputValue) => {
     setLoading(true);
-    const { status, data, error } = await getLogin(inputValue);
+    const { status, data, error } = await login(inputValue);
     setLoading(false);
     return { status, data, error };
   };
@@ -23,7 +21,7 @@ export const useSignUp = () => {
 
   const createSignUp = async (signUpValue: SignUpInput) => {
     setLoading(true);
-    const { status, data, error } = await getSignUp(signUpValue);
+    const { status, data, error } = await createUser(signUpValue);
     setLoading(false);
     return { status, data, error };
   };
@@ -31,7 +29,7 @@ export const useSignUp = () => {
   return { createSignUp, isLoading };
 };
 
-export const useUpdate = () => {
+export const useUpdateProfile = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const updateUser = async (updateData: UpdateInput) => {
@@ -58,4 +56,26 @@ export const useFetchProfile = () => {
   }, []);
 
   return { isLoading, userData };
+};
+
+export const useInitLoginUser = () => {
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const result = await getUserInfo();
+      setUserData(result);
+      setLoading(false);
+    })();
+  }, []);
+
+  return { isLoading, userData };
+};
+
+export const useLoginUser = () => {
+  const userData = useContext(UserContext);
+
+  return userData;
 };
