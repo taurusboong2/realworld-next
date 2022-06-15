@@ -1,20 +1,18 @@
 import React from 'react';
 import SettingsForm from '../components/settings/SettingForm';
-import { useRouter } from 'next/router';
-import { removeItem, getItem } from '../commons/localStorage';
+import { useLogout } from '../hooks/auth.hook';
+import WithLogin from '../components/Auth/WithLogin';
 
 const Settings = () => {
-  const router = useRouter();
+  const { logout } = useLogout();
 
   const submitLogout = async () => {
-    const user = getItem(`user`);
-    if (!user) return;
-    await removeItem(`user`);
-    router.push(`/`);
+    await logout();
+    window.location.reload();
   };
 
   return (
-    <>
+    <WithLogin>
       <div className="settings-page">
         <div className="container page">
           <div className="row">
@@ -32,7 +30,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-    </>
+    </WithLogin>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { NextPage } from 'next';
-import MyLink from '../components/navBar/MyLink';
+import MyLink from '../components/NavBar/MyLink';
 import { useRouter } from 'next/router';
 import Head from '../components/myHead/index';
 import { useSignUp } from '../hooks/auth.hook';

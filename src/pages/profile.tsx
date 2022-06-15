@@ -6,6 +6,7 @@ import Feed from '../components/home/Feed';
 import { ArticleFeed } from '../types/article';
 import { useFetchProfile } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';
+import WithLogin from '../components/Auth/WithLogin';
 
 const Profile: NextPage = () => {
   const { isLoading, userData } = useFetchProfile();
@@ -13,7 +14,7 @@ const Profile: NextPage = () => {
 
   if (isLoading) return <>로딩중..</>;
   return (
-    <>
+    <WithLogin>
       <Head title="profile" />
       <div className="profile-page">
         <UserInfo userName={userData?.username} userBio={userData?.bio} userImage={userData?.image} />
@@ -54,7 +55,7 @@ const Profile: NextPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </WithLogin>
   );
 };
 

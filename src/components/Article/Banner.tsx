@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import MyLink from '../navBar/MyLink';
+import MyLink from '../NavBar/MyLink';
 import { UserContext } from '../../contexts/UserContext';
 import { PropArticle } from '../../types/article';
 

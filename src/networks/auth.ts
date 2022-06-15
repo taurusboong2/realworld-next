@@ -4,15 +4,18 @@ import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/t
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
-    const { status, data } = await api.post(`/users/login`, inputValue);
+    const { status, data } = await api.post<UserData>(`/users/login`, inputValue);
     if (status === 200) {
-      setItem('user', JSON.stringify(data.user));
-      alert('로그인이 성공하셨습니다.');
+      setItem('user', JSON.stringify(data?.user));
     }
     return { status, data };
   } catch (error) {
     return { error };
   }
+};
+
+export const logout = () => {
+  removeItem('user');
 };
 
 export const createUser = async (signUpValue: SignUpInput) => {

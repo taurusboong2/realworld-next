@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import NavBar from '../navBar/NavBar';
+import NavBar from '../NavBar/NavBar';
 import Footer from './Footer';
 
 type Props = {
