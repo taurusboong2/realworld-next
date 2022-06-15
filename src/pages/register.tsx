@@ -33,7 +33,7 @@ const SignUp: NextPage = () => {
 
   return (
     <>
-      <Head title="SighUp" />
+      <Head title="Register" />
       <div className="auth-page">
         <div className="container page">
           <div className="row">

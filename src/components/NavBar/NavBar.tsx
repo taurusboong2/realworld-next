@@ -49,7 +49,7 @@ const NavBar: FC<Props> = () => {
             <ul className="nav navbar-nav pull-xs-right">
               {userData ? (
                 <>
-                  <UserNavbar name={userData.user.username} />
+                  <UserNavbar name={userData.username} />
                 </>
               ) : (
                 <>

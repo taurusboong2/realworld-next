@@ -1,12 +1,13 @@
-import { api } from '../config/api';
-import { getItem, removeItem, setItem } from '../commons/localStorage';
+import { api, apiWithAuth } from '../config/api';
+import { getItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
+import { setTokenStorage, removeTokenStorage } from '../commons/tokenStorage';
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
     const { status, data } = await api.post<UserData>(`/users/login`, inputValue);
     if (status === 200) {
-      setItem('user', JSON.stringify(data?.user));
+      setTokenStorage(data?.user.token as string);
     }
     return { status, data };
   } catch (error) {
@@ -15,15 +16,12 @@ export const login = async (inputValue: LoginInputValue) => {
 };
 
 export const logout = () => {
-  removeItem('user');
+  removeTokenStorage();
 };
 
 export const createUser = async (signUpValue: SignUpInput) => {
   try {
     const { status, data } = await api.post(`/users`, signUpValue);
-    if (status === 200) {
-      alert('회원가입이 성공적으로 완료되었습니다.');
-    }
     return { status, data };
   } catch (error) {
     return { error };
@@ -31,20 +29,8 @@ export const createUser = async (signUpValue: SignUpInput) => {
 };
 
 export const patchUser = async (updateData: UpdateInput) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
   try {
-    const { status, data } = await api.put(`/user`, updateData, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
-    if (status === 200) {
-      alert('회원정보가 성공적으로 변경되었습니다.');
-      removeItem('user');
-      setItem('user', JSON.stringify(data.user));
-    }
+    const { status, data } = await apiWithAuth.put(`/user`, updateData);
     return { status, data };
   } catch (error) {
     return { error };
@@ -59,18 +45,7 @@ export const getProfile = async () => {
 };
 
 export const getUserInfo = async () => {
-  const user = getItem(`user`);
-  let token;
-  if (user !== null) {
-    const parsedUser = JSON.parse(user);
-    token = user && parsedUser.token;
-  }
-  const response = await api.get<UserData>(`/user`, {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  });
-
+  const response = await apiWithAuth.get<UserData>(`/user`);
   const data = response.data;
   return data;
 };

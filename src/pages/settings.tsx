@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsForm from '../components/settings/SettingForm';
+import SettingsForm from '../components/Setting/SettingForm';
 import { useLogout } from '../hooks/auth.hook';
 import WithLogin from '../components/Auth/WithLogin';
 
@@ -7,8 +7,9 @@ const Settings = () => {
   const { logout } = useLogout();
 
   const submitLogout = async () => {
-    await logout();
+    logout();
     window.location.reload();
+    alert('로그아웃이 성공적으로 진행되었습니다.');
   };
 
   return (

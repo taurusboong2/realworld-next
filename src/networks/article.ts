@@ -1,37 +1,21 @@
-import { api } from '../config/api';
+import { api, apiWithAuth } from '../config/api';
 import { getItem } from '../commons/localStorage';
 import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
 
 export const Article = {};
 
 export const createNewArticle = async (articleData: CreateArticleData) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
   try {
-    const { status } = await api.post('/articles', articleData, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
-    if (status === 200) {
-      alert('게시글이 성공적으로 생성되었습니다.');
-    }
+    const { status } = await apiWithAuth.post('/articles', articleData);
+    return { status };
   } catch (error) {
     return { error };
   }
 };
 
 export const getList = async () => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
   try {
-    const { data } = await api.get(`/articles`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    const { data } = await apiWithAuth.get(`/articles`);
     return { data };
   } catch (error) {
     return { error };
@@ -39,18 +23,8 @@ export const getList = async () => {
 };
 
 export const patchArticle = async (slug: string, updateValue: UpdataArticle) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
   try {
-    const { status, data } = await api.put(`articles/${slug}`, updateValue, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
-    if (status === 200) {
-      alert('게시글이 성공적으로 수정되었습니다.');
-    }
+    const { status, data } = await apiWithAuth.put(`articles/${slug}`, updateValue);
     return { status, data };
   } catch (error) {
     return { error };
@@ -58,26 +32,15 @@ export const patchArticle = async (slug: string, updateValue: UpdataArticle) => 
 };
 
 export const removeArticle = async (slug: string) => {
-  const user: any = getItem('user');
-  const parsedUser = JSON.parse(user);
-  const token = parsedUser.token;
   try {
-    await api.delete(`/articles/${slug}`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
+    await apiWithAuth.delete(`/articles/${slug}`);
   } catch (error) {
     return { error };
   }
 };
 
-export const fetchArticle = async (userdata: CreateArticleData, token: string) => {
-  const { data, status } = await api.post('/articles', userdata, {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  });
+export const fetchArticle = async (userdata: CreateArticleData) => {
+  const { data, status } = await apiWithAuth.post('/articles', userdata);
   return {
     data,
     status,
@@ -89,12 +52,8 @@ export const getFeedsArticles = async () => {
   console.log(response);
 };
 
-export const getUserProfile = async (userName: string | string[] | undefined, token: string) => {
-  const response = await api.get(`/profiles/${userName}`, {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  });
+export const getUserProfile = async (userName: string | string[] | undefined) => {
+  const response = await apiWithAuth.get(`/profiles/${userName}`);
 
   return response.data;
 };

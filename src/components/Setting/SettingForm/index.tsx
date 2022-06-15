@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useUpdateProfile } from '../../hooks/auth.hook';
-import { getItem } from '../../commons/localStorage';
-import { UserType } from '../../types/article';
+import { useUpdateProfile } from '../../../hooks/auth.hook';
+import { getItem } from '../../../commons/localStorage';
+import { UserType } from '../../../types/article';
 
 const SettingsForm: FC = () => {
   const router = useRouter();

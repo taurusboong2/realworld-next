@@ -1,4 +1,4 @@
-export function getItem(key: string) {
+export function getItem(key: string): string | null {
   let rawValue;
   if (typeof window !== 'undefined') {
     rawValue = localStorage.getItem(key);
@@ -7,7 +7,6 @@ export function getItem(key: string) {
   try {
     return rawValue;
   } catch (error) {
-    console.error('storageUtil.getItem() 함수 에러났음 : ', key, rawValue, error);
     return null;
   }
 }
