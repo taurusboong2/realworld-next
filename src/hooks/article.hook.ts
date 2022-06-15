@@ -46,7 +46,7 @@ export const useUpdateArticle = () => {
 };
 
 export const useGetSingleArticle = (slug: string) => {
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [aricleIsLoading, setLoading] = useState<boolean>(false);
   const [articleData, setArticleData] = useState<PropArticle | null>(null);
 
   useEffect(() => {
@@ -62,5 +62,5 @@ export const useGetSingleArticle = (slug: string) => {
     })();
   }, [slug]);
 
-  return { isLoading, articleData };
+  return { aricleIsLoading, articleData };
 };

@@ -3,34 +3,36 @@ import { NextPage } from 'next';
 import Head from '../../components/myHead/index';
 import ArticleInput from '../../components/common/Input';
 import { useRouter } from 'next/router';
-import { useUpdateArticle } from '../../hooks/article.hook';
-import { fetchSingleArticle } from '../../networks/article';
+import { useGetSingleArticle, useUpdateArticle } from '../../hooks/article.hook';
 import TagInput from '../../components/Article/TagInput';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const Editor: NextPage = () => {
   const router = useRouter();
   const slug = router.query.slug;
-  const [tagList, setTagList] = useState<[] | string[]>([]);
+  const [tagList, setTagList] = useState<[] | string[] | string>([]);
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const bodyRef = useRef<HTMLInputElement>(null);
 
   const { isLoading, updateArticle } = useUpdateArticle();
+  const { aricleIsLoading, articleData } = useGetSingleArticle(slug as string);
+
+  console.log(articleData);
 
   useEffect(() => {
     if (router.isReady) {
       (async () => {
-        const result = await fetchSingleArticle(slug as string);
-        if (result && typeof window !== 'undefined') {
-          const tags: [] | string[] = result.article.tagList;
-          titleRef.current.value = result.article.title;
-          descriptionRef.current.value = result.article.description;
-          bodyRef.current.value = result.article.body;
+        if (articleData && titleRef.current && descriptionRef.current && bodyRef.current) {
+          const tags: [] | string[] | string = articleData?.tagList;
+          titleRef.current.value = articleData?.title;
+          descriptionRef.current.value = articleData?.description;
+          bodyRef.current.value = articleData?.body;
           setTagList(tags);
         }
       })();
     }
-  }, [router.isReady, slug]);
+  }, [router.isReady, aricleIsLoading]);
 
   const submitUpdateArticle = async () => {
     const response = await updateArticle(slug as string, {
@@ -55,6 +57,7 @@ const Editor: NextPage = () => {
     setTagList(filtered);
   };
 
+  if (aricleIsLoading && router.isReady) return <LoadingSpinner />;
   return (
     <>
       <Head title="Editor" />

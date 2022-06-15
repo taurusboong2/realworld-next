@@ -12,7 +12,7 @@ const Slug = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { isLoading, articleData } = useGetSingleArticle(slug as string);
+  const { aricleIsLoading, articleData } = useGetSingleArticle(slug as string);
 
   const submitDelete = async () => {
     const result = confirm('정말로 게시글을 삭제하시겠습니까?');
@@ -32,7 +32,7 @@ const Slug = () => {
     }
   }, [articleData, router.query.slug]);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (aricleIsLoading) return <LoadingSpinner />;
 
   return (
     <>
