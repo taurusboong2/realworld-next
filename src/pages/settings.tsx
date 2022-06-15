@@ -4,10 +4,10 @@ import { useLogout } from '../hooks/auth.hook';
 import WithLogin from '../components/Auth/WithLogin';
 
 const Settings = () => {
-  const { logout } = useLogout();
+  const { logoutUser } = useLogout();
 
   const submitLogout = async () => {
-    logout();
+    await logoutUser();
     window.location.reload();
     alert('로그아웃이 성공적으로 진행되었습니다.');
   };

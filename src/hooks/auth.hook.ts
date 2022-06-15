@@ -19,8 +19,14 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
+  const { setUser } = useUserContext();
+
+  const logoutUser = () => {
+    logout();
+    setUser && setUser(null);
+  };
   return {
-    logout,
+    logoutUser,
   };
 };
 

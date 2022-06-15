@@ -20,6 +20,9 @@ const Login: NextPage = () => {
         password: passWordInputRef.current?.value as string,
       },
     });
+    if (status === 200) {
+      alert(`환영합니다 ${data?.user.username}님!`);
+    }
     if (error) {
       alert(error);
     } else {

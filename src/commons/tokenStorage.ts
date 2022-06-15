@@ -5,9 +5,9 @@ export const getTokenStorage = () => {
 };
 
 export const setTokenStorage = (newToken: string) => {
-  setItem('token', newToken);
+  return setItem('token', newToken);
 };
 
 export const removeTokenStorage = () => {
-  removeItem('user');
+  return removeItem('token');
 };
