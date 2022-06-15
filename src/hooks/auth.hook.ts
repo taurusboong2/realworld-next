@@ -3,7 +3,7 @@ import { LoginInputValue, SignUpInput, UpdateInput, UserType, UserData } from '.
 import { login, createUser, patchUser, getProfile, getUserInfo } from '../networks/auth';
 import { UserContext } from '../contexts/UserContext';
 
-export const useGetLogin = () => {
+export const useLogin = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchLogin = async (inputValue: LoginInputValue) => {
