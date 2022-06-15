@@ -2,16 +2,18 @@ import React, { FC, useRef } from 'react';
 
 type Props = {
   tagList: string[] | [];
-  pushTag: (e: string) => void;
-  deleteTags: (e: number) => void;
+  pushTag: (newTag: string) => void;
+  deleteTags: (index: number) => void;
 };
+
+const EnterKeyCode = 13;
 
 const TagInput: FC<Props> = ({ tagList, pushTag, deleteTags }) => {
   const tagRef = useRef<HTMLInputElement>(null);
 
   const handleTagInputkeyDown = e => {
     switch (e.keyCode) {
-      case 13:
+      case EnterKeyCode:
         pushTag(tagRef.current?.value as string);
         tagRef.current!.value = '';
     }
@@ -35,7 +37,7 @@ const TagInput: FC<Props> = ({ tagList, pushTag, deleteTags }) => {
         <div className="tag-list">
           {tagList.map((tag, index) => (
             <span className="tag-default tag-pill" key={index}>
-              <i className="ion-close-round" onClick={() => handleremoveTags(tag)} />
+              <i className="ion-close-round" onClick={() => handleremoveTags(index)} />
               {tag}
             </span>
           ))}

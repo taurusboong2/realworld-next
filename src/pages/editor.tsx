@@ -4,7 +4,7 @@ import ArticleInput from '../components/common/Input';
 import { useRouter } from 'next/router';
 import Head from '../components/myHead/index';
 import { useCreateArticle } from '../hooks/article.hook';
-import TagInput from '../components/article/TagInput';
+import TagInput from '../components/Article/TagInput';
 
 const CreateArticle: NextPage = () => {
   const router = useRouter();
@@ -13,7 +13,6 @@ const CreateArticle: NextPage = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const bodyRef = useRef<HTMLInputElement>(null);
-  const tagListRef = useRef<HTMLInputElement>(null);
 
   const { isLoading, createArticle } = useCreateArticle();
 
@@ -30,12 +29,14 @@ const CreateArticle: NextPage = () => {
     router.push('/');
   };
 
-  const pushTags = (e: string): void => {
-    setTagList([...tagList, e]);
+  const pushTags = (newTag: string): void => {
+    setTagList([...tagList, newTag]);
   };
 
-  const deleteTags = (e): void => {
-    setTagList(tagList.filter(tags => tags !== e));
+  const deleteTags = (index: number): void => {
+    const filtered = tagList.filter((tag, tagIndex) => tagIndex !== index);
+
+    setTagList(filtered);
   };
 
   return (
@@ -50,7 +51,7 @@ const CreateArticle: NextPage = () => {
                   <ArticleInput input={true} placeholder="타이틀을 입력하세요. *필수" ref={titleRef} />
                   <ArticleInput input={false} placeholder="내용을 입력하세요. *필수" ref={descriptionRef} />
                   <ArticleInput input={true} placeholder="바디를 입력하세요. *필수" ref={bodyRef} />
-                  <TagInput tagList={tagList} pushTag={pushTags} setTagList={setTagList} deleteTags={deleteTags} />
+                  <TagInput tagList={tagList} pushTag={pushTags} deleteTags={deleteTags} />
                   <button
                     className="btn btn-lg pull-xs-right btn-primary"
                     type="button"
