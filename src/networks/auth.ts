@@ -1,7 +1,7 @@
 import { api, apiWithAuth } from '../config/api';
 import { getItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
-import { removeTokenStorage, getTokenStorage } from '../commons/tokenStorage';
+import { removeTokenFromStorage, getTokenFromStorage } from '../commons/tokenStorage';
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
@@ -13,7 +13,7 @@ export const login = async (inputValue: LoginInputValue) => {
 };
 
 export const logout = () => {
-  removeTokenStorage();
+  removeTokenFromStorage();
 };
 
 export const createUser = async (signUpValue: SignUpInput) => {

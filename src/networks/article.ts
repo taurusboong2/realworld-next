@@ -1,6 +1,6 @@
 import { api, apiWithAuth } from '../config/api';
 import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
-import { getTokenStorage } from '../commons/tokenStorage';
+import { getTokenFromStorage } from '../commons/tokenStorage';
 
 export const Article = {};
 
@@ -14,11 +14,11 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 };
 
 export const getArticleList = async () => {
-  if (getTokenStorage()) {
+  if (getTokenFromStorage()) {
     try {
       const { data } = await api.get(`/articles`, {
         headers: {
-          Authorization: `Token ${getTokenStorage()}`,
+          Authorization: `Token ${getTokenFromStorage()}`,
         },
       });
       return { data };

@@ -1,13 +1,13 @@
 import { getItem, setItem, removeItem } from './localStorage';
 
-export const getTokenStorage = () => {
+export const getTokenFromStorage = () => {
   return getItem('token');
 };
 
-export const setTokenStorage = (newToken: string) => {
+export const setTokenFromStorage = (newToken: string) => {
   return setItem('token', newToken);
 };
 
-export const removeTokenStorage = () => {
+export const removeTokenFromStorage = () => {
   return removeItem('token');
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { getTokenStorage } from '../commons/tokenStorage';
+import { getTokenFromStorage } from '../commons/tokenStorage';
 
-const localStorageToken = getTokenStorage();
+const localStorageToken = getTokenFromStorage();
 
 export const api = axios.create({
   baseURL: 'https://boong-realworld-api.herokuapp.com/api',

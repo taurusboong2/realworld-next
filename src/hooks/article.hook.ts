@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
 import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
-import { getTokenStorage } from '../commons/tokenStorage';
+import { getTokenFromStorage } from '../commons/tokenStorage';
 
 export const useCreateArticle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
