@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
 import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
-import { getTokenFromStorage } from '../commons/tokenStorage';
 
 export const useCreateArticle = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,7 +33,7 @@ export const useGetArticleList = () => {
 };
 
 export const useUpdateArticle = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingUpdate, setIsLoading] = useState<boolean>(false);
 
   const updateArticle = async (slug: string, updateValue: UpdataArticle) => {
     setIsLoading(true);
@@ -42,7 +41,7 @@ export const useUpdateArticle = () => {
     setIsLoading(false);
   };
 
-  return { isLoading, updateArticle };
+  return { isLoadingUpdate, updateArticle };
 };
 
 export const useGetSingleArticle = (slug: string) => {

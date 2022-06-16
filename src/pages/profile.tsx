@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPage } from 'next';
 import Head from '../components/myHead/index';
 import UserInfo from '../components/profile/UserInfo';
-import Feed from '../components/home/Feed';
+import Feed from '../components/common/Feed';
 import { ArticleFeed } from '../types/article';
 import { useUserContext } from '../hooks/auth.hook';
 import { useGetArticleList } from '../hooks/article.hook';

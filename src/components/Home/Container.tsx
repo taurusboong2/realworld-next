@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Sidebar from './SIdebar';
-import Feed from './Feed';
+import Feed from '../common/Feed';
 
 const Container: FC = () => {
   return (
