@@ -1,10 +1,10 @@
 import React, { FC, useState, useRef, useEffect } from 'react';
-import ArticleInput from '../../components/common/Input';
+import ArticleInput from '../common/Input';
 import { useRouter } from 'next/router';
 import { useCreateArticle } from '../../hooks/article.hook';
 import { useGetSingleArticle, useUpdateArticle } from '../../hooks/article.hook';
-import TagInput from '../../components/Article/TagInput';
-import LoadingSpinner from '../../components/common/LoadingSpinner';
+import TagInput from '../Article/TagInput';
+import LoadingSpinner from '../common/LoadingSpinner';
 
 type Props = {
   isCreatePage: boolean;

@@ -7,6 +7,7 @@ import ArticleAction from '../../components/Article/Action';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import MyHead from '../../components/myHead';
 import { removeArticle } from '../../networks/article';
+import CommentInput from '../../components/Comment/CommentInput';
 
 const Slug = () => {
   const router = useRouter();
@@ -48,7 +49,9 @@ const Slug = () => {
           <ArticleAction article={articleData} submitDelete={submitDelete} />
 
           <div className="row">
-            <div className="col-xs-12 col-md-8 offset-md-2" />
+            <div className="col-xs-12 col-md-8 offset-md-2">
+              <CommentInput />
+            </div>
           </div>
         </div>
       </div>
