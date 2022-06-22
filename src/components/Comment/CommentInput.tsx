@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useUserContext } from '../../hooks/auth.hook';
 import MyLink from '../NavBar/MyLink';
+import { addComment } from '../../networks/comment';
+import { useRouter } from 'next/router';
 
 const CommentInput = () => {
   const { user } = useUserContext();
-  console.log(user);
+  const router = useRouter();
+  const { slug } = router.query;
+  const commentInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const submitCreateComment = async () => {
+    const { data } = await addComment(slug as string, {
+      comment: {
+        body: commentInputRef.current?.value as string,
+      },
+    });
+    console.log(`전송 data:`, data);
+  };
 
   if (!user) {
     return (
@@ -22,13 +35,13 @@ const CommentInput = () => {
   }
 
   return (
-    <form className="card comment-form">
+    <form className="card comment-form" onSubmit={submitCreateComment}>
       <div className="card-block">
-        <textarea rows={3} className="form-control" placeholder="Write a comment..." value="" />
+        <textarea rows={3} className="form-control" placeholder="Write a comment..." ref={commentInputRef} />
       </div>
       <div className="card-footer">
-        <image className="comment-author-img" />
-        <button className="btn btn-sm btn-primary" type="submit">
+        <img className="comment-author-img" />
+        <button className="btn btn-sm btn-primary" type="submit" onClick={submitCreateComment}>
           Post Comment
         </button>
       </div>

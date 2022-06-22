@@ -1,7 +1,7 @@
 import { api, apiWithAuth } from '../config/api';
 import { getItem } from '../commons/localStorage';
 import { LoginInputValue, SignUpInput, UpdateInput, UserData } from '../../src/types/auth';
-import { removeTokenFromStorage, getTokenFromStorage } from '../commons/tokenStorage';
+import { removeTokenFromStorage } from '../commons/tokenStorage';
 
 export const login = async (inputValue: LoginInputValue) => {
   try {
