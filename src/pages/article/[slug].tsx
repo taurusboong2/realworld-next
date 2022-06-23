@@ -8,6 +8,7 @@ import LoadingSpinner from '../../components/common/LoadingSpinner';
 import MyHead from '../../components/myHead';
 import { removeArticle } from '../../networks/article';
 import CommentInput from '../../components/Comment/CommentInput';
+import CommentList from '../../components/Comment/CommentList';
 
 const Slug = () => {
   const router = useRouter();
@@ -51,6 +52,7 @@ const Slug = () => {
           <div className="row">
             <div className="col-xs-12 col-md-8 offset-md-2">
               <CommentInput />
+              <CommentList />
             </div>
           </div>
         </div>
