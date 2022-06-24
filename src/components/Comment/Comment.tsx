@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import MyLink from '../NavBar/MyLink';
+import { CommentType } from '../../types/comment';
 
-const Comment = () => {
+type Props = {
+  comment: CommentType;
+};
+
+const Comment: FC<Props> = ({ comment }) => {
+  console.log(comment);
+
   return (
     <div className="card">
       <div className="card-block">
-        <p className="card-text">커멘트바디</p>
+        <p className="card-text">{comment.body}</p>
       </div>
       <div className="card-footer">
-        <MyLink href="profile/[pid]" className="comment-author">
-          <image src="" alt="Comment author's profile image" className="comment-author-img" />
+        <MyLink href="/profile" className="comment-author" as={`/profile/${comment.author.username}`}>
+          <img src={comment.author.image} alt="Comment author's profile image" className="comment-author-img" />
         </MyLink>
         &nbsp;
-        <MyLink href="profile/[pid]" className="comment-author">
-          유저네임
+        <MyLink href="profile/[pid]" className="comment-author" as={`/profile/${comment.author.username}`}>
+          {comment.author.username}
         </MyLink>
-        <span className="date-posted">생성시간</span>
+        <span className="date-posted">{new Date(comment.createdAt).toDateString()}</span>
       </div>
     </div>
   );
