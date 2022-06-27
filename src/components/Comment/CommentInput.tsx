@@ -9,7 +9,6 @@ const CommentInput = () => {
   const router = useRouter();
   const { slug } = router.query;
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  console.log(user);
 
   const { isLoading, createComment } = useAddComment();
 
@@ -19,6 +18,8 @@ const CommentInput = () => {
         body: commentInputRef.current?.value as string,
       },
     });
+    commentInputRef.current!.value = '';
+    window.location.reload();
   };
 
   if (!user) {
