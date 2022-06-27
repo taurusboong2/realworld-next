@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { CommentType } from '../../types/comment';
 import { useFetchCommentList } from '../../hooks/comment.hook';
@@ -10,9 +10,6 @@ const CommentList = () => {
   const { slug } = router.query;
 
   const { isLoading, commentList: comments } = useFetchCommentList(slug as string);
-
-  console.log(`댓글들: `, comments);
-  console.log(`댓글1: `, comments[0]);
 
   if (isLoading) return <div>로딩중..</div>;
   return (

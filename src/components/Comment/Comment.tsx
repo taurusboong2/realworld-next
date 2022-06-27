@@ -2,13 +2,15 @@ import React, { FC } from 'react';
 
 import MyLink from '../NavBar/MyLink';
 import { CommentType } from '../../types/comment';
+import DeleteButton from './DeleteButton';
+import { useUserContext } from '../../hooks/auth.hook';
 
 type Props = {
   comment: CommentType;
 };
 
 const Comment: FC<Props> = ({ comment }) => {
-  console.log(comment);
+  const { user } = useUserContext();
 
   return (
     <div className="card">
@@ -24,6 +26,7 @@ const Comment: FC<Props> = ({ comment }) => {
           {comment.author.username}
         </MyLink>
         <span className="date-posted">{new Date(comment.createdAt).toDateString()}</span>
+        {user && <DeleteButton commentID={comment.id} />}
       </div>
     </div>
   );

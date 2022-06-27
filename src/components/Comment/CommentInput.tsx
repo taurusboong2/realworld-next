@@ -9,6 +9,7 @@ const CommentInput = () => {
   const router = useRouter();
   const { slug } = router.query;
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
+  console.log(user);
 
   const { isLoading, createComment } = useAddComment();
 
@@ -41,7 +42,7 @@ const CommentInput = () => {
         <textarea rows={3} className="form-control" placeholder="Write a comment..." ref={commentInputRef} />
       </div>
       <div className="card-footer">
-        <img className="comment-author-img" />
+        <img className="comment-author-img" src={user.image as string} />
         <button className="btn btn-sm btn-primary" type="button" onClick={submitCreateComment} disabled={isLoading}>
           Post Comment
         </button>

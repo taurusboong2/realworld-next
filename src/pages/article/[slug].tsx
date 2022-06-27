@@ -5,7 +5,7 @@ import ArticleBanner from '../../components/Article/Banner';
 import ArticleContainer from '../../components/Article/Container';
 import ArticleAction from '../../components/Article/Action';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
-import MyHead from '../../components/myHead';
+import MyHead from '../../components/MyHead';
 import { removeArticle } from '../../networks/article';
 import CommentInput from '../../components/Comment/CommentInput';
 import CommentList from '../../components/Comment/CommentList';
