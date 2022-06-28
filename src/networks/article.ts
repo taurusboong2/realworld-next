@@ -28,7 +28,7 @@ export const getArticleList = async () => {
   }
 };
 
-export const getArticleListByOption = async ({ limit = 5, offset = 0 }: FeedOpt) => {
+export const getArticleListByOption = async (limit: number, offset: number) => {
   try {
     const { data } = await apiWithAuth.get(`/articles?limit=${limit}&offset=${offset}`);
     return { data };

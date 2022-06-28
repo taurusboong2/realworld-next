@@ -6,7 +6,7 @@ type Props = {
   heart: number;
   title: string;
   description: string;
-  inRef: any;
+  inRef: React.Dispatch<React.SetStateAction<HTMLDivElement | null>>;
   slug?: string;
   image?: string;
 };

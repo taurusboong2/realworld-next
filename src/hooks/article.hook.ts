@@ -84,9 +84,9 @@ export const useGetArticleFeeds = () => {
     })();
   }, []);
 
-  const getFeedArticlesScroll = async ({ limit = 5, offset = 0 }: FeedOpt) => {
+  const getFeedArticlesScroll = async (limit, offset) => {
     setScrollOnLoading(true);
-    const { data, error } = await getArticleListByOption({ limit, offset });
+    const { data, error } = await getArticleListByOption(limit, offset);
     setScrollOnLoading(false);
     return { data, error };
   };
