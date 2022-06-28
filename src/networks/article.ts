@@ -16,7 +16,7 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 export const getArticleList = async () => {
   if (getTokenFromStorage()) {
     try {
-      const { data } = await api.get(`/articles`, {
+      const { data } = await api.get(`/articles?limit=5`, {
         headers: {
           Authorization: `Token ${getTokenFromStorage()}`,
         },
@@ -25,6 +25,15 @@ export const getArticleList = async () => {
     } catch (error) {
       return { error };
     }
+  }
+};
+
+export const getArticleListByOption = async ({ limit = 5, offset = 0 }: FeedOpt) => {
+  try {
+    const { data } = await apiWithAuth.get(`/articles?limit=${limit}&offset=${offset}`);
+    return { data };
+  } catch (error) {
+    return { error };
   }
 };
 

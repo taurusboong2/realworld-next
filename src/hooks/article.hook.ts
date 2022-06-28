@@ -4,7 +4,7 @@ import {
   createNewArticle,
   getArticleList,
   patchArticle,
-  fetchFeedArticles,
+  getArticleListByOption,
 } from '../networks/article';
 import { CreateArticleData, ArticleList, UpdataArticle, PropArticle, FeedType, FeedOpt } from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
@@ -86,10 +86,10 @@ export const useGetArticleFeeds = () => {
 
   const getFeedArticlesScroll = async ({ limit = 5, offset = 0 }: FeedOpt) => {
     setScrollOnLoading(true);
-    const { data, error } = await fetchFeedArticles({ limit, offset });
+    const { data, error } = await getArticleListByOption({ limit, offset });
     setScrollOnLoading(false);
     return { data, error };
   };
 
-  return { isLoading, feeds, getFeedArticlesScroll, scrollOnLoading };
+  return { isLoading, feeds, getFeedArticlesScroll, scrollOnLoading, setFeeds };
 };
