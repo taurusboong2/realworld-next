@@ -26,7 +26,7 @@ const Comment: FC<Props> = ({ comment }) => {
           {comment.author.username}
         </MyLink>
         <span className="date-posted">{new Date(comment.createdAt).toDateString()}</span>
-        {user && <DeleteButton commentID={comment.id} />}
+        {user?.username === comment.author.username && <DeleteButton commentID={comment.id} />}
       </div>
     </div>
   );

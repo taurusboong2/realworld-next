@@ -1,5 +1,5 @@
 import { api, apiWithAuth } from '../config/api';
-import { CreateArticleData, SingleArticle, UpdataArticle } from '../../src/types/article';
+import { CreateArticleData, SingleArticle, UpdataArticle, FeedOpt } from '../../src/types/article';
 import { getTokenFromStorage } from '../commons/tokenStorage';
 
 export const Article = {};
@@ -53,11 +53,6 @@ export const fetchArticle = async (userdata: CreateArticleData) => {
   };
 };
 
-export const getFeedsArticles = async () => {
-  const response = await api.get(`/articles/sad-7`);
-  console.log(response);
-};
-
 export const getUserProfile = async (userName: string | string[] | undefined) => {
   const response = await apiWithAuth.get(`/profiles/${userName}`);
 
@@ -68,4 +63,13 @@ export const fetchSingleArticle = async (slug: string) => {
   const response = await api.get<SingleArticle>(`articles/${slug}`);
   const data = response.data;
   return data;
+};
+
+export const fetchFeedArticles = async ({ limit = 5, offset = 0 }: FeedOpt) => {
+  try {
+    const { data, config } = await apiWithAuth.get(`/articles/feed?limit=${limit}&offset=${offset}`);
+    return { data, config };
+  } catch (error) {
+    return { error };
+  }
 };

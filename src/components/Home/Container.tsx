@@ -1,8 +1,20 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Sidebar from './SIdebar';
 import Feed from '../common/Feed';
+import LoadingSpinner from '../common/LoadingSpinner';
+import { useGetArticleFeeds } from '../../hooks/article.hook';
+import { FeedType } from '../../types/article';
+import { useRouter } from 'next/router';
 
 const Container: FC = () => {
+  const router = useRouter();
+  const { isLoading, feeds } = useGetArticleFeeds();
+  console.log(`배열로 받은 피드들:`, feeds);
+  console.log(feeds[0]);
+  console.log(feeds[1]);
+  console.log(feeds[2]);
+
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <div className="container page">
@@ -22,22 +34,21 @@ const Container: FC = () => {
                 </li>
               </ul>
             </div>
-
-            <Feed
-              author="BOONG"
-              date="July 1"
-              heart={30}
-              title="make realworld web"
-              description="this is description"
-            />
-
-            <Feed
-              author="BOONG"
-              date="July 2"
-              heart={17}
-              title="dont lost your time plz"
-              description="this is description222"
-            />
+            <>
+              {router.isReady &&
+                feeds.map((feed: FeedType) => {
+                  return (
+                    <Feed
+                      key={feed.slug}
+                      author={feed.author.username}
+                      date={feed.createdAt}
+                      heart={feed.favoritesCount}
+                      title={feed.title}
+                      description={feed.description}
+                    />
+                  );
+                })}
+            </>
           </div>
 
           <Sidebar />

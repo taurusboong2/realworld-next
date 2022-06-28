@@ -1,6 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
-import { CreateArticleData, ArticleList, UpdataArticle, PropArticle } from '../../src/types/article';
+import {
+  CreateArticleData,
+  ArticleList,
+  UpdataArticle,
+  PropArticle,
+  SingleArticle,
+  FeedType,
+} from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
 
 export const useCreateArticle = () => {
@@ -62,4 +69,25 @@ export const useGetSingleArticle = (slug: string) => {
   }, [slug]);
 
   return { aricleIsLoading, articleData };
+};
+
+export const useGetArticleFeeds = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [feeds, setFeeds] = useState<FeedType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const { data } = await getArticleList();
+      setFeeds(data.articles);
+      setIsLoading(false);
+    })();
+  }, []);
+
+  // const testGetFeeds = async () => {
+  //   const { data, error } = await getArticleList();
+  //   console.log(`feeds data:`, data);
+  // };
+
+  return { isLoading, feeds };
 };

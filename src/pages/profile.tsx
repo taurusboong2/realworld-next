@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import Head from '../components/myHead/index';
+import Head from '../components/MyHead/index';
 import UserInfo from '../components/profile/UserInfo';
 import Feed from '../components/common/Feed';
 import { ArticleFeed } from '../types/article';

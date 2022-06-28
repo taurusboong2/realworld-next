@@ -87,3 +87,26 @@ export type PropArticle = {
     following: boolean;
   };
 };
+
+export type FeedOpt = {
+  limit?: number;
+  offset?: number;
+};
+
+export type FeedType = {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[] | [];
+  createdAt: string;
+  updatedAt: string;
+  favorited: boolean;
+  favoritesCount: number;
+  author: {
+    username: string;
+    bio: string;
+    image: string;
+    following: boolean;
+  };
+};

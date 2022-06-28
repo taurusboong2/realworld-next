@@ -6,7 +6,7 @@ type Props = {
   heart: number;
   title: string;
   description: string;
-  slug: string;
+  slug?: string;
   image?: string;
 };
 
