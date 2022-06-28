@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import Sidebar from './SIdebar';
 import Feed from '../common/Feed';
 import LoadingSpinner from '../common/LoadingSpinner';
@@ -9,10 +9,6 @@ import { useRouter } from 'next/router';
 const Container: FC = () => {
   const router = useRouter();
   const { isLoading, feeds } = useGetArticleFeeds();
-  console.log(`배열로 받은 피드들:`, feeds);
-  console.log(feeds[0]);
-  console.log(feeds[1]);
-  console.log(feeds[2]);
 
   if (isLoading) return <LoadingSpinner />;
   return (

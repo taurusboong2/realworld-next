@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
 import {
-  CreateArticleData,
-  ArticleList,
-  UpdataArticle,
-  PropArticle,
-  SingleArticle,
-  FeedType,
-} from '../../src/types/article';
+  fetchSingleArticle,
+  createNewArticle,
+  getArticleList,
+  patchArticle,
+  fetchFeedArticles,
+} from '../networks/article';
+import { CreateArticleData, ArticleList, UpdataArticle, PropArticle, FeedType, FeedOpt } from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
 
 export const useCreateArticle = () => {
@@ -73,6 +72,7 @@ export const useGetSingleArticle = (slug: string) => {
 
 export const useGetArticleFeeds = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [scrollOnLoading, setScrollOnLoading] = useState<boolean>(false);
   const [feeds, setFeeds] = useState<FeedType[]>([]);
 
   useEffect(() => {
@@ -84,10 +84,12 @@ export const useGetArticleFeeds = () => {
     })();
   }, []);
 
-  // const testGetFeeds = async () => {
-  //   const { data, error } = await getArticleList();
-  //   console.log(`feeds data:`, data);
-  // };
+  const getFeedArticlesScroll = async ({ limit = 5, offset = 0 }: FeedOpt) => {
+    setScrollOnLoading(true);
+    const { data, error } = await fetchFeedArticles({ limit, offset });
+    setScrollOnLoading(false);
+    return { data, error };
+  };
 
-  return { isLoading, feeds };
+  return { isLoading, feeds, getFeedArticlesScroll, scrollOnLoading };
 };

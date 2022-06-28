@@ -67,8 +67,8 @@ export const fetchSingleArticle = async (slug: string) => {
 
 export const fetchFeedArticles = async ({ limit = 5, offset = 0 }: FeedOpt) => {
   try {
-    const { data, config } = await apiWithAuth.get(`/articles/feed?limit=${limit}&offset=${offset}`);
-    return { data, config };
+    const { data } = await apiWithAuth.get(`/articles/feed?limit=${limit}&offset=${offset}`);
+    return { data };
   } catch (error) {
     return { error };
   }
