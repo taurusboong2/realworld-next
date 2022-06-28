@@ -6,14 +6,15 @@ type Props = {
   heart: number;
   title: string;
   description: string;
+  inRef: any;
   slug?: string;
   image?: string;
 };
 
-const Feed: FC<Props> = ({ slug, author, date, heart, title, description, image }) => {
+const Feed: FC<Props> = ({ slug, author, date, heart, title, description, image, inRef }) => {
   return (
     <>
-      <div className="article-preview">
+      <div className="article-preview" ref={inRef}>
         <div className="article-meta">
           <a href="profile.html">
             <img src={image} />
