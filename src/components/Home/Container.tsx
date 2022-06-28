@@ -18,8 +18,8 @@ const Container: FC = () => {
   const fetchNextFeed = async () => {
     console.log(`다음 Feed 불러오기`);
     try {
-      const { data } = await apiWithAuth.get(`/articles?limit=2&offset=${offset}`);
-      setNewfeed(data.articles);
+      const { data } = await apiWithAuth.get(`/articles?limit=3&offset=${offset}`);
+      setNewfeed([...newFeed, data.articles]);
     } catch {
       console.error('불러오기 오류');
     }
