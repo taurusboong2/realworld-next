@@ -74,11 +74,13 @@ export const useGetArticleFeeds = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [scrollOnLoading, setScrollOnLoading] = useState<boolean>(false);
   const [feeds, setFeeds] = useState<FeedType[]>([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
+    if (!user) return;
     (async () => {
       setIsLoading(true);
-      const { data } = await getArticleList();
+      const { data, error } = await getArticleList();
       setFeeds(data.articles);
       setIsLoading(false);
     })();

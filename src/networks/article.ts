@@ -14,6 +14,7 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
 };
 
 export const getArticleList = async () => {
+  if (!getTokenFromStorage()) return;
   if (getTokenFromStorage()) {
     try {
       const { data } = await api.get(`/articles?limit=5`, {
