@@ -12,8 +12,8 @@ export const addComment = async (slug: string, commentData: CommentValue) => {
 
 export const deleteComment = async (slug: string, id: string) => {
   try {
-    const { data } = await apiWithAuth.delete(`/articles/${slug}/comments/${id}`);
-    return { data };
+    const { data, status } = await apiWithAuth.delete(`/articles/${slug}/comments/${id}`);
+    return { data, status };
   } catch (error) {
     return { error };
   }

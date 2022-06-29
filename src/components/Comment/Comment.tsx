@@ -7,9 +7,10 @@ import { useUserContext } from '../../hooks/auth.hook';
 
 type Props = {
   comment: CommentType;
+  removeComment: (slug: string, id: string) => Promise<void>;
 };
 
-const Comment: FC<Props> = ({ comment }) => {
+const Comment: FC<Props> = ({ removeComment, comment }) => {
   const { user } = useUserContext();
 
   return (
@@ -26,7 +27,9 @@ const Comment: FC<Props> = ({ comment }) => {
           {comment.author.username}
         </MyLink>
         <span className="date-posted">{new Date(comment.createdAt).toDateString()}</span>
-        {user?.username === comment.author.username && <DeleteButton commentID={comment.id} />}
+        {user?.username === comment.author.username && (
+          <DeleteButton commentID={comment.id} removeComment={removeComment} />
+        )}
       </div>
     </div>
   );

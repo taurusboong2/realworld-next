@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { CommentType } from '../../types/comment';
 import { useFetchCommentList } from '../../hooks/comment.hook';
@@ -11,7 +11,9 @@ const CommentList = () => {
   const { slug } = router.query;
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  const { isLoading, commentList: comments, createComment, addCommentIsLoading } = useFetchCommentList(slug as string);
+  const { isLoading, commentList, createComment, addCommentIsLoading, removeComment } = useFetchCommentList(
+    slug as string
+  );
 
   const submitCreateComment = async () => {
     await createComment(slug as string, {
@@ -29,8 +31,8 @@ const CommentList = () => {
         submitCreateComment={submitCreateComment}
         ref={commentInputRef}
       />
-      {comments.map((comments: CommentType) => (
-        <Comment key={comments.id} comment={comments} />
+      {commentList.map((comments: CommentType) => (
+        <Comment key={comments.id} comment={comments} removeComment={removeComment} />
       ))}
     </div>
   );

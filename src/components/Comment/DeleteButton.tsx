@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
-import { deleteComment } from '../../networks/comment';
 import { useRouter } from 'next/router';
 
 type Props = {
   commentID: string;
+  removeComment: (slug: string, id: string) => Promise<void>;
 };
 
-const DeleteButton: FC<Props> = ({ commentID }) => {
+const DeleteButton: FC<Props> = ({ removeComment, commentID }) => {
   const router = useRouter();
   const { slug } = router.query;
 
   const handleDelete = async () => {
     if (confirm('정말로 댓글을 삭제하시겠습니까?')) {
-      await deleteComment(slug as string, commentID);
-      window.location.reload();
-    } else return;
+      await removeComment(slug as string, commentID);
+      router.reload();
+    }
   };
 
   return (

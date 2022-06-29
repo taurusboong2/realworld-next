@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addComment, fetchCommentList } from '../networks/comment';
+import { addComment, deleteComment, fetchCommentList } from '../networks/comment';
 import { CommentValue, CommentType } from '../types/comment';
 
 export const useFetchCommentList = (slug: string) => {
@@ -15,6 +15,10 @@ export const useFetchCommentList = (slug: string) => {
     return { data, error };
   };
 
+  const removeComment = async (slug: string, id: string) => {
+    await deleteComment(slug as string, id);
+  };
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -24,5 +28,5 @@ export const useFetchCommentList = (slug: string) => {
     })();
   }, []);
 
-  return { isLoading, commentList, createComment, addCommentIsLoading };
+  return { isLoading, commentList, createComment, addCommentIsLoading, removeComment };
 };
