@@ -71,27 +71,19 @@ export const useGetSingleArticle = (slug: string) => {
 };
 
 export const useGetArticleFeeds = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [scrollOnLoading, setScrollOnLoading] = useState<boolean>(false);
-  const [feeds, setFeeds] = useState<FeedType[]>([]);
   const { user } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [feeds, setFeeds] = useState<FeedType[]>([]);
 
   useEffect(() => {
     if (!user) return;
     (async () => {
       setIsLoading(true);
-      const { data, error } = await getArticleList();
+      const { data } = await getArticleList();
       setFeeds(data.articles);
       setIsLoading(false);
     })();
   }, []);
 
-  const getFeedArticlesScroll = async (limit, offset) => {
-    setScrollOnLoading(true);
-    const { data, error } = await getArticleListByOption(limit, offset);
-    setScrollOnLoading(false);
-    return { data, error };
-  };
-
-  return { isLoading, feeds, getFeedArticlesScroll, scrollOnLoading, setFeeds };
+  return { isLoading, feeds, setFeeds };
 };

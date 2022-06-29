@@ -1,5 +1,5 @@
 import { apiWithAuth } from '../config/api';
-import { CommentValue, CommentType } from '../types/comment';
+import { CommentValue, CommentList } from '../types/comment';
 
 export const addComment = async (slug: string, commentData: CommentValue) => {
   try {
@@ -20,6 +20,6 @@ export const deleteComment = async (slug: string, id: string) => {
 };
 
 export const fetchCommentList = async (slug: string) => {
-  const { data } = await apiWithAuth.get<CommentType[]>(`/articles/${slug}/comments`);
+  const { data } = await apiWithAuth.get<CommentList>(`/articles/${slug}/comments`);
   return { data };
 };

@@ -11,8 +11,10 @@ const DeleteButton: FC<Props> = ({ commentID }) => {
   const { slug } = router.query;
 
   const handleDelete = async () => {
-    await deleteComment(slug as string, commentID);
-    window.location.reload();
+    if (confirm('정말로 댓글을 삭제하시겠습니까?')) {
+      await deleteComment(slug as string, commentID);
+      window.location.reload();
+    } else return;
   };
 
   return (

@@ -7,7 +7,7 @@ import { FeedType } from '../../types/article';
 import { getArticleListByOption } from '../../networks/article';
 
 const Container: FC = () => {
-  const { isLoading, feeds, getFeedArticlesScroll, scrollOnLoading, setFeeds } = useGetArticleFeeds();
+  const { isLoading, feeds, setFeeds } = useGetArticleFeeds();
 
   const [limit, setLimit] = useState<number>(5);
   const [offset, setOffset] = useState<number>(0);
@@ -23,13 +23,12 @@ const Container: FC = () => {
   };
 
   const fetchNextFeed = async () => {
-    console.log(`다음 Feed 불러오기`);
     try {
       const { data } = await getArticleListByOption(limit, offset);
       const nextFeed = data.articles;
       setFeeds([...feeds, ...nextFeed]);
     } catch {
-      console.error('불러오기 오류');
+      console.error('fetching error! (Unauthorized)');
     }
   };
 

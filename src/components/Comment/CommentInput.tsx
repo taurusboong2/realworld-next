@@ -1,26 +1,16 @@
-import React, { useRef } from 'react';
+import React, { LegacyRef, ForwardRefExoticComponent, forwardRef } from 'react';
 import { useUserContext } from '../../hooks/auth.hook';
 import MyLink from '../NavBar/MyLink';
-import { useRouter } from 'next/router';
-import { useAddComment } from '../../hooks/comment.hook';
+import LoadingSpinner from '../common/LoadingSpinner';
 
-const CommentInput = () => {
+type Props = {
+  ref: LegacyRef<HTMLInputElement | HTMLTextAreaElement> | undefined;
+  addCommentIsLoading: boolean;
+  submitCreateComment: () => void;
+};
+
+const CommentInput: ForwardRefExoticComponent<Props> = forwardRef((props, ref) => {
   const { user } = useUserContext();
-  const router = useRouter();
-  const { slug } = router.query;
-  const commentInputRef = useRef<HTMLTextAreaElement>(null);
-
-  const { isLoading, createComment } = useAddComment();
-
-  const submitCreateComment = async () => {
-    await createComment(slug as string, {
-      comment: {
-        body: commentInputRef.current?.value as string,
-      },
-    });
-    commentInputRef.current!.value = '';
-    window.location.reload();
-  };
 
   if (!user) {
     return (
@@ -37,19 +27,24 @@ const CommentInput = () => {
     );
   }
 
+  if (props.addCommentIsLoading) return <LoadingSpinner />;
   return (
-    <form className="card comment-form" onSubmit={submitCreateComment}>
+    <form className="card comment-form" onSubmit={props.submitCreateComment}>
       <div className="card-block">
-        <textarea rows={3} className="form-control" placeholder="Write a comment..." ref={commentInputRef} />
+        <textarea rows={3} className="form-control" placeholder="Write a comment..." ref={ref} />
       </div>
       <div className="card-footer">
         <img className="comment-author-img" src={user.image as string} />
-        <button className="btn btn-sm btn-primary" type="button" onClick={submitCreateComment} disabled={isLoading}>
+        <button
+          className="btn btn-sm btn-primary"
+          type="button"
+          onClick={props.submitCreateComment}
+          disabled={props.addCommentIsLoading}>
           Post Comment
         </button>
       </div>
     </form>
   );
-};
+});
 
 export default CommentInput;

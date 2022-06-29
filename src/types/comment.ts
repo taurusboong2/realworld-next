@@ -19,3 +19,7 @@ export type CommentType = {
   author: Author;
   updatedAt: number;
 };
+
+export type CommentList = {
+  comments: CommentType[];
+};
