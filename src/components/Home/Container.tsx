@@ -5,9 +5,14 @@ import LoadingSpinner from '../common/LoadingSpinner';
 import { useGetArticleFeeds } from '../../hooks/article.hook';
 import { FeedType } from '../../types/article';
 import { getArticleListByOption } from '../../networks/article';
+import { useRouter } from 'next/router';
+import { FeedDate } from 'semantic-ui-react';
 
 const Container: FC = () => {
+  const router = useRouter();
   const { isLoading, feeds, setFeeds } = useGetArticleFeeds();
+
+  console.log(`feeds:`, feeds);
 
   const [limit, setLimit] = useState<number>(5);
   const [offset, setOffset] = useState<number>(0);
@@ -66,19 +71,21 @@ const Container: FC = () => {
               </ul>
             </div>
             <>
-              {feeds.map((feed: FeedType) => {
-                return (
-                  <Feed
-                    key={feed.slug}
-                    author={feed.author.username}
-                    date={feed.createdAt}
-                    heart={feed.favoritesCount}
-                    title={feed.title}
-                    description={feed.description}
-                    inRef={setLastIntersectingFeed}
-                  />
-                );
-              })}
+              {router.isReady &&
+                feeds.map((feed: FeedType) => {
+                  return (
+                    <Feed
+                      slug={feed.slug}
+                      key={feed.slug}
+                      author={feed.author.username}
+                      date={feed.createdAt}
+                      heart={feed.favoritesCount}
+                      title={feed.title}
+                      description={feed.description}
+                      inRef={setLastIntersectingFeed}
+                    />
+                  );
+                })}
             </>
           </div>
 

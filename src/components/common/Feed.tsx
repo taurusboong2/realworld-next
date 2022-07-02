@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import MyLink from '../NavBar/MyLink';
 
 type Props = {
   author: string;
@@ -16,11 +17,11 @@ const Feed: FC<Props> = ({ slug, author, date, heart, title, description, image,
     <>
       <div className="article-preview" ref={inRef}>
         <div className="article-meta">
-          <a href="profile.html">
+          <MyLink href="profile">
             <img src={image} />
-          </a>
+          </MyLink>
           <div className="info">
-            <a href="" className="author">
+            <a href="propfile" className="author">
               {author}
             </a>
             <span className="date">{date}</span>
@@ -29,11 +30,11 @@ const Feed: FC<Props> = ({ slug, author, date, heart, title, description, image,
             <i className="ion-heart" /> {heart}
           </button>
         </div>
-        <a href={`/article/${slug}`} className="preview-link">
+        <MyLink href={`/article/${slug}`} className="preview-link">
           <h1>{title}</h1>
           <p>{description}</p>
           <span>Read more...</span>
-        </a>
+        </MyLink>
       </div>
     </>
   );
