@@ -26,7 +26,6 @@ const CommentList = () => {
       },
     });
   };
-  console.log(comments);
 
   if (isLoading) return <LoadingSpinner />;
   return (
@@ -36,9 +35,9 @@ const CommentList = () => {
         submitCreateComment={submitCreateComment}
         ref={commentInputRef}
       />
-      {/* {comments.map((comments: CommentType) => (
+      {comments.map((comments: CommentType) => (
         <Comment key={comments.id} comment={comments} removeComment={removeComment} />
-      ))} */}
+      ))}
     </div>
   );
 };

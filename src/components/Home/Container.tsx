@@ -12,8 +12,6 @@ const Container: FC = () => {
   const router = useRouter();
   const { isLoading, feeds, setFeeds } = useGetArticleFeeds();
 
-  console.log(`feeds:`, feeds);
-
   const [limit, setLimit] = useState<number>(5);
   const [offset, setOffset] = useState<number>(0);
   const [lastIntersectingFeed, setLastIntersectingFeed] = useState<HTMLDivElement | null>(null);
