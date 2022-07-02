@@ -83,3 +83,21 @@ export const fetchFeedArticles = async ({ limit = 5, offset = 0 }: FeedOpt) => {
     return { error };
   }
 };
+
+export const favoriteArticle = async (slug: string) => {
+  try {
+    const { data, status } = await apiWithAuth.post(`/articles/${slug}/favorite`);
+    return { data, status };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const unfavoriteArticle = async (slug: string) => {
+  try {
+    const { data, status } = await apiWithAuth.delete(`/articles/${slug}/favorite`);
+    return { data, status };
+  } catch (error) {
+    return { error };
+  }
+};
