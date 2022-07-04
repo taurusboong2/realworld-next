@@ -46,3 +46,21 @@ export const getUserInfo = async () => {
   const data = response.data;
   return data;
 };
+
+export const followUser = async (userName: string) => {
+  try {
+    const { data, status } = await apiWithAuth.post(`/profiles/${userName}/follow`);
+    return { data, status };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const unfollowUser = async (userName: string) => {
+  try {
+    const { data, status } = await apiWithAuth.delete(`/profiles/${userName}/follow`);
+    return { data, status };
+  } catch (error) {
+    return { error };
+  }
+};
