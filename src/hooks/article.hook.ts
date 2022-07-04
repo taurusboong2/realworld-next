@@ -14,8 +14,9 @@ export const useCreateArticle = () => {
 
   const createArticle = async (createvalue: CreateArticleData) => {
     setIsLoading(true);
-    await createNewArticle(createvalue);
+    const response = await createNewArticle(createvalue);
     setIsLoading(false);
+    return response;
   };
 
   return { isLoading, createArticle };

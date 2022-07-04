@@ -6,8 +6,8 @@ export const Article = {};
 
 export const createNewArticle = async (articleData: CreateArticleData) => {
   try {
-    const { status } = await apiWithAuth.post('/articles', articleData);
-    return { status };
+    const { config } = await apiWithAuth.post('/articles', articleData);
+    return { config };
   } catch (error) {
     return { error };
   }

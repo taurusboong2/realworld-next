@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import Head from '../../components/myHead/index';
+import Head from '../../components/MyHead';
 import EditorForm from '../../components/Editor/EditorForm';
 
 const Editor: NextPage = () => {

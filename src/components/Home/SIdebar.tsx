@@ -1,15 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Tag from './Tag';
-import { fetchTags } from '../../networks/article';
 
 const Sidebar = () => {
-  useEffect(() => {
-    (async () => {
-      const response = await fetchTags();
-      console.log(response);
-    })();
-  }, []);
-
   return (
     <>
       <div className="col-md-3">

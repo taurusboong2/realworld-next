@@ -32,7 +32,10 @@ const EditorForm: FC<Props> = ({ isCreatePage }) => {
         tagList: tagList,
       },
     });
-    console.log(response);
+    const errorStatus = response.error.response.status;
+    if (errorStatus === 422) {
+      alert('게시글 생성에 실패하였습니다. 제목은 고유한 값만 허용됩니다.');
+    }
     router.push('/');
   };
 
