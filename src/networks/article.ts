@@ -101,3 +101,8 @@ export const unfavoriteArticle = async (slug: string) => {
     return { error };
   }
 };
+
+export const fetchTags = async () => {
+  const { data } = await api.get(`/tags`);
+  return { data };
+};

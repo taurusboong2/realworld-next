@@ -6,7 +6,6 @@ import { useGetArticleFeeds } from '../../hooks/article.hook';
 import { FeedType } from '../../types/article';
 import { getArticleListByOption } from '../../networks/article';
 import { useRouter } from 'next/router';
-import { FeedDate } from 'semantic-ui-react';
 
 const Container: FC = () => {
   const router = useRouter();
