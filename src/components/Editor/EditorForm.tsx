@@ -24,7 +24,7 @@ const EditorForm: FC<Props> = ({ isCreatePage }) => {
   const { aricleIsLoading, articleData } = useGetSingleArticle(slug as string);
 
   const submitCreateArticle = async () => {
-    const response = await createArticle({
+    const errorStatus = await createArticle({
       article: {
         title: titleRef.current?.value as string,
         description: descriptionRef.current?.value as string,
@@ -32,7 +32,6 @@ const EditorForm: FC<Props> = ({ isCreatePage }) => {
         tagList: tagList,
       },
     });
-    const errorStatus = response.error.response.status;
     if (errorStatus === 422) {
       alert('게시글 생성에 실패하였습니다. 제목은 고유한 값만 허용됩니다.');
     }
@@ -40,7 +39,7 @@ const EditorForm: FC<Props> = ({ isCreatePage }) => {
   };
 
   const submitUpdateArticle = async () => {
-    const response = await updateArticle(slug as string, {
+    await updateArticle(slug as string, {
       article: {
         title: titleRef.current?.value as string,
         description: descriptionRef.current?.value as string,

@@ -9,7 +9,8 @@ export const createNewArticle = async (articleData: CreateArticleData) => {
     const { config } = await apiWithAuth.post('/articles', articleData);
     return { config };
   } catch (error) {
-    return { error };
+    const errorStatus = error.response.status;
+    return errorStatus;
   }
 };
 

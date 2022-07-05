@@ -1,12 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import {
-  fetchSingleArticle,
-  createNewArticle,
-  getArticleList,
-  patchArticle,
-  getArticleListByOption,
-} from '../networks/article';
-import { CreateArticleData, ArticleList, UpdataArticle, PropArticle, FeedType, FeedOpt } from '../../src/types/article';
+import { fetchSingleArticle, createNewArticle, getArticleList, patchArticle } from '../networks/article';
+import { CreateArticleData, ArticleList, UpdataArticle, PropArticle, FeedType } from '../../src/types/article';
 import { UserContext } from '../contexts/UserContext';
 
 export const useCreateArticle = () => {
