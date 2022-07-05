@@ -44,7 +44,7 @@ const Container: FC = () => {
   useEffect(() => {
     let observer: IntersectionObserver;
     if (lastIntersectingFeed) {
-      observer = new IntersectionObserver(onIntersect, { threshold: 1.0 });
+      observer = new IntersectionObserver(onIntersect, { threshold: 0.7 });
       observer.observe(lastIntersectingFeed);
     }
     return () => observer && observer.disconnect();

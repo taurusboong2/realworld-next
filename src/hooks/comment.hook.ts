@@ -17,6 +17,8 @@ export const useFetchCommentList = (slug: string) => {
 
   const removeComment = async (slug: string, id: string) => {
     await deleteComment(slug as string, id);
+    const filteredComments = commentList.filter(comment => comment.id !== id);
+    setCommentList(filteredComments);
   };
 
   useEffect(() => {
