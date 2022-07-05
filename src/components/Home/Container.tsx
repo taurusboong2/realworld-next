@@ -13,6 +13,7 @@ const Container: FC = () => {
 
   const [limit, setLimit] = useState<number>(5);
   const [offset, setOffset] = useState<number>(0);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [lastIntersectingFeed, setLastIntersectingFeed] = useState<HTMLDivElement | null>(null);
 
   const onIntersect = (entries, observer) => {
@@ -26,9 +27,11 @@ const Container: FC = () => {
 
   const fetchNextFeed = async () => {
     try {
+      setIsFetching(true);
       const { data } = await getArticleListByOption(limit, offset);
       const nextFeed = data.articles;
       setFeeds([...feeds, ...nextFeed]);
+      setIsFetching(false);
     } catch {
       console.error('fetching error! (Unauthorized)');
     }
@@ -83,6 +86,7 @@ const Container: FC = () => {
                     />
                   );
                 })}
+              {isFetching && <LoadingSpinner />}
             </>
           </div>
 
